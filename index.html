@@ -1,124 +1,121 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Добро пожаловать</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>pleaseuseit.com</title>
 
-  <!-- jQuery CDN -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-  <!-- Font Awesome для иконки Instagram -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Font Awesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 
-  <style>
-    body {
-      margin: 0;
-      background-color: #000;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
+<style>
+  /* Базовые стили */
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    background-color: black;
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
-    #splash {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #00ff00;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      font-size: 2em;
-      font-weight: bold;
-      color: black;
-    }
+  /* Заставка с миганием */
+  #splash {
+    font-size: 3rem;
+    font-weight: bold;
+    animation: jeykilBlink 1.2s infinite;
+    user-select: none;
+  }
 
-    #main {
-      display: none;
-      height: 100vh;
-      width: 100vw;
-      background: linear-gradient(to right, #0f0f0f, #1a1a1a);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+  @keyframes jeykilBlink {
+    0%, 100% {opacity: 1;}
+    50% {opacity: 0;}
+  }
 
-    .instagram-link {
-      color: white;
-      font-size: 2em;
-      margin-top: 20px;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
+  /* Кнопка Enter */
+  #enterBtn {
+    margin-top: 40px;
+    font-size: 2rem;
+    color: #00ff00;
+    background: transparent;
+    border: 2px solid #00ff00;
+    padding: 12px 36px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    animation: jeykilBlink 1.5s infinite;
+    transition: background-color 0.3s, color 0.3s;
+  }
 
-    .instagram-link:hover {
-      color: #ff00aa;
-    }
+  #enterBtn:hover {
+    background-color: #00ff00;
+    color: black;
+  }
 
-    button {
-      margin-top: 30px;
-      padding: 10px 20px;
-      font-size: 1em;
-      background-color: #00ff00;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      color: black;
-      font-weight: bold;
-    }
+  /* Главный контент (скрыт по умолчанию) */
+  #mainContent {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    gap: 30px;
+  }
 
-    button:hover {
-      background-color: #00cc00;
-    }
-  </style>
+  /* Иконки соцсетей */
+  .social-icons {
+    display: flex;
+    gap: 40px;
+  }
+
+  .social-icons a {
+    color: #00ff00;
+    font-size: 2.5rem;
+    transition: color 0.3s;
+  }
+
+  .social-icons a:hover {
+    color: #33ff33;
+  }
+</style>
 </head>
 <body>
 
-  <!-- Заставка -->
-  <div id="splash">Загрузка...</div>
+  <div id="splash">pleaseuseit.com</div>
 
-  <!-- Главная страница -->
-  <div id="main">
-    <h1>Привет, мир!</h1>
-    <p>Добро пожаловать на мой сайт</p>
-    <a class="instagram-link" href="https://www.instagram.com/m.timoff/" target="_blank">
-      <i class="fab fa-instagram"></i>
-    </a>
-    <button onclick="document.getElementById('bg-music').play()">🔊 Включить музыку</button>
+  <button id="enterBtn">ENTER</button>
+
+  <div id="mainContent">
+    <div class="social-icons">
+      <a href="https://www.facebook.com/mikhail.timofeev.3726" target="_blank" aria-label="Facebook">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://www.instagram.com/m.timoff/" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="mailto:mikhailtimoff@gmail.com" aria-label="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
   </div>
 
-  <!-- Музыка -->
-  <audio id="bg-music" loop>
-    <source src="music.mp3" type="audio/mpeg">
-    Ваш браузер не поддерживает проигрывание музыки.
-  </audio>
-
-  <!-- Скрипт заставки и мигания -->
   <script>
-    $(document).ready(function () {
-      let blinkCount = 0;
-      let maxBlinks = 6;
-
-      function blinkSplash() {
-        $('#splash').fadeOut(300).fadeIn(300, function () {
-          blinkCount++;
-          if (blinkCount < maxBlinks) {
-            blinkSplash();
-          } else {
-            $('#splash').fadeOut(500, function () {
-              $('#main').fadeIn(800);
-            });
-          }
+    $(document).ready(function(){
+      $('#enterBtn').on('click', function(){
+        $('#splash, #enterBtn').fadeOut(500, function(){
+          $('#mainContent').fadeIn(700);
+          $('body').css('overflow', 'auto');
         });
-      }
-
-      blinkSplash();
+      });
     });
   </script>
+
 </body>
 </html>
