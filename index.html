@@ -1,69 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Please Use It</title>
+  <title>Добро пожаловать</title>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- Font Awesome для иконки Instagram -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background-color: black;
-      color: lime;
-      font-family: monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background-color: #000;
+      font-family: Arial, sans-serif;
       overflow: hidden;
-      flex-direction: column;
     }
 
-    .blinker {
+    #splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #00ff00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
       font-size: 2em;
-      animation: blinker 1s linear infinite;
+      font-weight: bold;
+      color: black;
     }
 
-    @keyframes blinker {
-      50% {
-        opacity: 0;
-      }
-    }
-
-    .icons {
-      margin-top: 30px;
-    }
-
-    .icons a {
-      color: lime;
-      text-decoration: none;
-      margin: 0 10px;
-      font-size: 2em;
-    }
-
-    audio {
+    #main {
       display: none;
+      height: 100vh;
+      width: 100vw;
+      background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .instagram-link {
+      color: white;
+      font-size: 2em;
+      margin-top: 20px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .instagram-link:hover {
+      color: #ff00aa;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #00ff00;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: black;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #00cc00;
     }
   </style>
 </head>
 <body>
-  <div class="blinker">PLEASE USE IT</div>
 
-  <div class="icons">
-    <a href="https://www.instagram.com/m.timoff/" target="_blank" title="Instagram">
-      📸
+  <!-- Заставка -->
+  <div id="splash">Загрузка...</div>
+
+  <!-- Главная страница -->
+  <div id="main">
+    <h1>Привет, мир!</h1>
+    <p>Добро пожаловать на мой сайт</p>
+    <a class="instagram-link" href="https://www.instagram.com/m.timoff/" target="_blank">
+      <i class="fab fa-instagram"></i>
     </a>
+    <button onclick="document.getElementById('bg-music').play()">🔊 Включить музыку</button>
   </div>
 
-  <audio autoplay>
-    <source src="https://actions.google.com/sounds/v1/cartoon/concussive_hit_guitar_boing.ogg" type="audio/ogg">
-    Your browser does not support the audio element.
+  <!-- Музыка -->
+  <audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает проигрывание музыки.
   </audio>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Скрипт заставки и мигания -->
   <script>
     $(document).ready(function () {
-      $("body").fadeIn(2000);
+      let blinkCount = 0;
+      let maxBlinks = 6;
+
+      function blinkSplash() {
+        $('#splash').fadeOut(300).fadeIn(300, function () {
+          blinkCount++;
+          if (blinkCount < maxBlinks) {
+            blinkSplash();
+          } else {
+            $('#splash').fadeOut(500, function () {
+              $('#main').fadeIn(800);
+            });
+          }
+        });
+      }
+
+      blinkSplash();
     });
   </script>
 </body>
