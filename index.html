@@ -1,57 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pleaseuseit.com</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    integrity="sha512-..."
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 80px 20px;
-      background-color: #f9f9f9;
-      color: #333;
+      background-color: black;
+      color: limegreen;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
     }
-    h1 {
-      font-size: 3em;
-      margin-bottom: 0.3em;
+
+    .title {
+      font-size: 32px;
+      font-weight: bold;
+      animation: blink 1s infinite;
     }
-    p {
-      font-size: 1.2em;
-      margin-bottom: 1.5em;
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
-    .social-icons a {
+
+    #enterBtn {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 18px;
+      color: white;
+      background-color: transparent;
+      border: 2px solid limegreen;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    #enterBtn:hover {
+      background-color: limegreen;
+      color: black;
+    }
+
+    .social {
+      position: absolute;
+      bottom: 20px;
+    }
+
+    .social a img {
+      width: 32px;
+      height: 32px;
       margin: 0 10px;
-      color: #333;
-      font-size: 1.5em;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    .social-icons a:hover {
-      color: #0077cc;
+      vertical-align: middle;
     }
   </style>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-  <h1>pleaseuseit.com</h1>
-  <p>Site is under construction<br>Stay tuned!</p>
-  <div class="social-icons">
-    <a href="https://www.instagram.com/m.timoff/" target="_blank" aria-label="Instagram">
-      <i class="fab fa-instagram"></i>
-    </a>
-    <a href="https://www.facebook.com/m.timoff" target="_blank" aria-label="Facebook">
-      <i class="fab fa-facebook"></i>
-    </a>
-    <a href="https://t.me/m_timoff" target="_blank" aria-label="Telegram">
-      <i class="fab fa-telegram"></i>
+
+  <div class="title">pleaseuseit</div>
+  <button id="enterBtn">Enter</button>
+
+  <div class="social">
+    <a href="https://www.instagram.com/m.timoff/" target="_blank" title="Instagram">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
     </a>
   </div>
+
+  <script>
+    $('#enterBtn').click(function () {
+      $('.title').fadeOut(300, function () {
+        $(this).text("Welcome").fadeIn(300);
+      });
+    });
+  </script>
+
 </body>
 </html>
