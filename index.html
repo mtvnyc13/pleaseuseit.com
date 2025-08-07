@@ -1,82 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>pleaseuseit.com</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Please Use It</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
       background-color: black;
-      color: limegreen;
+      color: lime;
       font-family: monospace;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
-      margin: 0;
       overflow: hidden;
+      flex-direction: column;
     }
 
-    .title {
-      font-size: 32px;
-      font-weight: bold;
-      animation: blink 1s infinite;
+    .blinker {
+      font-size: 2em;
+      animation: blinker 1s linear infinite;
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
     }
 
-    #enterBtn {
+    .icons {
       margin-top: 30px;
-      padding: 10px 20px;
-      font-size: 18px;
-      color: white;
-      background-color: transparent;
-      border: 2px solid limegreen;
-      cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
     }
 
-    #enterBtn:hover {
-      background-color: limegreen;
-      color: black;
-    }
-
-    .social {
-      position: absolute;
-      bottom: 20px;
-    }
-
-    .social a img {
-      width: 32px;
-      height: 32px;
+    .icons a {
+      color: lime;
+      text-decoration: none;
       margin: 0 10px;
-      vertical-align: middle;
+      font-size: 2em;
+    }
+
+    audio {
+      display: none;
     }
   </style>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+  <div class="blinker">PLEASE USE IT</div>
 
-  <div class="title">pleaseuseit</div>
-  <button id="enterBtn">Enter</button>
-
-  <div class="social">
+  <div class="icons">
     <a href="https://www.instagram.com/m.timoff/" target="_blank" title="Instagram">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+      📸
     </a>
   </div>
 
+  <audio autoplay>
+    <source src="https://actions.google.com/sounds/v1/cartoon/concussive_hit_guitar_boing.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    $('#enterBtn').click(function () {
-      $('.title').fadeOut(300, function () {
-        $(this).text("Welcome").fadeIn(300);
-      });
+    $(document).ready(function () {
+      $("body").fadeIn(2000);
     });
   </script>
-
 </body>
 </html>
