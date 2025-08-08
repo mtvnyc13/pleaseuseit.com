@@ -1,121 +1,120 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>pleaseuseit.com</title>
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-<!-- Font Awesome -->
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-/>
-
-<style>
-  /* Базовые стили */
-  body, html {
-    margin: 0; padding: 0; height: 100%;
-    background-color: black;
-    color: #00ff00;
-    font-family: 'Courier New', Courier, monospace;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Заставка с миганием */
-  #splash {
-    font-size: 3rem;
-    font-weight: bold;
-    animation: jeykilBlink 1.2s infinite;
-    user-select: none;
-  }
-
-  @keyframes jeykilBlink {
-    0%, 100% {opacity: 1;}
-    50% {opacity: 0;}
-  }
-
-  /* Кнопка Enter */
-  #enterBtn {
-    margin-top: 40px;
-    font-size: 2rem;
-    color: #00ff00;
-    background: transparent;
-    border: 2px solid #00ff00;
-    padding: 12px 36px;
-    cursor: pointer;
-    font-family: 'Courier New', monospace;
-    animation: jeykilBlink 1.5s infinite;
-    transition: background-color 0.3s, color 0.3s;
-  }
-
-  #enterBtn:hover {
-    background-color: #00ff00;
-    color: black;
-  }
-
-  /* Главный контент (скрыт по умолчанию) */
-  #mainContent {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 30px;
-    gap: 30px;
-  }
-
-  /* Иконки соцсетей */
-  .social-icons {
-    display: flex;
-    gap: 40px;
-  }
-
-  .social-icons a {
-    color: #00ff00;
-    font-size: 2.5rem;
-    transition: color 0.3s;
-  }
-
-  .social-icons a:hover {
-    color: #33ff33;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PleaseUseIt.com</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #333;
+    }
+    header {
+      background: #222;
+      color: #fff;
+      padding: 30px 20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    .quote-box {
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+    }
+    .quote-box p {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 1rem;
+      background: #0077cc;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005fa3;
+    }
+    .section {
+      padding: 40px 20px;
+    }
+    .resources ul {
+      list-style: none;
+      padding: 0;
+    }
+    .resources li {
+      margin: 10px 0;
+    }
+    .resources a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>PleaseUseIt.com</h1>
+    <p>For those who survived. For those who are trying. For those who just need a reason.</p>
+  </header>
 
-  <div id="splash">pleaseuseit.com</div>
+  <section class="quote-box">
+    <p id="quote">You’re alive. PleaseUseIt.</p>
+    <button onclick="newQuote()">Give me another</button>
+    <button onclick="location.href='#actions'">I want to take a step</button>
+  </section>
 
-  <button id="enterBtn">ENTER</button>
+  <section id="actions" class="section">
+    <h2>Take a small action</h2>
+    <button onclick="alert('You drank water! Proud of you.')">💧 I drank water</button>
+    <button onclick="alert('You moved today. That counts.')">💪 I moved today</button>
+    <button onclick="alert('Still here. That’s strength.')">💭 I didn’t give up</button>
+  </section>
 
-  <div id="mainContent">
-    <div class="social-icons">
-      <a href="https://www.facebook.com/mikhail.timofeev.3726" target="_blank" aria-label="Facebook">
-        <i class="fab fa-facebook"></i>
-      </a>
-      <a href="https://www.instagram.com/m.timoff/" target="_blank" aria-label="Instagram">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="mailto:mikhailtimoff@gmail.com" aria-label="Email">
-        <i class="fas fa-envelope"></i>
-      </a>
-    </div>
-  </div>
+  <section class="section">
+    <h2>Excuses vs. Action</h2>
+    <p><strong>“I’m not good enough.”</strong> — You’re still breathing. That means you’re not done yet. <em>PleaseUseIt.</em></p>
+    <p><strong>“I’m not smart.”</strong> — You found this site. That already proves otherwise. <em>PleaseUseIt.</em></p>
+    <p><strong>“I have nothing.”</strong> — You have today. That’s something. <em>PleaseUseIt.</em></p>
+  </section>
+
+  <section class="section resources">
+    <h2>Free Tools & Resources</h2>
+    <ul>
+      <li><a href="#">📝 Simple Resume Template (no experience)</a></li>
+      <li><a href="#">🎓 Free Courses (Google, Coursera, YouTube)</a></li>
+      <li><a href="#">🤝 AA/NA Group Finder</a></li>
+      <li><a href="#">📊 Easy Budget Sheet</a></li>
+      <li><a href="#">📆 Habit Tracker Printable</a></li>
+    </ul>
+  </section>
 
   <script>
-    $(document).ready(function(){
-      $('#enterBtn').on('click', function(){
-        $('#splash, #enterBtn').fadeOut(500, function(){
-          $('#mainContent').fadeIn(700);
-          $('body').css('overflow', 'auto');
-        });
-      });
-    });
+    const quotes = [
+      "You’re alive. PleaseUseIt.",
+      "You’ve got a second chance. PleaseUseIt.",
+      "Someone still believes in you. PleaseUseIt.",
+      "You didn’t quit today. PleaseUseIt.",
+      "You found this page. PleaseUseIt.",
+      "You’ve got time. PleaseUseIt.",
+      "You’re not alone. PleaseUseIt.",
+      "You’ve still got breath. PleaseUseIt."
+    ];
+    function newQuote() {
+      const random = Math.floor(Math.random() * quotes.length);
+      document.getElementById('quote').innerText = quotes[random];
+    }
   </script>
-
 </body>
 </html>
