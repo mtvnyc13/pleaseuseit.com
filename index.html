@@ -11,6 +11,11 @@
       margin: 0;
       padding: 0;
       color: #222;
+      opacity: 0;
+      animation: fadeIn 1.2s forwards;
+    }
+    @keyframes fadeIn {
+      to {opacity: 1;}
     }
     header {
       background-color: #1e1e1e;
@@ -88,6 +93,36 @@
         font-size: 1.5em;
       }
     }
+
+    /* Кнопки маленьких шагов */
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+    .action-buttons button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      min-width: 130px;
+    }
+    .action-buttons button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(76,175,80,0.6);
+    }
+    .action-buttons button.done {
+      background-color: #777;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
   </style>
 </head>
 <body>
@@ -100,11 +135,11 @@
     <div class="card">
       <h2>You’re alive. <span class="highlight">PleaseUseIt.</span></h2>
       <p>Take a small step. Don’t aim for perfect. Just move forward — one real thing at a time.</p>
-      <ul>
-        <li>💧 I drank water</li>
-        <li>💪 I moved today</li>
-        <li>💭 I didn’t give up</li>
-      </ul>
+      <div class="action-buttons">
+        <button id="btn-water">💧 I drank water</button>
+        <button id="btn-move">💪 I moved today</button>
+        <button id="btn-up">💭 I didn’t give up</button>
+      </div>
     </div>
 
     <div class="card">
@@ -129,5 +164,17 @@
   <footer>
     Made with love for fighters, dreamers, and survivors. You're not alone. PleaseUseIt.com
   </footer>
+
+  <script>
+    const buttons = document.querySelectorAll('.action-buttons button');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        if (!button.classList.contains('done')) {
+          button.classList.add('done');
+          button.textContent = '✔ Done!';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
