@@ -2,119 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PleaseUseIt.com</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f0f4f8;
+      background-color: #f2f2f2;
       margin: 0;
       padding: 0;
-      text-align: center;
-      color: #333;
+      color: #222;
     }
     header {
-      background: #222;
+      background-color: #1e1e1e;
       color: #fff;
       padding: 30px 20px;
+      text-align: center;
     }
-    header h1 {
+    h1 {
       margin: 0;
-      font-size: 2.5rem;
+      font-size: 2.5em;
     }
-    .quote-box {
-      margin: 40px auto;
+    .tagline {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+    section {
+      padding: 30px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .card {
+      background: white;
       padding: 20px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      max-width: 500px;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .quote-box p {
-      font-size: 1.3rem;
-      margin-bottom: 20px;
+    h2 {
+      color: #333;
     }
-    button {
-      padding: 12px 24px;
-      margin: 10px;
-      font-size: 1rem;
-      background: #0077cc;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #005fa3;
-    }
-    .section {
-      padding: 40px 20px;
-    }
-    .resources ul {
-      list-style: none;
+    ul {
+      list-style-type: none;
       padding: 0;
     }
-    .resources li {
-      margin: 10px 0;
+    ul li {
+      padding: 5px 0;
     }
-    .resources a {
-      color: #0077cc;
-      text-decoration: none;
+    .highlight {
+      font-weight: bold;
+      color: #007acc;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #1e1e1e;
+      color: #ccc;
+      font-size: 0.9em;
+    }
+    .quote {
+      font-style: italic;
+      color: #555;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>PleaseUseIt.com</h1>
-    <p>For those who survived. For those who are trying. For those who just need a reason.</p>
+    <p class="tagline">For those who survived. For those who are trying. For those who just need a reason.</p>
   </header>
 
-  <section class="quote-box">
-    <p id="quote">You’re alive. PleaseUseIt.</p>
-    <button onclick="newQuote()">Give me another</button>
-    <button onclick="location.href='#actions'">I want to take a step</button>
+  <section>
+    <div class="card">
+      <h2>You’re alive. <span class="highlight">PleaseUseIt.</span></h2>
+      <p>Take a small step. Don’t aim for perfect. Just move forward — one real thing at a time.</p>
+      <ul>
+        <li>💧 I drank water</li>
+        <li>💪 I moved today</li>
+        <li>💭 I didn’t give up</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Excuses vs. Action</h2>
+      <p><span class="quote">“I’m not good enough.”</span> — You’re still breathing. That means you’re not done yet. <strong>PleaseUseIt.</strong></p>
+      <p><span class="quote">“I’m not smart.”</span> — You found this site. That already proves otherwise. <strong>PleaseUseIt.</strong></p>
+      <p><span class="quote">“I have nothing.”</span> — You have today. That’s something. <strong>PleaseUseIt.</strong></p>
+    </div>
+
+    <div class="card">
+      <h2>Free Tools & Resources</h2>
+      <ul>
+        <li>📝 <a href="#">Simple Resume Template (no experience)</a></li>
+        <li>🎓 <a href="#">Free Courses (Google, Coursera, YouTube)</a></li>
+        <li>🤝 <a href="#">AA/NA Group Finder</a></li>
+        <li>📊 <a href="#">Easy Budget Sheet</a></li>
+        <li>📆 <a href="#">Habit Tracker Printable</a></li>
+      </ul>
+    </div>
   </section>
 
-  <section id="actions" class="section">
-    <h2>Take a small action</h2>
-    <button onclick="alert('You drank water! Proud of you.')">💧 I drank water</button>
-    <button onclick="alert('You moved today. That counts.')">💪 I moved today</button>
-    <button onclick="alert('Still here. That’s strength.')">💭 I didn’t give up</button>
-  </section>
-
-  <section class="section">
-    <h2>Excuses vs. Action</h2>
-    <p><strong>“I’m not good enough.”</strong> — You’re still breathing. That means you’re not done yet. <em>PleaseUseIt.</em></p>
-    <p><strong>“I’m not smart.”</strong> — You found this site. That already proves otherwise. <em>PleaseUseIt.</em></p>
-    <p><strong>“I have nothing.”</strong> — You have today. That’s something. <em>PleaseUseIt.</em></p>
-  </section>
-
-  <section class="section resources">
-    <h2>Free Tools & Resources</h2>
-    <ul>
-      <li><a href="#">📝 Simple Resume Template (no experience)</a></li>
-      <li><a href="#">🎓 Free Courses (Google, Coursera, YouTube)</a></li>
-      <li><a href="#">🤝 AA/NA Group Finder</a></li>
-      <li><a href="#">📊 Easy Budget Sheet</a></li>
-      <li><a href="#">📆 Habit Tracker Printable</a></li>
-    </ul>
-  </section>
-
-  <script>
-    const quotes = [
-      "You’re alive. PleaseUseIt.",
-      "You’ve got a second chance. PleaseUseIt.",
-      "Someone still believes in you. PleaseUseIt.",
-      "You didn’t quit today. PleaseUseIt.",
-      "You found this page. PleaseUseIt.",
-      "You’ve got time. PleaseUseIt.",
-      "You’re not alone. PleaseUseIt.",
-      "You’ve still got breath. PleaseUseIt."
-    ];
-    function newQuote() {
-      const random = Math.floor(Math.random() * quotes.length);
-      document.getElementById('quote').innerText = quotes[random];
-    }
-  </script>
+  <footer>
+    Made with love for fighters, dreamers, and survivors. You're not alone. PleaseUseIt.com
+  </footer>
 </body>
 </html>
