@@ -1,191 +1,121 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PleaseUseIt.com</title>
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JH8B9647HD"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-JH8B9647HD');
-  </script>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      margin: 0;
-      padding: 0;
-      color: #222;
-      opacity: 0;
-      animation: fadeIn 1.2s forwards;
-    }
-    @keyframes fadeIn {
-      to {opacity: 1;}
-    }
-    header {
-      background-color: #1e1e1e;
-      color: #fff;
-      padding: 30px 20px;
-      text-align: center;
-    }
-    h1 {
-      margin: 0;
-      font-size: 2.5em;
-    }
-    .tagline {
-      font-size: 1.2em;
-      margin-top: 10px;
-    }
-    section {
-      padding: 30px 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-    .card {
-      background: white;
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    h2 {
-      color: #333;
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    ul li {
-      padding: 5px 0;
-    }
-    .highlight {
-      font-weight: bold;
-      color: #007acc;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #1e1e1e;
-      color: #ccc;
-      font-size: 0.9em;
-    }
-    .quote {
-      font-style: italic;
-      color: #555;
-    }
-    /* Адаптивность */
-    @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-      header {
-        padding: 20px 10px;
-      }
-      h1 {
-        font-size: 2em;
-      }
-      .tagline {
-        font-size: 1em;
-      }
-      section {
-        padding: 20px 10px;
-      }
-      .card {
-        padding: 15px;
-        margin: 15px 0;
-      }
-      h2 {
-        font-size: 1.5em;
-      }
-    }
-
-    /* Кнопки маленьких шагов */
-    .action-buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 15px;
-    }
-    .action-buttons button {
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      min-width: 130px;
-    }
-    .action-buttons button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(76,175,80,0.6);
-    }
-    .action-buttons button.done {
-      background-color: #777;
-      cursor: default;
-      box-shadow: none;
-      transform: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Please Use It - Ресурсы Майами</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background: #0073e6;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background: #333;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        h2 {
+            color: #0073e6;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #333;
+            color: #fff;
+            margin-top: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #0073e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background: #005bb5;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>PleaseUseIt.com</h1>
-    <p class="tagline">For those who survived. For those who are trying. For those who just need a reason.</p>
-  </header>
-
-  <section>
-    <div class="card">
-      <h2>You’re alive. <span class="highlight">PleaseUseIt.</span></h2>
-      <p>Take a small step. Don’t aim for perfect. Just move forward — one real thing at a time.</p>
-      <div class="action-buttons">
-        <button id="btn-water">💧 I drank water</button>
-        <button id="btn-move">💪 I moved today</button>
-        <button id="btn-up">💭 I didn’t give up</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Excuses vs. Action</h2>
-      <p><span class="quote">“I’m not good enough.”</span> — You’re still breathing. That means you’re not done yet. <strong>PleaseUseIt.</strong></p>
-      <p><span class="quote">“I’m not smart.”</span> — You found this site. That already proves otherwise. <strong>PleaseUseIt.</strong></p>
-      <p><span class="quote">“I have nothing.”</span> — You have today. That’s something. <strong>PleaseUseIt.</strong></p>
-    </div>
-
-    <div class="card">
-      <h2>Free Tools & Resources</h2>
-      <ul>
-        <li>📝 <a href="#">Simple Resume Template (no experience)</a></li>
-        <li>🎓 <a href="#">Free Courses (Google, Coursera, YouTube)</a></li>
-        <li>🤝 <a href="#">AA/NA Group Finder</a></li>
-        <li>📊 <a href="#">Easy Budget Sheet</a></li>
-        <li>📆 <a href="#">Habit Tracker Printable</a></li>
-      </ul>
-    </div>
-  </section>
-
-  <footer>
-    Made with love for fighters, dreamers, and survivors. You're not alone. PleaseUseIt.com
-  </footer>
-
-  <script>
-    const buttons = document.querySelectorAll('.action-buttons button');
-    buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        if (!button.classList.contains('done')) {
-          button.classList.add('done');
-          button.textContent = '✔ Done!';
-        }
-      });
-    });
-  </script>
+    <header>
+        <h1>Please Use It</h1>
+        <p>Позитив, поддержка и полезные ресурсы для Майами</p>
+    </header>
+    <nav>
+        <a href="#shelters">Ночлежки и приюты</a>
+        <a href="#support">Программы поддержки</a>
+        <a href="#gov">Госпомощь</a>
+        <a href="#jobs">Трудоустройство</a>
+    </nav>
+    <section id="shelters">
+        <h2>Ночлежки и приюты</h2>
+        <ul>
+            <li><strong>Camillus House Day Center</strong><br>1603 NW 7th Ave, Miami, FL 33136 — <a href="https://www.camillus.org" target="_blank">Сайт</a></li>
+            <li><strong>Lotus House Women’s Shelter</strong><br>217 NW 15th Street, Miami, FL 33136 — Тел.: 305-438-0556</li>
+            <li><strong>Miami Beach Walk-In Center</strong><br>771 17th Street, Miami Beach, FL 33139 — Тел.: 305-673-7491</li>
+            <li><strong>Miami-Dade County Homeless Helpline</strong><br>Тел.: 1-877-994-4357</li>
+        </ul>
+    </section>
+    <section id="support">
+        <h2>Программы поддержки (AA / NA)</h2>
+        <ul>
+            <li><strong>Sabal Palm Room (AA)</strong><br>10120 SW 107th Ave, Miami, FL 33176 — Тел.: 305-274-7434</li>
+            <li><strong>Другие AA встречи</strong> — <a href="https://www.aa-meetings.com/directory/florida/miami" target="_blank">Список</a></li>
+        </ul>
+    </section>
+    <section id="gov">
+        <h2>Государственная помощь</h2>
+        <ul>
+            <li><a href="https://myflorida.com/accessflorida/" target="_blank">MyACCESS Florida</a> — SNAP, Medicaid, TCA</li>
+            <li>SNAP / EBT: Тел.: 1-866-762-2237</li>
+            <li>EBT карта: 1-888-356-3281</li>
+        </ul>
+    </section>
+    <section id="jobs">
+        <h2>Трудоустройство</h2>
+        <ul>
+            <li><strong>CareerSource South Florida</strong> — <a href="https://www.careersourcesfl.com" target="_blank">Сайт</a></li>
+            <li><strong>American Job Center</strong><br>1603 NW 7th Ave, Miami, FL 33136 — Тел.: 305-341-0150</li>
+            <li><strong>Miami Job Corps Center</strong> — Тел.: 800-733-JOBS</li>
+        </ul>
+    </section>
+    <footer>
+        <p>&copy; 2025 Please Use It — Все права защищены</p>
+    </footer>
 </body>
 </html>
