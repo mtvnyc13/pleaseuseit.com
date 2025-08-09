@@ -1,159 +1,162 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Please Use It</title>
+<title>Please Use It - Miami Resources</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center fixed;
-    background-size: cover;
-    color: #fff;
-  }
-  header {
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  nav a {
-    color: #fff;
-    margin: 0 10px;
-    text-decoration: none;
-  }
-  nav a:hover {
-    text-decoration: underline;
-  }
-  .translate {
-    background: #ff9800;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  section {
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    margin: 10px;
-    border-radius: 10px;
-  }
-  @media (max-width: 600px) {
-    nav {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+        background-size: cover;
+        color: #fff;
     }
-  }
+    header {
+        background: rgba(0,0,0,0.6);
+        text-align: center;
+        padding: 20px;
+    }
+    nav {
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px;
+    }
+    nav a {
+        color: #fff;
+        margin: 5px 15px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    nav a:hover {
+        color: #ffcc00;
+    }
+    section {
+        background: rgba(0,0,0,0.7);
+        margin: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    h2 {
+        color: #ffcc00;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    li {
+        margin-bottom: 15px;
+    }
+    footer {
+        text-align: center;
+        background: rgba(0,0,0,0.8);
+        padding: 15px;
+        margin-top: 20px;
+    }
+    iframe {
+        width: 100%;
+        height: 400px;
+        border: none;
+        border-radius: 5px;
+    }
+    .translate-container {
+        text-align: right;
+        padding: 10px;
+        background: rgba(0,0,0,0.8);
+    }
+    select {
+        padding: 5px;
+        border-radius: 5px;
+    }
 </style>
 </head>
 <body>
-<header>
-  <h1 id="site-title">Please Use It</h1>
-  <nav>
-    <a href="#shelters" id="nav-shelters">Shelters</a>
-    <a href="#programs" id="nav-programs">Support Programs</a>
-    <a href="#aid" id="nav-aid">Government Aid</a>
-    <a href="#jobs" id="nav-jobs">Employment</a>
-    <button class="translate" onclick="toggleLanguageMenu()">🌐 Translate</button>
-    <div id="language-menu" style="display:none; position:absolute; background:#333; padding:5px; border-radius:5px;">
-      <div onclick="setLanguage('en')">English</div>
-      <div onclick="setLanguage('ru')">Русский</div>
-      <div onclick="setLanguage('es')">Español</div>
-      <div onclick="setLanguage('pt')">Português</div>
-      <div onclick="setLanguage('ht')">Kreyòl Ayisyen</div>
-      <div onclick="setLanguage('uk')">Українська</div>
+    <header>
+        <h1><i class="fas fa-hands-helping"></i> Please Use It</h1>
+        <p>Positive support and useful resources for Miami</p>
+    </header>
+
+    <div class="translate-container">
+        <select id="languageSelect" onchange="translatePage()">
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+            <option value="es">Español</option>
+            <option value="pt">Português</option>
+            <option value="ht">Kreyòl</option>
+            <option value="uk">Українська</option>
+        </select>
     </div>
-  </nav>
-</header>
-<section id="shelters">
-  <h2>Shelters</h2>
-  <p>Addresses, phone numbers, and opening hours for homeless shelters in Miami.</p>
-</section>
-<section id="programs">
-  <h2>Support Programs</h2>
-  <p>Lists of AA and NA meetings in Miami.</p>
-</section>
-<section id="aid">
-  <h2>Government Aid</h2>
-  <p>Information on applying for EBT and finding low-income medical clinics.</p>
-</section>
-<section id="jobs">
-  <h2>Employment</h2>
-  <p>Addresses of job assistance centers.</p>
-</section>
+
+    <nav>
+        <a href="#shelters"><i class="fas fa-bed"></i> Shelters</a>
+        <a href="#support"><i class="fas fa-hand-holding-heart"></i> Support Programs</a>
+        <a href="#gov"><i class="fas fa-landmark"></i> Government Help</a>
+        <a href="#jobs"><i class="fas fa-briefcase"></i> Jobs</a>
+    </nav>
+
+    <section id="shelters">
+        <h2><i class="fas fa-bed"></i> Shelters & Homeless Services</h2>
+        <ul>
+            <li><strong>Camillus House Day Center</strong> — <a href="https://www.camillus.org" target="_blank">Website</a></li>
+            <li><strong>Lotus House Women’s Shelter</strong> — Tel: 305-438-0556</li>
+            <li><strong>Miami Beach Walk-In Center</strong> — Tel: 305-673-7491</li>
+            <li><strong>Miami Rescue Mission</strong> — <a href="https://www.miamirescuemission.com" target="_blank">Website</a></li>
+            <li><strong>Salvation Army ARC Miami</strong> — <a href="https://salvationarmyflorida.org/miami/" target="_blank">Website</a></li>
+            <li><strong>Miami-Dade County Homeless Helpline</strong> — Tel: 1-877-994-4357</li>
+        </ul>
+    </section>
+
+    <section id="support">
+        <h2><i class="fas fa-hand-holding-heart"></i> Support Programs (AA / NA)</h2>
+        <ul>
+            <li><strong>Sabal Palm Room (AA)</strong> — Tel: 305-274-7434</li>
+            <li><a href="https://www.aa-meetings.com/directory/florida/miami" target="_blank">Full AA Meeting List</a></li>
+            <li><a href="https://www.na.org/meetingsearch/" target="_blank">NA Meeting Finder</a></li>
+        </ul>
+    </section>
+
+    <section id="gov">
+        <h2><i class="fas fa-landmark"></i> Government Assistance</h2>
+        <ul>
+            <li><a href="https://myflorida.com/accessflorida/" target="_blank">MyACCESS Florida</a> — SNAP, Medicaid, TCA</li>
+            <li>SNAP / EBT: Tel: 1-866-762-2237</li>
+            <li>EBT Card: Tel: 1-888-356-3281</li>
+            <li><strong>Christian Legal Services</strong> — <a href="https://www.clsnet.org/" target="_blank">Website</a></li>
+        </ul>
+    </section>
+
+    <section id="jobs">
+        <h2><i class="fas fa-briefcase"></i> Job Assistance</h2>
+        <ul>
+            <li><a href="https://www.careersourcesfl.com" target="_blank">CareerSource South Florida</a></li>
+            <li>American Job Center — Tel: 305-341-0150</li>
+            <li>Miami Job Corps Center — Tel: 800-733-JOBS</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-map-marked-alt"></i> Miami Resources Map</h2>
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1BtTSuThRccxAXR1slfVZ2UEF8Jk4AZE&ehbc=2E312F"></iframe>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Please Use It — All rights reserved</p>
+    </footer>
+
 <script>
-  const translations = {
-    en: {
-      title: "Please Use It",
-      navShelters: "Shelters",
-      navPrograms: "Support Programs",
-      navAid: "Government Aid",
-      navJobs: "Employment",
-      shelters: "Addresses, phone numbers, and opening hours for homeless shelters in Miami.",
-      programs: "Lists of AA and NA meetings in Miami.",
-      aid: "Information on applying for EBT and finding low-income medical clinics.",
-      jobs: "Addresses of job assistance centers."
-    },
-    ru: {
-      title: "Пожалуйста, воспользуйся этим",
-      navShelters: "Ночлежки",
-      navPrograms: "Программы поддержки",
-      navAid: "Госпомощь",
-      navJobs: "Трудоустройство",
-      shelters: "Адреса, телефоны и часы работы ночлежек в Майами.",
-      programs: "Списки встреч АА и NA в Майами.",
-      aid: "Информация о подаче на EBT и поиске медклиник для малоимущих.",
-      jobs: "Адреса центров помощи в поиске работы."
-    },
-    es: {
-      title: "Por favor úsalo",
-      navShelters: "Refugios",
-      navPrograms: "Programas de apoyo",
-      navAid: "Ayuda gubernamental",
-      navJobs: "Empleo",
-      shelters: "Direcciones, teléfonos y horarios de refugios en Miami.",
-      programs: "Listas de reuniones de AA y NA en Miami.",
-      aid: "Información para solicitar EBT y clínicas médicas de bajos ingresos.",
-      jobs: "Direcciones de centros de asistencia laboral."
-    },
-    pt: {
-      title: "Por favor, use",
-      navShelters: "Abrigos",
-      navPrograms: "Programas de apoio",
-      navAid: "Ajuda governamental",
-      navJobs: "Emprego",
-      shelters: "Endereços, telefones e horários de abrigos em Miami.",
-      programs: "Listas de reuniões de AA e NA em Miami.",
-      aid: "Informações para solicitar EBT e clínicas médicas de baixa renda.",
-      jobs: "Endereços de centros de assistência de emprego."
-    },
-    ht: {
-      title: "Tanpri sèvi avè l",
-      navShelters: "Refij",
-      navPrograms: "Pwogram sipò",
-      navAid: "Èd gouvènman",
-      navJobs: "Anplwa",
-      shelters: "Adrès, nimewo telefòn, ak lè ouvèti refij nan Miami.",
-      programs: "Lis reyinyon AA ak NA nan Miami.",
-      aid: "Enfòmasyon pou aplike pou EBT ak klinik medikal pou moun ki gen ti revni.",
-      jobs: "Adrès sant asistans travay."
-    },
-    uk: {
-      title: "Будь ласка, скористайся цим",
-      navShelters: "Притулки",
-      navPrograms: "Програми підтримки",
-      navAid: "Державна допомога",
-      navJobs: "Працевлаштування",
-      shelters: "Адреси, телефони та години роботи притулків у Маямі.",
-      programs: "Списки зустрічей AA та NA у Маямі.",
-      aid: "Інформація про подачу на EBT та пошук медичних клінік для малозабезпечених.",
-      jobs: "Адреси центрів допомоги у пошуку роботи."
-    }
-  };function toggleLanguageMenu() { const menu = document.getElementById('language-menu'); menu.style.display = menu.style.display === 'none' ? 'block' : 'none'; }
-
-function setLanguage(lang) { document.getElementById('site-title').innerText = translations[lang].title; document.getElementById('nav-shelters').innerText = translations[lang].navShelters; document.getElementById('nav-programs').innerText = translations[lang].navPrograms; document.getElementById('nav-aid').innerText = translations[lang].navAid; document.getElementById('nav-jobs').innerText = translations[lang].navJobs; document.querySelector('#shelters p').innerText = translations[lang].shelters; document.querySelector('#programs p').innerText = translations[lang].programs; document.querySelector('#aid p').innerText = translations[lang].aid; document.querySelector('#jobs p').innerText = translations[lang].jobs; toggleLanguageMenu(); } </script>
-
+function translatePage(){
+    const lang = document.getElementById("languageSelect").value;
+    const pageUrl = window.location.href;
+    const googleTranslateUrl = `https://translate.google.com/translate?sl=auto&tl=${lang}&u=${encodeURIComponent(pageUrl)}`;
+    window.open(googleTranslateUrl, '_blank');
+}
+</script>
 </body>
 </html>
