@@ -1,144 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Please Use It</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-    }
-    header {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 10px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Please Use It</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+  }
+  header {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+  nav a:hover {
+    text-decoration: underline;
+  }
+  .translate {
+    background: #ff9800;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  section {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 10px;
+    border-radius: 10px;
+  }
+  @media (max-width: 600px) {
+    nav {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      position: relative;
     }
-    nav a {
-      color: #fff;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    .translate {
-      background: #ff9800;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-      color: #000;
-    }
-    #language-menu {
-      display: none;
-      position: absolute;
-      top: 50px;
-      right: 10px;
-      background: #333;
-      padding: 5px;
-      border-radius: 5px;
-      color: #fff;
-    }
-    #language-menu div {
-      padding: 5px;
-      cursor: pointer;
-    }
-    #language-menu div:hover {
-      background: #555;
-    }
-    section {
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.5);
-      margin: 10px;
-      border-radius: 10px;
-    }
-    @media (max-width: 600px) {
-      nav {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1 id="site-title">Please Use It</h1>
-    <nav>
-      <a href="#resources" id="nav-resources">Resources</a>
-      <button class="translate" onclick="toggleLanguageMenu()">🌐 Translate</button>
-      <div id="language-menu">
-        <div onclick="setLanguage('en')">English</div>
-        <div onclick="setLanguage('ru')">Русский</div>
-        <div onclick="setLanguage('es')">Español</div>
-        <div onclick="setLanguage('pt')">Português</div>
-        <div onclick="setLanguage('ht')">Kreyòl Ayisyen</div>
-        <div onclick="setLanguage('uk')">Українська</div>
-      </div>
-    </nav>
-  </header>
-
-  <section id="resources">
-    <h2 id="res-title">Resources</h2>
-    <ul id="res-list">
-      <li><strong>ARC – Salvation Army Adult Rehabilitation Center (ARC)</strong><br>
-          2236 NW Miami Court, Miami, FL 33127 — Tel: 305-573-4200 0</li>
-      <li><strong>Salvation Army Miami – Area Command</strong><br>
-          1907 NW 38th Street, Miami, FL 33142 — Tel: 305-456-5850 1</li>
-      <li><strong>Miami Rescue Mission</strong><br>
-          2159 NW 1st Ct, Miami, FL 33127 — Tel: 305-571-2273 — Programs: emergency shelter, meals, recovery, job training, health clinic 2</li>
-      <li><strong>Miami Rescue Mission Clinic</strong><br>
-          2015 NW 1st Ave, Miami, FL — Free clinic providing primary and specialty care (e.g., nephrology, cardiology, pulmonology) 3</li>
-    </ul>
-  </section>
-
+<header>
+  <h1 id="site-title">Please Use It</h1>
+  <nav>
+    <a href="#shelters" id="nav-shelters">Shelters</a>
+    <a href="#programs" id="nav-programs">Support Programs</a>
+    <a href="#aid" id="nav-aid">Government Aid</a>
+    <a href="#jobs" id="nav-jobs">Employment</a>
+    <button class="translate" onclick="toggleLanguageMenu()">🌐 Translate</button>
+    <div id="language-menu" style="display:none; position:absolute; background:#333; padding:5px; border-radius:5px;">
+      <div onclick="setLanguage('en')">English</div>
+      <div onclick="setLanguage('ru')">Русский</div>
+      <div onclick="setLanguage('es')">Español</div>
+      <div onclick="setLanguage('pt')">Português</div>
+      <div onclick="setLanguage('ht')">Kreyòl Ayisyen</div>
+      <div onclick="setLanguage('uk')">Українська</div>
+    </div>
+  </nav>
+</header>
+<section id="shelters">
+  <h2>Shelters</h2>
+  <p>Addresses, phone numbers, and opening hours for homeless shelters in Miami.</p>
+</section>
+<section id="programs">
+  <h2>Support Programs</h2>
+  <p>Lists of AA and NA meetings in Miami.</p>
+</section>
+<section id="aid">
+  <h2>Government Aid</h2>
+  <p>Information on applying for EBT and finding low-income medical clinics.</p>
+</section>
+<section id="jobs">
+  <h2>Employment</h2>
+  <p>Addresses of job assistance centers.</p>
+</section>
 <script>
   const translations = {
     en: {
       title: "Please Use It",
-      navResources: "Resources",
-      resTitle: "Resources",
-      resList: [
-        "ARC – Salvation Army Adult Rehabilitation Center (ARC)\n2236 NW Miami Court, Miami, FL 33127 — Tel: 305-573-4200",
-        "Salvation Army Miami – Area Command\n1907 NW 38th Street, Miami, FL 33142 — Tel: 305-456-5850",
-        "Miami Rescue Mission\n2159 NW 1st Ct, Miami, FL 33127 — Tel: 305-571-2273 — Programs: emergency shelter, meals, recovery, job training, health clinic",
-        "Miami Rescue Mission Clinic\n2015 NW 1st Ave, Miami, FL — Free clinic with primary and specialty care"
-      ]
+      navShelters: "Shelters",
+      navPrograms: "Support Programs",
+      navAid: "Government Aid",
+      navJobs: "Employment",
+      shelters: "Addresses, phone numbers, and opening hours for homeless shelters in Miami.",
+      programs: "Lists of AA and NA meetings in Miami.",
+      aid: "Information on applying for EBT and finding low-income medical clinics.",
+      jobs: "Addresses of job assistance centers."
     },
     ru: {
       title: "Пожалуйста, воспользуйся этим",
-      navResources: "Ресурсы",
-      resTitle: "Ресурсы",
-      resList: [
-        "ARC – Центр реабилитации взрослых Salvation Army\n2236 NW Miami Court, Miami, FL 33127 — Тел: 305-573-4200",
-        "Служба Salvation Army Miami — командование района\n1907 NW 38th Street, Miami, FL 33142 — Тел: 305-456-5850",
-        "Миссия спасения Майами\n2159 NW 1st Ct, Miami, FL 33127 — Тел: 305-571-2273 — Программы: приют, горячее питание, реабилитация, помощь в поиске работы, медицинская помощь",
-        "Клиника Miami Rescue Mission\n2015 NW 1st Ave, Miami, FL — Бесплатная клиника, первичная и специализированная медицинская помощь"
-      ]
+      navShelters: "Ночлежки",
+      navPrograms: "Программы поддержки",
+      navAid: "Госпомощь",
+      navJobs: "Трудоустройство",
+      shelters: "Адреса, телефоны и часы работы ночлежек в Майами.",
+      programs: "Списки встреч АА и NA в Майами.",
+      aid: "Информация о подаче на EBT и поиске медклиник для малоимущих.",
+      jobs: "Адреса центров помощи в поиске работы."
     },
-    // (es, pt, ht, uk translations could be added similarly)
-  };
+    es: {
+      title: "Por favor úsalo",
+      navShelters: "Refugios",
+      navPrograms: "Programas de apoyo",
+      navAid: "Ayuda gubernamental",
+      navJobs: "Empleo",
+      shelters: "Direcciones, teléfonos y horarios de refugios en Miami.",
+      programs: "Listas de reuniones de AA y NA en Miami.",
+      aid: "Información para solicitar EBT y clínicas médicas de bajos ingresos.",
+      jobs: "Direcciones de centros de asistencia laboral."
+    },
+    pt: {
+      title: "Por favor, use",
+      navShelters: "Abrigos",
+      navPrograms: "Programas de apoio",
+      navAid: "Ajuda governamental",
+      navJobs: "Emprego",
+      shelters: "Endereços, telefones e horários de abrigos em Miami.",
+      programs: "Listas de reuniões de AA e NA em Miami.",
+      aid: "Informações para solicitar EBT e clínicas médicas de baixa renda.",
+      jobs: "Endereços de centros de assistência de emprego."
+    },
+    ht: {
+      title: "Tanpri sèvi avè l",
+      navShelters: "Refij",
+      navPrograms: "Pwogram sipò",
+      navAid: "Èd gouvènman",
+      navJobs: "Anplwa",
+      shelters: "Adrès, nimewo telefòn, ak lè ouvèti refij nan Miami.",
+      programs: "Lis reyinyon AA ak NA nan Miami.",
+      aid: "Enfòmasyon pou aplike pou EBT ak klinik medikal pou moun ki gen ti revni.",
+      jobs: "Adrès sant asistans travay."
+    },
+    uk: {
+      title: "Будь ласка, скористайся цим",
+      navShelters: "Притулки",
+      navPrograms: "Програми підтримки",
+      navAid: "Державна допомога",
+      navJobs: "Працевлаштування",
+      shelters: "Адреси, телефони та години роботи притулків у Маямі.",
+      programs: "Списки зустрічей AA та NA у Маямі.",
+      aid: "Інформація про подачу на EBT та пошук медичних клінік для малозабезпечених.",
+      jobs: "Адреси центрів допомоги у пошуку роботи."
+    }
+  };function toggleLanguageMenu() { const menu = document.getElementById('language-menu'); menu.style.display = menu.style.display === 'none' ? 'block' : 'none'; }
 
-  function toggleLanguageMenu() {
-    const menu = document.getElementById('language-menu');
-    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-  }
+function setLanguage(lang) { document.getElementById('site-title').innerText = translations[lang].title; document.getElementById('nav-shelters').innerText = translations[lang].navShelters; document.getElementById('nav-programs').innerText = translations[lang].navPrograms; document.getElementById('nav-aid').innerText = translations[lang].navAid; document.getElementById('nav-jobs').innerText = translations[lang].navJobs; document.querySelector('#shelters p').innerText = translations[lang].shelters; document.querySelector('#programs p').innerText = translations[lang].programs; document.querySelector('#aid p').innerText = translations[lang].aid; document.querySelector('#jobs p').innerText = translations[lang].jobs; toggleLanguageMenu(); } </script>
 
-  function setLanguage(lang) {
-    document.getElementById('site-title').innerText = translations[lang].title;
-    document.getElementById('nav-resources').innerText = translations[lang].navResources;
-    document.getElementById('res-title').innerText = translations[lang].resTitle;
-    const list = translations[lang].resList.map(item => `<li>${item.replace(/\n/g, '<br>')}</li>`).join('');
-    document.getElementById('res-list').innerHTML = list;
-    toggleLanguageMenu();
-  }
-</script>
 </body>
 </html>
