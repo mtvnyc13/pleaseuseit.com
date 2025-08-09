@@ -3,7 +3,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Please Use It - Ресурсы Майами</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -12,26 +16,30 @@
             line-height: 1.6;
         }
         header {
-            background: #0073e6;
+            background: linear-gradient(90deg, #0073e6, #00b4d8);
             color: #fff;
             padding: 20px;
             text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         nav {
-            background: #333;
-            color: #fff;
+            background: #222;
             display: flex;
             justify-content: center;
             padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         nav a {
             color: #fff;
             text-decoration: none;
             margin: 0 15px;
             font-weight: bold;
+            transition: color 0.3s;
         }
         nav a:hover {
-            text-decoration: underline;
+            color: #00b4d8;
         }
         section {
             max-width: 900px;
@@ -39,7 +47,12 @@
             background: #fff;
             padding: 20px;
             margin-top: 20px;
-            border-radius: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        section:hover {
+            transform: translateY(-2px);
         }
         h2 {
             color: #0073e6;
@@ -49,41 +62,41 @@
             padding: 0;
         }
         li {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         footer {
             text-align: center;
             padding: 15px;
-            background: #333;
+            background: #222;
             color: #fff;
             margin-top: 20px;
         }
-        .button {
-            display: inline-block;
-            padding: 10px 15px;
-            background: #0073e6;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
+        .icon {
+            color: #0073e6;
+            margin-right: 8px;
         }
-        .button:hover {
-            background: #005bb5;
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+            margin-top: 20px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Please Use It</h1>
+        <h1><i class="fas fa-hands-helping"></i> Please Use It</h1>
         <p>Позитив, поддержка и полезные ресурсы для Майами</p>
     </header>
     <nav>
-        <a href="#shelters">Ночлежки и приюты</a>
-        <a href="#support">Программы поддержки</a>
-        <a href="#gov">Госпомощь</a>
-        <a href="#jobs">Трудоустройство</a>
+        <a href="#shelters"><i class="fas fa-bed"></i> Ночлежки</a>
+        <a href="#support"><i class="fas fa-hand-holding-heart"></i> Поддержка</a>
+        <a href="#gov"><i class="fas fa-landmark"></i> Госпомощь</a>
+        <a href="#jobs"><i class="fas fa-briefcase"></i> Работа</a>
     </nav>
     <section id="shelters">
-        <h2>Ночлежки и приюты</h2>
+        <h2><i class="fas fa-bed icon"></i>Ночлежки и приюты</h2>
         <ul>
             <li><strong>Camillus House Day Center</strong><br>1603 NW 7th Ave, Miami, FL 33136 — <a href="https://www.camillus.org" target="_blank">Сайт</a></li>
             <li><strong>Lotus House Women’s Shelter</strong><br>217 NW 15th Street, Miami, FL 33136 — Тел.: 305-438-0556</li>
@@ -92,14 +105,14 @@
         </ul>
     </section>
     <section id="support">
-        <h2>Программы поддержки (AA / NA)</h2>
+        <h2><i class="fas fa-hand-holding-heart icon"></i>Программы поддержки (AA / NA)</h2>
         <ul>
             <li><strong>Sabal Palm Room (AA)</strong><br>10120 SW 107th Ave, Miami, FL 33176 — Тел.: 305-274-7434</li>
             <li><strong>Другие AA встречи</strong> — <a href="https://www.aa-meetings.com/directory/florida/miami" target="_blank">Список</a></li>
         </ul>
     </section>
     <section id="gov">
-        <h2>Государственная помощь</h2>
+        <h2><i class="fas fa-landmark icon"></i>Государственная помощь</h2>
         <ul>
             <li><a href="https://myflorida.com/accessflorida/" target="_blank">MyACCESS Florida</a> — SNAP, Medicaid, TCA</li>
             <li>SNAP / EBT: Тел.: 1-866-762-2237</li>
@@ -107,12 +120,16 @@
         </ul>
     </section>
     <section id="jobs">
-        <h2>Трудоустройство</h2>
+        <h2><i class="fas fa-briefcase icon"></i>Трудоустройство</h2>
         <ul>
             <li><strong>CareerSource South Florida</strong> — <a href="https://www.careersourcesfl.com" target="_blank">Сайт</a></li>
             <li><strong>American Job Center</strong><br>1603 NW 7th Ave, Miami, FL 33136 — Тел.: 305-341-0150</li>
             <li><strong>Miami Job Corps Center</strong> — Тел.: 800-733-JOBS</li>
         </ul>
+    </section>
+    <section>
+        <h2><i class="fas fa-map-marked-alt icon"></i>Карта ресурсов Майами</h2>
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1BtTSuThRccxAXR1slfVZ2UEF8Jk4AZE&ehbc=2E312F"></iframe>
     </section>
     <footer>
         <p>&copy; 2025 Please Use It — Все права защищены</p>
