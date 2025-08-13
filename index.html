@@ -1,162 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Please Use It - Miami Resources</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
-        background-size: cover;
-        color: #fff;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Please Use It — Miami Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfQNZdwQ+PliYV8G7D4gG3E3E1KSU5BfI7x6GZ8Z6P4b8hoIH6GdFZ7Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root{
+      --primary:#00b4d8; --accent:#ff9f1c; --bg:rgba(0,0,0,.55);
     }
-    header {
-        background: rgba(0,0,0,0.6);
-        text-align: center;
-        padding: 20px;
+    html{scroll-behavior:smooth}
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height:1.6; color:#fff;
+      background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed; background-size:cover;
     }
-    nav {
-        background: rgba(0,0,0,0.8);
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 10px;
+    header{
+      position:sticky; top:0; z-index:1000; backdrop-filter:saturate(130%) blur(6px);
+      background:linear-gradient(90deg, rgba(0,180,216,.95), rgba(2,62,138,.95));
+      padding:14px 16px; box-shadow:0 6px 16px rgba(0,0,0,.25);
     }
-    nav a {
-        color: #fff;
-        margin: 5px 15px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: 0.3s;
+    .row{max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
+    .brand i{font-size:24px}
+    .brand span{font-size:20px}
+    nav{display:flex; gap:14px; flex:1; justify-content:center; flex-wrap:wrap}
+    nav a{color:#fff; text-decoration:none; font-weight:600; padding:8px 10px; border-radius:10px; transition:.2s; white-space:nowrap}
+    nav a:hover{background:rgba(255,255,255,.12)}
+    .tools{margin-left:auto; display:flex; align-items:center; gap:10px}
+    .lang{min-width:190px; background:#fff; color:#000; border-radius:10px; padding:6px 10px}
+    .cta{background:#ff9f1c; color:#000; border:none; border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer}
+
+    main{padding:24px 16px}
+    section.card{
+      background:var(--bg); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:18px; margin:16px auto; max-width:1100px;
+      box-shadow:0 10px 28px rgba(0,0,0,.25); transform:translateY(8px); opacity:0; animation:fadeUp .6s ease forwards;
     }
-    nav a:hover {
-        color: #ffcc00;
+    section.card h2{margin:0 0 10px; color:#ffe8cc}
+    section.card ul{list-style:none; padding:0; margin:0}
+    section.card li{margin:10px 0; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); padding:10px; border-radius:12px}
+    section.card a{color:#ffd166; font-weight:700}
+    .two-col{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .note{font-size:.95rem; opacity:.9}
+    iframe{width:100%; height:420px; border:0; border-radius:12px}
+    footer{padding:26px 16px; text-align:center; background:rgba(0,0,0,.7)}
+
+    @keyframes fadeUp{to{opacity:1; transform:translateY(0)}}
+
+    @media (max-width: 820px){
+      nav{justify-content:flex-start}
+      .two-col{grid-template-columns:1fr}
+      .lang{min-width:unset; width:100%}
     }
-    section {
-        background: rgba(0,0,0,0.7);
-        margin: 20px;
-        padding: 20px;
-        border-radius: 8px;
-        max-width: 900px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    h2 {
-        color: #ffcc00;
-    }
-    ul {
-        list-style: none;
-        padding: 0;
-    }
-    li {
-        margin-bottom: 15px;
-    }
-    footer {
-        text-align: center;
-        background: rgba(0,0,0,0.8);
-        padding: 15px;
-        margin-top: 20px;
-    }
-    iframe {
-        width: 100%;
-        height: 400px;
-        border: none;
-        border-radius: 5px;
-    }
-    .translate-container {
-        text-align: right;
-        padding: 10px;
-        background: rgba(0,0,0,0.8);
-    }
-    select {
-        padding: 5px;
-        border-radius: 5px;
-    }
-</style>
+  </style>
 </head>
 <body>
-    <header>
-        <h1><i class="fas fa-hands-helping"></i> Please Use It</h1>
-        <p>Positive support and useful resources for Miami</p>
-    </header>
-
-    <div class="translate-container">
-        <select id="languageSelect" onchange="translatePage()">
-            <option value="en">English</option>
-            <option value="ru">Русский</option>
-            <option value="es">Español</option>
-            <option value="pt">Português</option>
-            <option value="ht">Kreyòl</option>
-            <option value="uk">Українська</option>
-        </select>
+  <!-- Header / Nav -->
+  <header>
+    <div class="row">
+      <div class="brand"><i class="fas fa-hands-holding-heart"></i><span>Please Use It</span></div>
+      <nav>
+        <a href="#shelters"><i class="fa-solid fa-bed"></i> Shelters</a>
+        <a href="#support"><i class="fa-solid fa-hand-holding-heart"></i> Support</a>
+        <a href="#gov"><i class="fa-solid fa-landmark"></i> Gov Aid</a>
+        <a href="#jobs"><i class="fa-solid fa-briefcase"></i> Jobs</a>
+        <a href="#money"><i class="fa-solid fa-piggy-bank"></i> Money</a>
+        <a href="#credit"><i class="fa-solid fa-credit-card"></i> Credit & ID</a>
+        <a href="#gig"><i class="fa-solid fa-bicycle"></i> Gig Work</a>
+        <a href="#dmv"><i class="fa-solid fa-id-card"></i> DMV</a>
+        <a href="#resume"><i class="fa-solid fa-file-lines"></i> Resume</a>
+        <a href="#map"><i class="fa-solid fa-map-location-dot"></i> Map</a>
+      </nav>
+      <div class="tools">
+        <div id="google_translate_element" class="lang"></div>
+      </div>
     </div>
+  </header>
 
-    <nav>
-        <a href="#shelters"><i class="fas fa-bed"></i> Shelters</a>
-        <a href="#support"><i class="fas fa-hand-holding-heart"></i> Support Programs</a>
-        <a href="#gov"><i class="fas fa-landmark"></i> Government Help</a>
-        <a href="#jobs"><i class="fas fa-briefcase"></i> Jobs</a>
-    </nav>
+  <main>
+    <!-- Shelters -->
+    <section id="shelters" class="card">
+      <h2>🏠 Shelters & Homeless Services</h2>
+      <ul>
+        <li><strong>Camillus House Day Center</strong> — 1603 NW 7th Ave, Miami, FL 33136 — <a href="https://www.camillus.org" target="_blank" rel="noopener">Website</a></li>
+        <li><strong>Lotus House Women’s Shelter</strong> — 217 NW 15th St, Miami, FL 33136 — Tel: <a href="tel:13054380556">305‑438‑0556</a> — <a href="https://www.lotushouse.org/" target="_blank" rel="noopener">Website</a></li>
+        <li><strong>Miami Rescue Mission (The Caring Place)</strong> — 3553 NW 50th St (Admin) / 2159 NW 1st Ct (Downtown), Miami — <a href="https://caringplace.org/" target="_blank" rel="noopener">Website</a></li>
+        <li><strong>Salvation Army ARC Miami (Adult Rehabilitation Center)</strong> — 2236 NW Miami Ct, Miami, FL 33127 — <a href="https://salvationarmyflorida.org/miami/" target="_blank" rel="noopener">Website</a></li>
+        <li><strong>Miami-Dade County Homeless Helpline</strong> — Tel: <a href="tel:18779944357">1‑877‑994‑4357</a></li>
+      </ul>
+    </section>
 
-    <section id="shelters">
-        <h2><i class="fas fa-bed"></i> Shelters & Homeless Services</h2>
+    <!-- Support -->
+    <section id="support" class="card">
+      <h2>💙 Recovery, Legal & Community Support</h2>
+      <div class="two-col">
         <ul>
-            <li><strong>Camillus House Day Center</strong> — <a href="https://www.camillus.org" target="_blank">Website</a></li>
-            <li><strong>Lotus House Women’s Shelter</strong> — Tel: 305-438-0556</li>
-            <li><strong>Miami Beach Walk-In Center</strong> — Tel: 305-673-7491</li>
-            <li><strong>Miami Rescue Mission</strong> — <a href="https://www.miamirescuemission.com" target="_blank">Website</a></li>
-            <li><strong>Salvation Army ARC Miami</strong> — <a href="https://salvationarmyflorida.org" target="_blank">Website</a></li>
-            <li><strong>Miami-Dade County Homeless Helpline</strong> — Tel: 1-877-994-4357</li>
+          <li><strong>AA Meetings (Alcoholics Anonymous)</strong> — <a href="https://www.aa-meetings.com/directory/florida/miami" target="_blank" rel="noopener">Find meetings</a></li>
+          <li><strong>NA Meetings (Narcotics Anonymous)</strong> — <a href="https://www.na.org/meetingsearch/" target="_blank" rel="noopener">Search meetings</a></li>
+          <li><strong>Christian Legal Aid (CLS)</strong> — <a href="https://www.christianlegalaid.org/find-legal-aid" target="_blank" rel="noopener">Find Christian legal help</a></li>
+          <li><strong>Legal Services of Greater Miami</strong> — <a href="https://www.legalservicesmiami.org/" target="_blank" rel="noopener">Free civil legal aid</a></li>
+          <li><strong>211 Miami</strong> — <a href="https://www.211miami.org/" target="_blank" rel="noopener">Food, shelter & services</a></li>
+          <li><strong>988 Suicide & Crisis Lifeline</strong> — Tel: <a href="tel:988">988</a> — <a href="https://988lifeline.org/" target="_blank" rel="noopener">Website</a></li>
         </ul>
-    </section>
-
-    <section id="support">
-        <h2><i class="fas fa-hand-holding-heart"></i> Support Programs (AA / NA)</h2>
         <ul>
-            <li><strong>Sabal Palm Room (AA)</strong> — Tel: 305-274-7434</li>
-            <li><a href="https://www.aa-meetings.com/directory/florida/miami" target="_blank">Full AA Meeting List</a></li>
-            <li><a href="https://www.na.org/meetingsearch/" target="_blank">NA Meeting Finder</a></li>
+          <li><strong>Feeding South Florida</strong> — <a href="https://feedingsouthflorida.org/find-food/" target="_blank" rel="noopener">Find food near you</a></li>
+          <li><strong>Low-cost / Free Clinic</strong> — Miami Rescue Mission Clinic — <a href="https://caringplace.org/clinics/" target="_blank" rel="noopener">Info</a></li>
+          <li><strong>Salvation Army Miami — Area Command</strong> — <a href="https://salvationarmyflorida.org/miami/" target="_blank" rel="noopener">Programs & services</a></li>
+          <li><strong>Miami-Dade Community Action</strong> — <a href="https://www.miamidade.gov/global/initiatives/community-action/home.page" target="_blank" rel="noopener">Emergency assistance</a></li>
         </ul>
+      </div>
     </section>
 
-    <section id="gov">
-        <h2><i class="fas fa-landmark"></i> Government Assistance</h2>
+    <!-- Government Aid -->
+    <section id="gov" class="card">
+      <h2>🏛️ Government Assistance</h2>
+      <ul>
+        <li><a href="https://www.myflorida.com/accessflorida/" target="_blank" rel="noopener">MyACCESS Florida</a> — Apply for SNAP/EBT, Medicaid, TANF</li>
+        <li>SNAP / EBT Info — Tel: <a href="tel:18667622237">1‑866‑762‑2237</a>; EBT Card Support — <a href="tel:18883563281">1‑888‑356‑3281</a></li>
+        <li><a href="https://www.fcc.gov/lifeline-consumers" target="_blank" rel="noopener">Lifeline Free/Discount Phone</a> — low‑income phone plans</li>
+      </ul>
+    </section>
+
+    <!-- Employment -->
+    <section id="jobs" class="card">
+      <h2>💼 Job Assistance</h2>
+      <ul>
+        <li><a href="https://www.careersourcesfl.com" target="_blank" rel="noopener">CareerSource South Florida</a> — job search & training</li>
+        <li>American Job Center — 1603 NW 7th Ave, Miami, FL — Tel: <a href="tel:13053410150">305‑341‑0150</a></li>
+        <li>Miami Job Corps — Tel: <a href="tel:18007335627">800‑733‑5627</a> — <a href="https://www.jobcorps.gov/miami" target="_blank" rel="noopener">Website</a></li>
+      </ul>
+    </section>
+
+    <!-- Money / Banking / Payments -->
+    <section id="money" class="card">
+      <h2>💳 Money, Banking & Payments</h2>
+      <div class="two-col">
         <ul>
-            <li><a href="https://myflorida.com/accessflorida/" target="_blank">MyACCESS Florida</a> — SNAP, Medicaid, TCA</li>
-            <li>SNAP / EBT: Tel: 1-866-762-2237</li>
-            <li>EBT Card: Tel: 1-888-356-3281</li>
-            <li><strong>Christian Legal Services</strong> — <a href="https://www.clsnet.org/" target="_blank">Website</a></li>
+          <li><strong>Chime</strong> (no monthly fees) — <a href="https://www.chime.com/" target="_blank" rel="noopener">Open account</a></li>
+          <li><strong>Cash App</strong> — <a href="https://cash.app/" target="_blank" rel="noopener">Get direct deposit</a></li>
+          <li><strong>Venmo</strong> — <a href="https://venmo.com/" target="_blank" rel="noopener">Send & receive money</a></li>
+          <li><strong>Bank On Certified Accounts</strong> — <a href="https://joinbankon.org/consumers/" target="_blank" rel="noopener">Safe low‑fee bank accounts</a></li>
         </ul>
-    </section>
-
-    <section id="jobs">
-        <h2><i class="fas fa-briefcase"></i> Job Assistance</h2>
         <ul>
-            <li><a href="https://www.careersourcesfl.com" target="_blank">CareerSource South Florida</a></li>
-            <li>American Job Center — Tel: 305-341-0150</li>
-            <li>Miami Job Corps Center — Tel: 800-733-JOBS</li>
+          <li class="note">Tip: enable <em>Direct Deposit</em> in your banking app to receive checks faster and safely.</li>
+          <li class="note">Keep your ID safe. If lost, see the <a href="#credit">ID & Credit</a> section.</li>
         </ul>
+      </div>
     </section>
 
-    <section>
-        <h2><i class="fas fa-map-marked-alt"></i> Miami Resources Map</h2>
-        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1BtTSuThRccxAXR1slfVZ2UEF8Jk4AZE&ehbc=2E312F"></iframe>
+    <!-- Credit & ID -->
+    <section id="credit" class="card">
+      <h2>🪪 Credit & ID — Start/Repair</h2>
+      <div class="two-col">
+        <ul>
+          <li><strong>Self</strong> (credit builder) — <a href="https://www.self.inc/" target="_blank" rel="noopener">Build credit</a></li>
+          <li><strong>Kikoff</strong> (low‑cost builder) — <a href="https://kikoff.com/" target="_blank" rel="noopener">Start now</a></li>
+          <li><strong>Experian Boost</strong> — <a href="https://www.experian.com/consumer-products/boost.html" target="_blank" rel="noopener">Add bills to credit</a></li>
+          <li><strong>Get your free credit report</strong> — <a href="https://www.annualcreditreport.com" target="_blank" rel="noopener">AnnualCreditReport.com</a></li>
+        </ul>
+        <ul>
+          <li><strong>Replace Social Security Card</strong> — <a href="https://www.ssa.gov/ssnumber/" target="_blank" rel="noopener">SSA: SSN & Card</a></li>
+          <li><strong>Birth Certificate (Florida)</strong> — <a href="https://www.floridahealth.gov/certificate/vital-records/birth/" target="_blank" rel="noopener">Order copy</a></li>
+          <li><strong>Florida ID/Driver License</strong> — see <a href="#dmv">DMV</a> section</li>
+        </ul>
+      </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Please Use It — All rights reserved</p>
-    </footer>
+    <!-- Gig Work -->
+    <section id="gig" class="card">
+      <h2>🚴 Gig Work — Fast Start</h2>
+      <ul>
+        <li><strong>DoorDash Dasher</strong> — <a href="https://dasher.doordash.com/" target="_blank" rel="noopener">Apply</a></li>
+        <li><strong>Uber Eats Delivery</strong> — <a href="https://www.uber.com/us/en/deliver/" target="_blank" rel="noopener">Get started</a></li>
+        <li><strong>Instacart Shopper</strong> — <a href="https://shoppers.instacart.com/" target="_blank" rel="noopener">Sign up</a></li>
+        <li class="note">Tip: Most apps require a valid ID, background check, and a bank account for deposits. See <a href="#money">Money</a> & <a href="#credit">Credit</a>.</li>
+      </ul>
+    </section>
 
-<script>
-function translatePage(){
-    const lang = document.getElementById("languageSelect").value;
-    const pageUrl = window.location.href;
-    const googleTranslateUrl = `https://translate.google.com/translate?sl=auto&tl=${lang}&u=${encodeURIComponent(pageUrl)}`;
-    window.open(googleTranslateUrl, '_blank');
-}
-</script>
+    <!-- DMV / Transportation -->
+    <section id="dmv" class="card">
+      <h2>🆔 DMV — Driver License & ID (Miami‑Dade)</h2>
+      <ul>
+        <li><strong>FLHSMV — Miami‑Dade Offices & Appointments</strong> — <a href="https://www.flhsmv.gov/locations/miami-dade/" target="_blank" rel="noopener">View locations</a></li>
+        <li><strong>Florida Driver License / ID — Renew or Replace</strong> — <a href="https://www.flhsmv.gov/driver-licenses-id-cards/" target="_blank" rel="noopener">Start here</a></li>
+        <li><strong>Miami‑Dade Transit</strong> — <a href="https://www.miamidade.gov/transit/" target="_blank" rel="noopener">Bus & Metrorail info</a></li>
+      </ul>
+    </section>
+
+    <!-- Resume -->
+    <section id="resume" class="card">
+      <h2>📄 Quick Resume (Copy & Paste)</h2>
+      <p class="note">Use this simple template in Google Docs or any editor. Customize and save as PDF.</p>
+      <textarea id="resumeText" style="width:100%;height:220px;border-radius:12px;border:1px solid rgba(255,255,255,.25);padding:12px;background:#0b132b;color:#fff">
+FULL NAME
+Miami, FL • (XXX) XXX‑XXXX • email@example.com
+
+SUMMARY
+Motivated, reliable, and quick to learn. Ready for full‑time or gig work. Strong customer service and on‑time performance.
+
+SKILLS
+• Customer Service • Delivery & Navigation • Cleaning & Maintenance • Basic Computer & Phone Apps • Bilingual: _____
+
+EXPERIENCE
+Job Title — Company — City, ST — MM/YYYY–MM/YYYY
+• Main responsibility/achievement
+• Main responsibility/achievement
+
+EDUCATION
+High School or GED — City, ST — Year
+
+REFERENCES
+Available upon request
+      </textarea>
+      <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap">
+        <button class="cta" onclick="copyResume()"><i class="fa-regular fa-copy"></i> Copy Resume</button>
+        <a class="cta" style="text-decoration:none; display:inline-block" href="https://docs.google.com/document/u/0/" target="_blank" rel="noopener"><i class="fa-brands fa-google-drive"></i> Open Google Docs</a>
+        <a class="cta" style="text-decoration:none; display:inline-block" href="https://www.canva.com/resumes/templates/" target="_blank" rel="noopener"><i class="fa-brands fa-canva"></i> Free Templates</a>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section id="map" class="card">
+      <h2>🗺️ Miami Resources Map</h2>
+      <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1BtTSuThRccxAXR1slfVZ2UEF8Jk4AZE&ehbc=2E312F" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Please Use It — Positivity, Support & Helpful Resources
+  </footer>
+
+  <!-- Google Translate (inline widget) -->
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage:'en', includedLanguages:'en,ru,es,pt,ht,uk', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <script>
+    function copyResume(){
+      const t=document.getElementById('resumeText'); t.select(); t.setSelectionRange(0,99999);
+      document.execCommand('copy');
+      const original=t.value; // small toast
+      const toast=document.createElement('div');
+      toast.textContent='Copied! Ready to paste.';
+      toast.style.position='fixed'; toast.style.bottom='16px'; toast.style.right='16px'; toast.style.padding='10px 14px'; toast.style.background='#06d6a0'; toast.style.color='#000'; toast.style.borderRadius='10px'; toast.style.fontWeight='700';
+      document.body.appendChild(toast); setTimeout(()=>toast.remove(),1500);
+    }
+  </script>
 </body>
 </html>
