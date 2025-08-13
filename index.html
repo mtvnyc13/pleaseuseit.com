@@ -55,6 +55,14 @@
       .two-col{grid-template-columns:1fr}
       .lang{min-width:unset; width:100%}
     }
+      @media print{
+      body{background:#fff}
+      header, nav, .tools, footer{display:none !important}
+      .card{border:none; box-shadow:none; background:#fff; color:#000}
+      .printable{page-break-inside:avoid}
+    }
+    details summary{cursor:pointer}
+    details[open] summary{opacity:.9}
   </style>
 </head>
 <body>
@@ -71,7 +79,11 @@
         <a href="#credit"><i class="fa-solid fa-credit-card"></i> Credit & ID</a>
         <a href="#gig"><i class="fa-solid fa-bicycle"></i> Gig Work</a>
         <a href="#dmv"><i class="fa-solid fa-id-card"></i> DMV</a>
+        <a href="#showers"><i class="fa-solid fa-shower"></i> Showers/Laundry</a>
+        <a href="#wifi"><i class="fa-solid fa-wifi"></i> Free Wi‑Fi & Charging</a>
+        <a href="#howto"><i class="fa-solid fa-list-check"></i> How‑To Guides</a>
         <a href="#resume"><i class="fa-solid fa-file-lines"></i> Resume</a>
+        <a href="#printables"><i class="fa-solid fa-file-arrow-down"></i> Printables</a>
         <a href="#map"><i class="fa-solid fa-map-location-dot"></i> Map</a>
       </nav>
       <div class="tools">
@@ -88,7 +100,7 @@
         <li><strong>Camillus House Day Center</strong> — 1603 NW 7th Ave, Miami, FL 33136 — <a href="https://www.camillus.org" target="_blank" rel="noopener">Website</a></li>
         <li><strong>Lotus House Women’s Shelter</strong> — 217 NW 15th St, Miami, FL 33136 — Tel: <a href="tel:13054380556">305‑438‑0556</a> — <a href="https://www.lotushouse.org/" target="_blank" rel="noopener">Website</a></li>
         <li><strong>Miami Rescue Mission (The Caring Place)</strong> — 3553 NW 50th St (Admin) / 2159 NW 1st Ct (Downtown), Miami — <a href="https://caringplace.org/" target="_blank" rel="noopener">Website</a></li>
-        <li><strong>Salvation Army ARC Miami (Adult Rehabilitation Center)</strong> — 2236 NW Miami Ct, Miami, FL 33127 — <a href="https://miami.salvationarmyflorida.org/miami/adult-rehabilitation" target="_blank" rel="noopener">Website</a></li>
+        <li><strong>Salvation Army ARC Miami (Adult Rehabilitation Center)</strong> — 2236 NW Miami Ct, Miami, FL 33127 — <a href="https://salvationarmyflorida.org/miami/" target="_blank" rel="noopener">Website</a></li>
         <li><strong>Miami-Dade County Homeless Helpline</strong> — Tel: <a href="tel:18779944357">1‑877‑994‑4357</a></li>
       </ul>
     </section>
@@ -108,8 +120,8 @@
         <ul>
           <li><strong>Feeding South Florida</strong> — <a href="https://feedingsouthflorida.org/find-food/" target="_blank" rel="noopener">Find food near you</a></li>
           <li><strong>Low-cost / Free Clinic</strong> — Miami Rescue Mission Clinic — <a href="https://caringplace.org/clinics/" target="_blank" rel="noopener">Info</a></li>
-          <li><strong>Salvation Army Miami — Area Command</strong> — <a href="https://miami.salvationarmyflorida.org/miami/adult-rehabilitation" target="_blank" rel="noopener">Programs & services</a></li>
-          <li><strong>Miami-Dade Community Action</strong> — <a href="https://www.miamidade.gov/global/service.page?Mduid_service=ser1497555806798351" target="_blank" rel="noopener">Emergency assistance</a></li>
+          <li><strong>Salvation Army Miami — Area Command</strong> — <a href="https://salvationarmyflorida.org/miami/" target="_blank" rel="noopener">Programs & services</a></li>
+          <li><strong>Miami-Dade Community Action</strong> — <a href="https://www.miamidade.gov/global/initiatives/community-action/home.page" target="_blank" rel="noopener">Emergency assistance</a></li>
         </ul>
       </div>
     </section>
@@ -223,6 +235,149 @@ Available upon request
     </section>
 
     <!-- Map -->
+        <!-- Showers & Laundry -->
+    <section id="showers" class="card">
+      <h2>🚿 Public Showers & Laundry</h2>
+      <div class="two-col">
+        <ul>
+          <li><strong>Camillus House — Day Services</strong> (showers, hygiene, mail) — <a href="https://www.camillus.org/services/day-center/" target="_blank" rel="noopener">Details</a></li>
+          <li><strong>Miami Rescue Mission — Dayroom</strong> (hygiene & basic needs — availability varies) — <a href="https://caringplace.org/" target="_blank" rel="noopener">Website</a> — <span class="note">Call ahead</span></li>
+          <li><strong>Salvation Army Miami</strong> — Programs & assistance — <a href="https://salvationarmyflorida.org/miami/" target="_blank" rel="noopener">Website</a> — <span class="note">Ask about hygiene access</span></li>
+          <li><strong>Miami Beach Public Showers</strong> — Beachfront rinse stations (not private) — <a href="https://www.miamibeachfl.gov/city-facilities/" target="_blank" rel="noopener">City facilities</a></li>
+        </ul>
+        <ul>
+          <li><strong>Laundry Love</strong> — Free laundry nights (various locations) — <a href="https://laundrylove.org/find-a-location/" target="_blank" rel="noopener">Find a location</a></li>
+          <li><strong>LaundryCares Foundation</strong> — Community Free Laundry Days — <a href="https://laundrycares.org/events/" target="_blank" rel="noopener">Events</a></li>
+          <li><strong>Overtown / Little Havana Laundromats</strong> — Search nearby — <a href="https://www.google.com/maps/search/laundromat+near+me/" target="_blank" rel="noopener">Open map</a></li>
+          <li class="note">Tip: Many shelters offer limited laundry slots — ask intake staff early in the day.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Free Wi‑Fi & Charging -->
+    <section id="wifi" class="card">
+      <h2>📶 Free Wi‑Fi & Charging Spots</h2>
+      <div class="two-col">
+        <ul>
+          <li><strong>Miami‑Dade Public Libraries</strong> — free Wi‑Fi, outlets, computers — <a href="https://www.mdpls.org/locations" target="_blank" rel="noopener">Find a branch</a></li>
+          <li><strong>City of Miami Beach — MBWiFi</strong> (public Wi‑Fi zones) — <a href="https://www.miamibeachfl.gov/city-hall/information-technology/mbwifi/" target="_blank" rel="noopener">Coverage map</a></li>
+          <li><strong>Government Center & Transit Hubs</strong> — outlets in common areas — <a href="https://www.miamidade.gov/transit/" target="_blank" rel="noopener">Transit info</a></li>
+        </ul>
+        <ul>
+          <li class="note">Cafés & fast food spots usually have outlets/Wi‑Fi (buy a $1 drink to stay).</li>
+          <li class="note">Carry a short USB‑C/Lightning cable; ask staff before using outlets.</li>
+          <li class="note">Library cards are free for Miami‑Dade residents — ask for guest passes if needed.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- How‑To Guides -->
+    <section id="howto" class="card">
+      <h2>🧭 Quick How‑To Guides</h2>
+      <ul>
+        <li>
+          <details>
+            <summary><strong>Make a DoorDash Dasher account (10–20 min)</strong></summary>
+            <ol>
+              <li>Open <a href="https://dasher.doordash.com/" target="_blank" rel="noopener">dasher.doordash.com</a> and enter email/phone.</li>
+              <li>Upload ID and consent to a background check.</li>
+              <li>Choose vehicle type (car, scooter, bike).</li>
+              <li>Set up direct deposit (see <a href="#money">Money</a>).</li>
+              <li>Complete any activation steps and start dashing.</li>
+            </ol>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary><strong>Start Uber Eats delivery</strong></summary>
+            <ol>
+              <li>Go to <a href="https://www.uber.com/us/en/deliver/" target="_blank" rel="noopener">uber.com/deliver</a> and sign in or create account.</li>
+              <li>Upload ID, vehicle docs (if car), and pass background check.</li>
+              <li>Add bank info for payouts.</li>
+              <li>Complete onboarding; pick up your first order.</li>
+            </ol>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary><strong>Get paid: set up Direct Deposit</strong></summary>
+            <ol>
+              <li>Open your banking app (e.g., Chime, Cash App, Venmo).</li>
+              <li>Find <em>Direct Deposit</em> — copy routing & account numbers.</li>
+              <li>Paste into the gig app (DoorDash/Uber) or give to your employer.</li>
+              <li>Test with a small transfer to confirm.</li>
+            </ol>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary><strong>Build credit from scratch</strong></summary>
+            <ol>
+              <li>Open a builder (Self or Kikoff) and make on‑time payments.</li>
+              <li>Use <a href="https://www.experian.com/consumer-products/boost.html" target="_blank" rel="noopener">Experian Boost</a> to add bills.</li>
+              <li>Pull <a href="https://www.annualcreditreport.com" target="_blank" rel="noopener">free credit report</a> and monitor monthly.</li>
+            </ol>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary><strong>Generate a resume with ChatGPT</strong></summary>
+            <ol>
+              <li>Open <a href="https://chat.openai.com/" target="_blank" rel="noopener">ChatGPT</a>.</li>
+              <li>Paste this prompt: <em>"Write a one‑page resume for entry‑level delivery/warehouse/hospitality based on these details: [paste your info]. Use bullet points, keep it simple."</em></li>
+              <li>Copy the result into Google Docs and export to PDF.</li>
+            </ol>
+          </details>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Printables -->
+    <section id="printables" class="card">
+      <h2>🖨️ Printables (Save as PDF)</h2>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px">
+        <button class="cta" onclick="printBlock('qs')"><i class="fa-solid fa-file-export"></i> Quick‑Start Guide</button>
+        <button class="cta" onclick="printBlock('rights')"><i class="fa-solid fa-id-badge"></i> Rights & Contacts Card</button>
+        <button class="cta" onclick="printBlock('jobsheet')"><i class="fa-solid fa-file-contract"></i> Job Search Sheet</button>
+      </div>
+      <div id="qs" class="printable" style="background:#fff;color:#000;padding:16px;border-radius:12px">
+        <h3>Miami Quick‑Start Guide</h3>
+        <ol>
+          <li>Call <strong>211</strong> for local help; for crisis dial <strong>988</strong>.</li>
+          <li>Get shelter: Camillus House / Miami Rescue Mission / Salvation Army.</li>
+          <li>Apply for <strong>SNAP/Medicaid</strong> via <em>MyACCESS Florida</em>.</li>
+          <li>Open bank (Chime) and enable <em>Direct Deposit</em>.</li>
+          <li>Start income fast: DoorDash / Uber Eats / Instacart.</li>
+          <li>Begin credit: Self or Kikoff; add bills with Experian Boost.</li>
+          <li>Replace ID: SSA card, birth certificate, then Florida ID.</li>
+          <li>Use libraries for Wi‑Fi/charging and printing.</li>
+        </ol>
+      </div>
+      <div id="rights" class="printable" style="background:#fff;color:#000;padding:16px;border-radius:12px;margin-top:10px">
+        <h3>Important Contacts & Notes</h3>
+        <ul>
+          <li>Emergency: 911 — Crisis/Lifeline: 988</li>
+          <li>Homeless Helpline: 1‑877‑994‑4357</li>
+          <li>211 Miami — Food/Shelter/Services: 211 or 305‑631‑4211</li>
+          <li>Legal Aid: Legal Services of Greater Miami; Christian Legal Aid (see site)</li>
+          <li>Keep a photo of your IDs and a paper copy of key numbers.</li>
+        </ul>
+      </div>
+      <div id="jobsheet" class="printable" style="background:#fff;color:#000;padding:16px;border-radius:12px;margin-top:10px">
+        <h3>Job Search Sheet</h3>
+        <p>Track 10 applications (Company, Role, Date, Contact, Status)</p>
+        <table style="width:100%;border-collapse:collapse" border="1">
+          <tr><th>Company</th><th>Role</th><th>Date</th><th>Contact</th><th>Status</th></tr>
+          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </table>
+      </div>
+      <p class="note" style="margin-top:10px">Use your browser’s <em>Print</em> → <strong>Save as PDF</strong> to download.</p>
+    </section>
+
     <section id="map" class="card">
       <h2>🗺️ Miami Resources Map</h2>
       <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1BtTSuThRccxAXR1slfVZ2UEF8Jk4AZE&ehbc=2E312F" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -250,6 +405,23 @@ Available upon request
       toast.textContent='Copied! Ready to paste.';
       toast.style.position='fixed'; toast.style.bottom='16px'; toast.style.right='16px'; toast.style.padding='10px 14px'; toast.style.background='#06d6a0'; toast.style.color='#000'; toast.style.borderRadius='10px'; toast.style.fontWeight='700';
       document.body.appendChild(toast); setTimeout(()=>toast.remove(),1500);
+    }
+  </script>
+
+  <script>
+    // Print a specific block by temporarily showing only that block
+    function printBlock(id){
+      const el=document.getElementById(id);
+      if(!el) return; 
+      const html=document.documentElement.cloneNode(true);
+      const printWin=window.open('', '_blank');
+      const styles=[...document.querySelectorAll('link[rel="stylesheet"], style')].map(s=>s.outerHTML).join('
+');
+      printWin.document.write(`<!doctype html><html><head><meta charset='utf-8'><title>Print</title>${styles}</head><body>${el.outerHTML}</body></html>`);
+      printWin.document.close();
+      printWin.focus();
+      printWin.print();
+      printWin.close();
     }
   </script>
 </body>
