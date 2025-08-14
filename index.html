@@ -82,12 +82,25 @@
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
         pageLanguage: 'en',
-        includedLanguages: 'en,cr,ru,es,lv,uk',
+        includedLanguages: 'en,ru,es,lv,uk',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE
       }, 'google_translate_element');
     }
   </script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- Leaflet CSS/JS (OpenStreetMap) -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
 </head>
 
 <body>
@@ -117,7 +130,6 @@
       </nav>
       <div class="tools">
         <button id="installBtn" class="cta ghost" style="display:none"><i class="fa-solid fa-download"></i> Install Offline</button>
-        <!-- removed duplicate google_translate_element from header -->
       </div>
     </div>
   </header>
@@ -456,7 +468,10 @@ Available upon request</textarea>
     <!-- Map -->
     <section id="map" class="card">
       <h2>🗺️ Miami Resources Map</h2>
-      <iframe src="https://www.google.com/maps/search/SHELTERS/@25.7869328,-80.2059169,15z?entry=ttu" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div id="miamiMap" style="width:100%; height:420px; border-radius:12px; overflow:hidden"></div>
+      <p class="note" style="margin-top:8px">
+        Нажмите на метки, чтобы открыть сайт/позвонить или построить маршрут. Если какая-то точка смещена — скажите, поправлю.
+      </p>
     </section>
   </main>
 
@@ -467,17 +482,15 @@ Available upon request</textarea>
     // Copy resume text
     function copyResume(){
       const el = document.getElementById('resumeText');
+      if(!el) return;
       el.select(); el.setSelectionRange(0, 99999);
       document.execCommand('copy');
-      const btns = document.querySelectorAll('button');
-      // Tiny feedback
       alert('Resume copied to clipboard.');
     }
 
-    // Print a specific block by id
+    // Print a specific block by id (NO embedded scripts to avoid template literal conflicts)
     function printBlock(id){
       const node = document.getElementById(id);
-      if(!node){ window.print(); return; }
       const w = window.open('', '_blank');
       w.document.write(`<!doctype html><html><head><title>Print</title>
         <meta charset="utf-8" />
@@ -491,14 +504,14 @@ Available upon request</textarea>
           ol{padding-left:18px}
           ul{padding-left:18px}
         </style>
-      </head><body>${node.outerHTML}</body></html>`);
+      </head><body>${node ? node.outerHTML : ''}</body></html>`);
       w.document.close();
       w.focus();
       w.print();
       w.close();
     }
 
-    // Populate QR quick links
+    // Build QR grid
     const qrLinks = [
       { label: 'MyACCESS Florida', url: 'https://www.myflfamilies.com/services/public-assistance' },
       { label: '211 Miami', url: 'https://www.211miami.org/' },
@@ -511,7 +524,6 @@ Available upon request</textarea>
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
-      // Build QR grid
       const grid = document.getElementById('qrGrid');
       if(grid){
         qrLinks.forEach(item => {
@@ -559,12 +571,94 @@ Available upon request</textarea>
         installBtn.addEventListener('click', async () => {
           if(!deferredPrompt) return;
           deferredPrompt.prompt();
-          await deferredPrompt.userChoice; // result dismissed/accepted
+          await deferredPrompt.userChoice;
           deferredPrompt = null;
           installBtn.style.display = 'none';
         });
       }
     });
+  </script>
+
+  <!-- Leaflet Map init (separate script; no nested template literals) -->
+  <script>
+    (function(){
+      if(!document.getElementById('miamiMap')) return;
+      // Wait until Leaflet is ready and DOM is loaded
+      const init = () => {
+        if(typeof L === 'undefined') { console.error('Leaflet is not loaded'); return; }
+        const map = L.map('miamiMap', { scrollWheelZoom: true }).setView([25.78, -80.20], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        const icon = (emoji) => L.divIcon({
+          className: 'marker-emoji',
+          html: '<div style="font-size:20px; line-height:20px">'+emoji+'</div>',
+          iconSize: [24,24],
+          iconAnchor: [12,12]
+        });
+
+        const places = [
+          { name: 'Camillus House Day Center', addr: '1603 NW 7th Ave, Miami, FL 33136', url: 'https://www.camillus.org', emoji: '🏠' },
+          { name: 'Lotus House Women’s Shelter', addr: '217 NW 15th St, Miami, FL 33136', url: 'https://lotushouse.org/', emoji: '🏠' },
+          { name: 'Miami Rescue Mission (The Caring Place) — Downtown', addr: '2159 NW 1st Ct, Miami, FL 33127', url: 'https://caringplace.org/', emoji: '🏠' },
+          { name: 'Salvation Army ARC Miami', addr: '2236 NW Miami Ct, Miami, FL 33127', url: 'https://southernusa.salvationarmy.org/florida/adult-rehabilitation', emoji: '🏠' },
+          { name: 'American Job Center', addr: '1603 NW 7th Ave, Miami, FL 33136', url: 'tel:3053410150', emoji: '🧭' },
+          { name: 'Showers — Camillus House Day Center', addr: '1603 NW 7th Ave, Miami, FL 33136', url: 'https://www.camillus.org/need-help/', emoji: '🧼' },
+          { name: 'Showers — Miami Rescue Mission', addr: '2020 NW 1st Ave, Miami, FL 33127', url: 'https://caringplace.org/', emoji: '🧼' },
+          { name: 'Miami Rescue Mission Clinic (Caring Place Clinic)', addr: '2015 NW 1st Ave, Miami, FL 33127', url: 'https://www.caringplaceclinic.org/', emoji: '🏥' },
+          { name: 'Camillus Health', addr: '336 NW 5th St, Miami, FL 33128', url: 'https://www.camillus.org/', emoji: '🏥' }
+        ];
+
+        const geoCache = new Map();
+        async function geocodeAddress(address) {
+          if (geoCache.has(address)) return geoCache.get(address);
+          const url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address) + '&limit=1&addressdetails=0';
+          const res = await fetch(url, { headers: { 'Accept-Language': 'en' } });
+          if (!res.ok) throw new Error('Geocoding failed: ' + res.status);
+          const data = await res.json();
+          if (!data || !data[0]) throw new Error('Address not found: ' + address);
+          const latlng = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+          geoCache.set(address, latlng);
+          return latlng;
+        }
+
+        async function addMarkers() {
+          const markers = [];
+          for (const p of places) {
+            try {
+              const latlng = await geocodeAddress(p.addr);
+              const popup = '<strong>'+p.name+'</strong><br/>' +
+                            p.addr + '<br/>' +
+                            '<a href="'+p.url+'" target="_blank" rel="noopener">Открыть сайт/позвонить</a><br/>' +
+                            '<a href="https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(p.addr)+'" target="_blank" rel="noopener">Навигация</a>';
+              const m = L.marker(latlng, { icon: icon(p.emoji), title: p.name }).addTo(map).bindPopup(popup);
+              markers.push(m);
+            } catch (e) {
+              console.warn('Не удалось геокодировать:', p.addr, e);
+            }
+          }
+          if (markers.length) {
+            const group = L.featureGroup(markers);
+            map.fitBounds(group.getBounds().pad(0.2));
+          }
+        }
+        addMarkers();
+
+        // --- Simple runtime tests (console) ---
+        try {
+          console.assert(typeof L !== 'undefined', 'Leaflet not loaded');
+          console.assert(document.getElementById('miamiMap'), '#miamiMap missing');
+          console.assert(Array.isArray(places) && places.length > 0, 'places empty');
+          console.log('Self-test: PASS (Leaflet map initialized)');
+        } catch (e) { console.error('Self-test: FAIL', e); }
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else { init(); }
+    })();
   </script>
 </body>
 </html>
