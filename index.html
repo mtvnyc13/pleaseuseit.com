@@ -1,820 +1,95 @@
-<!DOCTYPE html>
-<html lang="en"><head>  <meta charset="UTF-8" />  <meta name="viewport" content="width=device-width, initial-scale=1" />  <meta name="theme-color" content="#00b4d8" />  <title>Please Use It — Miami Resources (Offline‑Ready)</title>  <link rel="preconnect" href="https://fonts.googleapis.com">  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfQNZdwQ+PliYV8G7D4gG3E3E1KSU5BfI7x6GZ8Z6P4b8hoIH6GdFZ7Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />  <!-- QR code generator (tiny, no deps) -->  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-D3Z8sG8Qb9JHq3qXy7m7NwCk6eQ0m9KkFj5w0C8g3mZlZKp8T8y8oI2EwJwOGp0c9hcJr8G2EJx6wH0G2WQ2sA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  <style>
-  <div id="google_translate_element"></div>
-    :root{ --primary:#00b4d8; --accent:#ff9f1c; --bg:rgba(0,0,0,.55); }
-  
-    html{scroll-behavior:smooth}
-  
-    *{box-sizing:border-box}
-  
-    body{
-  
-      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height:1.6; color:#fff;
-  
-      background:url('https://images.unsplash.com/photo-1473042904451-00171c69419d?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed; background-size:cover;
-  
-    }
-  
-    header{
-  
-      position:sticky; top:0; z-index:1000; backdrop-filter:saturate(130%) blur(6px);
-  
-      background:linear-gradient(90deg, rgba(0,180,216,.95), rgba(2,62,138,.95));
-  
-      padding:14px 16px; box-shadow:0 6px 16px rgba(0,0,0,.25);
-  
-    }
-  
-    .row{max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
-  
-    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
-  
-    .brand i{font-size:24px}
-  
-    .brand span{font-size:20px}
-  
-    nav{display:flex; gap:14px; flex:1; justify-content:center; flex-wrap:wrap}
-  
-    nav a{color:#fff; text-decoration:none; font-weight:600; padding:8px 10px; border-radius:10px; transition:.2s; white-space:nowrap}
-  
-    nav a:hover{background:rgba(255,255,255,.12)}
-  
-    .tools{margin-left:auto; display:flex; align-items:center; gap:10px}
-  
-    .lang{min-width:190px; background:#fff; color:#000; border-radius:10px; padding:6px 10px}
-  
-    .cta{background:#ff9f1c; color:#000; border:none; border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer}
-  
-    .ghost{background:transparent; color:#fff; border:1px solid rgba(255,255,255,.4)}
-  
+body{
+  margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height:1.6; color:#fff;
+  background:url('https://images.unsplash.com/photo-1473042904451-00171c69419d?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed; background-size:cover;
+}
+header{
+  position:sticky; top:0; z-index:1000; backdrop-filter:saturate(130%) blur(6px);
+  background:linear-gradient(90deg, rgba(0,180,216,.95), rgba(2,62,138,.95));
+  padding:14px 16px; box-shadow:0 6px 16px rgba(0,0,0,.25);
+}
+.row{max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+.brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
+.brand i{font-size:24px}
+.brand span{font-size:20px}
+nav{display:flex; gap:14px; flex:1; justify-content:center; flex-wrap:wrap}
+nav a{color:#fff; text-decoration:none; font-weight:600; padding:8px 10px; border-radius:10px; transition:.2s; white-space:nowrap}
+nav a:hover{background:rgba(255,255,255,.12)}
+.tools{margin-left:auto; display:flex; align-items:center; gap:10px}
+.lang{min-width:190px; background:#fff; color:#000; border-radius:10px; padding:6px 10px}
+.cta{background:#ff9f1c; color:#000; border:none; border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer}
+.ghost{background:transparent; color:#fff; border:1px solid rgba(255,255,255,.4)}
+main{padding:24px 16px}
+section.card{
+  background:var(--bg); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:18px; margin:16px auto; max-width:1100px;
+  box-shadow:0 10px 28px rgba(0,0,0,.25); transform:translateY(8px); opacity:0; animation:fadeUp .6s ease forwards;
+}
+section.card h2{margin:0 0 10px; color:#ffe8cc}
+section.card ul{list-style:none; padding:0; margin:0}
+section.card li{margin:10px 0; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); padding:10px; border-radius:12px}
+section.card a{color:#ffd166; font-weight:700}
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.grid{display:grid; gap:12px}
+.grid.qr{grid-template-columns:repeat(auto-fit, minmax(160px,1fr))}
+.note{font-size:.95rem; opacity:.9}
+iframe{width:100%; height:420px; border:0; border-radius:12px}
+footer{padding:26px 16px; text-align:center; background:rgba(0,0,0,.7)}
+@keyframes fadeUp{to{opacity:1; transform:translateY(0)}}
+@media (max-width: 820px){
+  nav{justify-content:flex-start}
+  .two-col{grid-template-columns:1fr}
+  .lang{min-width:unset; width:100%}
+}
+@media print{
+  body{background:#fff}
+  header, nav, .tools, footer{display:none !important}
+  .card{border:none; box-shadow:none; background:#fff; color:#000}
+  .printable{page-break-inside:avoid}
+}
+details summary{cursor:pointer}
+details[open] summary{opacity:.9}
+.tag{display:inline-block; font-size:.8rem; padding:3px 8px; border-radius:999px; background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.2); margin-left:6px}
+</style>
+</head>
+<body>
+<header>
+<div class="row">
+  <div class="brand"><i class="fas fa-hands-holding-heart"></i><span>Please Use It</span> <span class="tag">Miami</span></div>
+  <nav>
+    <a href="#shelters"><i class="fa-solid fa-bed"></i> Shelters</a>
+    <a href="#support"><i class="fa-solid fa-hand-holding-heart"></i> Support</a>
+    <a href="#gov"><i class="fa-solid fa-landmark"></i> Gov Aid</a>
+    <a href="#jobs"><i class="fa-solid fa-briefcase"></i> Jobs</a>
+    <a href="#money"><i class="fa-solid fa-piggy-bank"></i> Money</a>
+    <a href="#credit"><i class="fa-solid fa-credit-card"></i> Credit & ID</a>
+    <a href="#gig"><i class="fa-solid fa-bicycle"></i> Gig Work</a>
+    <a href="#dmv"><i class="fa-solid fa-id-card"></i> DMV</a>
+    <a href="#showers"><i class="fa-solid fa-shower"></i> Showers/Laundry</a>
+    <a href="#wifi"><i class="fa-solid fa-wifi"></i> Free Wi-Fi & Charging</a>
+    <a href="#howto"><i class="fa-solid fa-list-check"></i> How-To</a>
+    <a href="#resume"><i class="fa-solid fa-file-lines"></i> Resume</a>
+    <a href="#survival"><i class="fa-solid fa-shield-heart"></i> Street Survival</a>
+    <a href="#printables"><i class="fa-solid fa-file-arrow-down"></i> Printables</a>
+    <a href="#map"><i class="fa-solid fa-map-location-dot"></i> Map</a>
+  </nav>
+  <div class="tools">
+    <button id="installBtn" class="cta ghost" style="display:none"><i class="fa-solid fa-download"></i> Install Offline</button>
+    <div id="google_translate_element" class="lang"></div>
+  </div>
+</div>
+</header>
 
-  
-    main{padding:24px 16px}
-  
-    section.card{
-  
-      background:var(--bg); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:18px; margin:16px auto; max-width:1100px;
-  
-      box-shadow:0 10px 28px rgba(0,0,0,.25); transform:translateY(8px); opacity:0; animation:fadeUp .6s ease forwards;
-  
-    }
-  
-    section.card h2{margin:0 0 10px; color:#ffe8cc}
-  
-    section.card ul{list-style:none; padding:0; margin:0}
-  
-    section.card li{margin:10px 0; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); padding:10px; border-radius:12px}
-  
-    section.card a{color:#ffd166; font-weight:700}
-  
-    .two-col{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-  
-    .grid{display:grid; gap:12px}
-  
-    .grid.qr{grid-template-columns:repeat(auto-fit, minmax(160px,1fr))}
-  
-    .note{font-size:.95rem; opacity:.9}
-  
-    iframe{width:100%; height:420px; border:0; border-radius:12px}
-  
-    footer{padding:26px 16px; text-align:center; background:rgba(0,0,0,.7)}
-  
+<!-- Здесь твой основной контент (Shelters, Support и т.д.) -->
 
-  
-    @keyframes fadeUp{to{opacity:1; transform:translateY(0)}}
-  
-
-  
-    @media (max-width: 820px){
-  
-      nav{justify-content:flex-start}
-  
-      .two-col{grid-template-columns:1fr}
-  
-      .lang{min-width:unset; width:100%}
-  
-    }
-  
-    @media print{
-  <script type="text/javascript">
+<!-- Скрипт перевода Google -->
+<script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({
-    pageLanguage: 'en', // язык по умолчанию
-    includedLanguages: 'en,ru,es,lv,uk', // языки перевода
+    pageLanguage: 'en',
+    includedLanguages: 'en,ru,es,lv,uk',
     layout: google.translate.TranslateElement.InlineLayout.SIMPLE
   }, 'google_translate_element');
 }
 </script>
-
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-      body{background:#fff}
-  
-      header, nav, .tools, footer{display:none !important}
-  
-      .card{border:none; box-shadow:none; background:#fff; color:#000}
-  
-      .printable{page-break-inside:avoid}
-  
-    }
-  
-    details summary{cursor:pointer}
-  
-    details[open] summary{opacity:.9}
-  
-    .tag{display:inline-block; font-size:.8rem; padding:3px 8px; border-radius:999px; background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.2); margin-left:6px}
-  
-  </style></head><body>  <!-- Header / Nav -->  <header><div class="row">
-
-  <div class="brand"><i class="fas fa-hands-holding-heart"></i><span>Please Use It</span> <span class="tag">Miami</span></div>
-
-  <nav>
-
-    <a href="#shelters"><i class="fa-solid fa-bed"></i> Shelters</a>
-
-    <a href="#support"><i class="fa-solid fa-hand-holding-heart"></i> Support</a>
-
-    <a href="#gov"><i class="fa-solid fa-landmark"></i> Gov Aid</a>
-
-    <a href="#jobs"><i class="fa-solid fa-briefcase"></i> Jobs</a>
-
-    <a href="#money"><i class="fa-solid fa-piggy-bank"></i> Money</a>
-
-    <a href="#credit"><i class="fa-solid fa-credit-card"></i> Credit & ID</a>
-
-    <a href="#gig"><i class="fa-solid fa-bicycle"></i> Gig Work</a>
-
-    <a href="#dmv"><i class="fa-solid fa-id-card"></i> DMV</a>
-
-    <a href="#showers"><i class="fa-solid fa-shower"></i> Showers/Laundry</a>
-
-    <a href="#wifi"><i class="fa-solid fa-wifi"></i> Free Wi‑Fi & Charging</a>
-
-    <a href="#howto"><i class="fa-solid fa-list-check"></i> How‑To</a>
-
-    <a href="#resume"><i class="fa-solid fa-file-lines"></i> Resume</a>
-
-    <a href="#survival"><i class="fa-solid fa-shield-heart"></i> Street Survival</a>
-
-    <a href="#printables"><i class="fa-solid fa-file-arrow-down"></i> Printables</a>
-
-    <a href="#map"><i class="fa-solid fa-map-location-dot"></i> Map</a>
-
-  </nav>
-
-  <div class="tools">
-
-    <button id="installBtn" class="cta ghost" style="display:none"><i class="fa-solid fa-download"></i> Install Offline</button>
-
-    <div id="google_translate_element" class="lang"></div>
-
-  </div>
-
-</div>
-
-  </header>  <main><!-- Shelters -->
-
-<section id="shelters" class="card">
-
-  <h2>🏠 Shelters & Homeless Services</h2>
-
-  <ul>
-
-    <li><strong>Camillus House Day Center</strong> — 1603 NW 7th Ave, Miami, FL 33136 — <a href="https://www.camillus.org" target="_blank" rel="noopener">Website</a></li>
-
-    <li><strong>Lotus House Women’s Shelter</strong> — 217 NW 15th St, Miami, FL 33136 — Tel: <a href="tel:13054380556">305‑438‑0556</a> — <a href="https://www.lotushouse.org/" target="_blank" rel="noopener">Website</a></li>
-
-    <li><strong>Miami Rescue Mission (The Caring Place)</strong> — 3553 NW 50th St (Admin) / 2159 NW 1st Ct (Downtown), Miami — <a href="https://caringplace.org/" target="_blank" rel="noopener">Website</a></li>
-
-    <li><strong>Salvation Army ARC Miami</strong> — 2236 NW Miami Ct, Miami, FL 33127 — <a href="https://southernusa.salvationarmy.org/florida/adult-rehabilitation" target="_blank" rel="noopener">Website</a></li>
-
-    <li><strong>Miami-Dade County Homeless Helpline</strong> — Tel: <a href="tel:18779944357">1‑877‑994‑4357</a></li>
-
-  </ul>
-
-</section>
-
-
-
-<!-- Support -->
-
-<section id="support" class="card">
-
-  <h2>💙 Recovery, Legal & Community Support</h2>
-
-  <div class="two-col">
-
-    <ul>
-
-      <li><strong>AA Meetings (Alcoholics Anonymous)</strong> — <a href="https://www.aa-meetings.com/directory/florida/miami" target="_blank" rel="noopener">Find meetings</a></li>
-
-      <li><strong>NA Meetings (Narcotics Anonymous)</strong> — <a href="https://www.na.org/meetingsearch/" target="_blank" rel="noopener">Search meetings</a></li>
-
-      <li><strong>Christian Legal Aid (CLS)</strong> — <a href="https://www.cclsmiami.org/" target="_blank" rel="noopener">Find Christian legal help</a></li>
-
-      <li><strong>Legal Services of Greater Miami</strong> — <a href="https://www.legalservicesmiami.org/" target="_blank" rel="noopener">Free civil legal aid</a></li>
-
-      <li><strong>211 Miami</strong> — <a href="https://www.211miami.org/" target="_blank" rel="noopener">Food, shelter & services</a></li>
-
-      <li><strong>988 Suicide & Crisis Lifeline</strong> — Tel: <a href="tel:988">988</a> — <a href="https://988lifeline.org/" target="_blank" rel="noopener">Website</a></li>
-
-    </ul>
-
-    <ul>
-
-      <li><strong>Feeding South Florida</strong> — <a href="https://feedingsouthflorida.org/directory-programs/#googtrans(en|en)" target="_blank" rel="noopener">Find food near you</a></li>
-
-      <li><strong>Low‑cost / Free Clinic</strong> — Miami Rescue Mission Clinic — <a href="https://www.caringplaceclinic.org/" target="_blank" rel="noopener">Info</a></li>
-
-      <li><strong>Salvation Army Miami — Area Command</strong> — <a href="https://southernusa.salvationarmy.org/florida" target="_blank" rel="noopener">Programs & services</a></li>
-
-      <li><strong>Miami‑Dade Community Action</strong> — <a href="https://www.miamidade.gov/global/housing/home.page" target="_blank" rel="noopener">Emergency Housing Assistance</a></li>
-
-    </ul>
-
-  </div>
-
-</section>
-
-
-
-<!-- Government Aid -->
-
-<section id="gov" class="card">
-
-  <h2>🏛️ Government Assistance</h2>
-
-  <ul>
-
-    <li><a href="https://www.myflfamilies.com/services/public-assistance" target="_blank" rel="noopener">MyACCESS Florida</a> — Apply for SNAP/EBT, Medicaid, TANF</li>
-
-    <li>SNAP / EBT Info — Tel: <a href="tel:18667622237">1‑866‑762‑2237</a>; EBT Card Support — <a href="tel:18883563281">1‑888‑356‑3281</a></li>
-
-    <li><a href="https://www.fcc.gov/lifeline-consumers" target="_blank" rel="noopener">Lifeline Free/Discount Phone</a> — low‑income phone plans</li>
-
-  </ul>
-
-</section>
-
-
-
-<!-- Employment -->
-
-<section id="jobs" class="card">
-
-  <h2>💼 Job Assistance</h2>
-
-  <ul>
-
-    <li><a href="https://www.careersourcesfl.com" target="_blank" rel="noopener">CareerSource South Florida</a> — job search & training</li>
-
-    <li>American Job Center — 1603 NW 7th Ave, Miami, FL — Tel: <a href="tel:13053410150">305‑341‑0150</a></li>
-
-    <li>Miami Job Corps — Tel: <a href="tel:18007335627">800‑733‑5627</a> — <a href="https://www.jobcorps.gov/miami" target="_blank" rel="noopener">Website</a></li>
-
-  </ul>
-
-</section>
-
-
-
-<!-- Money / Banking / Payments -->
-
-<section id="money" class="card">
-
-  <h2>💳 Money, Banking & Payments</h2>
-
-  <div class="two-col">
-
-    <ul>
-
-      <li><strong>Chime</strong> (no monthly fees) — <a href="https://www.chime.com/" target="_blank" rel="noopener">Open account</a></li>
-
-      <li><strong>Cash App</strong> — <a href="https://cash.app/" target="_blank" rel="noopener">Get direct deposit</a></li>
-
-      <li><strong>Venmo</strong> — <a href="https://venmo.com/" target="_blank" rel="noopener">Send & receive money</a></li>
-
-      <li><strong>Bank On Certified Accounts</strong> — <a href="https://joinbankon.org/consumers/" target="_blank" rel="noopener">Safe low‑fee bank accounts</a></li>
-
-    </ul>
-
-    <ul>
-
-      <li class="note">Tip: enable <em>Direct Deposit</em> in your banking app to receive checks faster and safely.</li>
-
-      <li class="note">Keep your ID safe. If lost, see the <a href="#credit">ID & Credit</a> section.</li>
-
-    </ul>
-
-  </div>
-
-</section>
-
-
-
-<!-- Credit & ID -->
-
-<section id="credit" class="card">
-
-  <h2>🪪 Credit & ID — Start/Repair</h2>
-
-  <div class="two-col">
-
-    <ul>
-
-      <li><strong>Self</strong> (credit builder) — <a href="https://www.self.inc/" target="_blank" rel="noopener">Build credit</a></li>
-
-      <li><strong>Kikoff</strong> (low‑cost builder) — <a href="https://kikoff.com/" target="_blank" rel="noopener">Start now</a></li>
-
-      <li><strong>Experian Boost</strong> — <a href="https://www.experian.com/credit/credit-report/" target="_blank" rel="noopener">Add bills to credit</a></li>
-
-      <li><strong>Get your free credit report</strong> — <a href="https://www.annualcreditreport.com" target="_blank" rel="noopener">AnnualCreditReport.com</a></li>
-
-    </ul>
-
-    <ul>
-
-      <li><strong>Replace Social Security Card</strong> — <a href="https://www.ssa.gov/ssnumber/" target="_blank" rel="noopener">SSA: SSN & Card</a></li>
-
-      <li><strong>Birth Certificate (Florida)</strong> — <a href="https://www.vitalchek.com/order_main.aspx?eventtype=BIRTH" target="_blank" rel="noopener">Order copy</a></li>
-
-      <li><strong>Florida ID/Driver License</strong> — see <a href="#dmv">DMV</a> section</li>
-
-    </ul>
-
-  </div>
-
-</section>
-
-
-
-<!-- Gig Work -->
-
-<section id="gig" class="card">
-
-  <h2>🚴 Gig Work — Fast Start</h2>
-
-  <ul>
-
-    <li><strong>DoorDash Dasher</strong> — <a href="https://dasher.doordash.com/" target="_blank" rel="noopener">Apply</a></li>
-
-    <li><strong>Uber Eats Delivery</strong> — <a href="https://www.uber.com/us/en/deliver/" target="_blank" rel="noopener">Get started</a></li>
-
-    <li><strong>Instacart Shopper</strong> — <a href="https://shoppers.instacart.com/" target="_blank" rel="noopener">Sign up</a></li>
-
-    <li class="note">Tip: Most apps require a valid ID, background check, and a bank account for deposits. See <a href="#money">Money</a> & <a href="#credit">Credit</a>.</li>
-
-  </ul>
-
-</section>
-
-
-
-<!-- DMV / Transportation -->
-
-<section id="dmv" class="card">
-
-  <h2>🆔 DMV — Driver License & ID (Miami‑Dade)</h2>
-
-  <ul>
-
-    <li><strong>FLHSMV — Miami‑Dade Offices & Appointments</strong> — <a href="https://www.flhsmv.gov/locations/miami-dade/" target="_blank" rel="noopener">View locations</a></li>
-
-    <li><strong>Florida Driver License / ID — Renew or Replace</strong> — <a href="https://www.flhsmv.gov/driver-licenses-id-cards/" target="_blank" rel="noopener">Start here</a></li>
-
-    <li><strong>Miami‑Dade Transit</strong> — <a href="https://www.miamidade.gov/transit/" target="_blank" rel="noopener">Bus & Metrorail info</a></li>
-
-  </ul>
-
-</section>
-
-
-
-<!-- Resume -->
-
-<section id="resume" class="card">
-
-  <h2>📄 Quick Resume (Copy & Paste)</h2>
-
-  <p class="note">Use this simple template in Google Docs or any editor. Customize and save as PDF.</p>
-
-  <textarea id="resumeText" style="width:100%;height:220px;border-radius:12px;border:1px solid rgba(255,255,255,.25);padding:12px;background:#0b132b;color:#fff">FULL NAME
-
-Miami, FL • (XXX) XXX‑XXXX • email@example.com
-
-SUMMARY
-
-Motivated, reliable, and quick to learn. Ready for full‑time or gig work. Strong customer service and on‑time performance.
-
-SKILLS
-
-• Customer Service • Delivery & Navigation • Cleaning & Maintenance • Basic Computer & Phone Apps • Bilingual: _____
-
-EXPERIENCE
-
-Job Title — Company — City, ST — MM/YYYY–MM/YYYY
-
-• Main responsibility/achievement
-
-• Main responsibility/achievement
-
-EDUCATION
-
-High School or GED — City, ST — Year
-
-REFERENCES
-
-Available upon request</textarea>
-
-<div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap">
-
-    <button class="cta" onclick="copyResume()"><i class="fa-regular fa-copy"></i> Copy Resume</button>
-
-    <a class="cta" style="text-decoration:none; display:inline-block" href="https://docs.google.com/document/u/0/" target="_blank" rel="noopener"><i class="fa-brands fa-google-drive"></i> Open Google Docs</a>
-
-    <a class="cta" style="text-decoration:none; display:inline-block" href="https://www.canva.com/resumes/templates/" target="_blank" rel="noopener"><i class="fa-brands fa-canva"></i> Free Templates</a>
-
-  </div>
-
-</section>
-
-
-
-<!-- Showers & Laundry -->
-
-<section id="showers" class="card">
-
-  <h2>🚿 Public Showers & Laundry</h2>
-
-  <div class="two-col">
-
-    <ul>
-
-      <li><strong>Camillus House — Day Services</strong> (showers, hygiene, mail) — <a href="https://www.camillus.org/need-help/#1643232053129-85586636-b45a" target="_blank" rel="noopener">Details</a></li>
-
-      <li><strong>Miami Rescue Mission — Dayroom</strong> (hygiene & basic needs — availability varies) — <a href="https://caringplace.org/" target="_blank" rel="noopener">Website</a> — <span class="note">Call ahead</span></li>
-
-      <li><strong>Salvation Army Miami</strong> — Programs & assistance — <a href="https://southernusa.salvationarmy.org/florida/adult-rehabilitation" target="_blank" rel="noopener">Website</a> — <span class="note">Ask about hygiene access</span></li>
-
-      <li><strong>Miami Beach Public Showers</strong> — Beachfront rinse stations (not private) — <a href="https://www.google.com/maps/search/beachfront+rinse+stations/@25.7840353,-80.1266001,14.5z?entry=ttu&g_ep=EgoyMDI1MDgxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">City facilities</a></li>
-
-    </ul>
-
-    <ul>
-
-      <li><strong>Laundry Love</strong> — Free laundry nights — <a href="https://laundrylove.org/find-a-location/" target="_blank" rel="noopener">Find a location</a></li>
-
-      <li><strong>LaundryCares Foundation</strong> — Free Laundry Days — <a href="https://laundrycares.org/events/" target="_blank" rel="noopener">Events</a></li>
-
-      <li><strong>Overtown / Little Havana Laundromats</strong> — Search nearby — <a href="https://www.google.com/maps/search/laundromat+near+me/" target="_blank" rel="noopener">Open map</a></li>
-
-      <li class="note">Tip: Many shelters offer limited laundry slots — ask intake staff early in the day.</li>
-
-    </ul>
-
-  </div>
-
-</section>
-
-
-
-<!-- Free Wi‑Fi & Charging -->
-
-<section id="wifi" class="card">
-
-  <h2>📶 Free Wi‑Fi & Charging Spots</h2>
-
-  <div class="two-col">
-
-    <ul>
-
-      <li><strong>Miami‑Dade Public Libraries</strong> — free Wi‑Fi, outlets, computers — <a href="https://www.mdpls.org/locations" target="_blank" rel="noopener">Find a branch</a></li>
-
-      <li><strong>City of Miami Beach — MBWiFi</strong> (public Wi‑Fi zones) — <a href="https://www.miami.gov/Notices/News-Notices/City-of-Miami-Completes-First-Phase-of-%E2%80%9CWi-Fi-for-Parks%E2%80%9D-Project" target="_blank" rel="noopener">Coverage map</a></li>
-
-      <li><strong>Government Center & Transit Hubs</strong> — outlets in common areas — <a href="https://www.miamidade.gov/transit/" target="_blank" rel="noopener">Transit info</a></li>
-
-    </ul>
-
-    <ul>
-
-      <li class="note">Cafés & fast food spots usually have outlets/Wi‑Fi (buy a $1 drink to stay).</li>
-
-      <li class="note">Carry a short USB‑C/Lightning cable; ask staff before using outlets.</li>
-
-      <li class="note">Library cards are free for Miami‑Dade residents — ask for guest passes if needed.</li>
-
-    </ul>
-
-  </div>
-
-</section>
-
-
-
-<!-- How‑To Guides -->
-
-<section id="howto" class="card">
-
-  <h2>🧭 Quick How‑To Guides</h2>
-
-  <ul>
-
-    <li>
-
-      <details>
-
-        <summary><strong>Make a DoorDash Dasher account (10–20 min)</strong></summary>
-
-        <ol>
-
-          <li>Open <a href="https://dasher.doordash.com/" target="_blank" rel="noopener">dasher.doordash.com</a> and enter email/phone.</li>
-
-          <li>Upload ID and consent to a background check.</li>
-
-          <li>Choose vehicle type (car, scooter, bike).</li>
-
-          <li>Set up direct deposit (see <a href="#money">Money</a>).</li>
-
-          <li>Complete any activation steps and start dashing.</li>
-
-        </ol>
-
-      </details>
-
-    </li>
-
-    <li>
-
-      <details>
-
-        <summary><strong>Start Uber Eats delivery</strong></summary>
-
-        <ol>
-
-          <li>Go to <a href="https://www.uber.com/us/en/deliver/" target="_blank" rel="noopener">uber.com/deliver</a> and sign in or create account.</li>
-
-          <li>Upload ID, vehicle docs (if car), and pass background check.</li>
-
-          <li>Add bank info for payouts.</li>
-
-          <li>Complete onboarding; pick up your first order.</li>
-
-        </ol>
-
-      </details>
-
-    </li>
-
-    <li>
-
-      <details>
-
-        <summary><strong>Get paid: set up Direct Deposit</strong></summary>
-
-        <ol>
-
-          <li>Open your banking app (e.g., Chime, Cash App, Venmo).</li>
-
-          <li>Find <em>Direct Deposit</em> — copy routing & account numbers.</li>
-
-          <li>Paste into the gig app (DoorDash/Uber) or give to your employer.</li>
-
-          <li>Test with a small transfer to confirm.</li>
-
-        </ol>
-
-      </details>
-
-    </li>
-
-    <li>
-
-      <details>
-
-        <summary><strong>Build credit from scratch</strong></summary>
-
-        <ol>
-
-          <li>Open a builder (Self or Kikoff) and make on‑time payments.</li>
-
-          <li>Use <a href="https://www.experian.com/consumer-products/boost.html" target="_blank" rel="noopener">Experian Boost</a> to add bills.</li>
-
-          <li>Pull <a href="https://www.annualcreditreport.com" target="_blank" rel="noopener">free credit report</a> and monitor monthly.</li>
-
-        </ol>
-
-      </details>
-
-    </li>
-
-    <li>
-
-      <details>
-
-        <summary><strong>Generate a resume with ChatGPT</strong></summary>
-
-        <ol>
-
-          <li>Open <a href="https://chat.openai.com/" target="_blank" rel="noopener">ChatGPT</a>.</li>
-
-          <li>Paste this prompt: <em>"Write a one‑page resume for entry‑level delivery/warehouse/hospitality based on these details: [paste your info]. Use bullet points, keep it simple."</em></li>
-
-          <li>Copy the result into Google Docs and export to PDF.</li>
-
-        </ol>
-
-      </details>
-
-    </li>
-
-  </ul>
-
-</section>
-
-
-
-<!-- Street Survival (printable + QR) -->
-
-<section id="survival" class="card printable">
-
-  <h2>🛡️ Street Survival — Offline Pack</h2>
-
-  <p class="note">Save this section as a PDF (button below) to keep on your phone when you don't have internet.</p>
-
-  <div class="grid" style="grid-template-columns:1fr; gap:18px">
-
-    <div>
-
-      <h3>📦 Survival Pack</h3>
-
-      <ul>
-
-        <li>Waterproof pouch with paper copies of ID, SSN, important numbers.</li>
-
-        <li>Phone + short cable + power bank; keep charged at libraries/cafes.</li>
-
-        <li>Reusable water bottle; light rain poncho; mini first‑aid kit; small flashlight; tiny lock.</li>
-
-        <li>Keep photos of documents in email/Google Drive; store originals separately.</li>
-
-      </ul>
-
-    </div>
-
-    <div>
-
-      <h3>🔒 Safety & Docs</h3>
-
-      <ul>
-
-        <li>Separate cash in 2 spots; avoid flashing cards/cash.</li>
-
-        <li>Meet helpers at public places (library, shelter, church).</li>
-
-        <li>Lost ID? Replace SSN → Birth Certificate → Florida ID (see <a href="#credit">Credit & ID</a>).</li>
-
-      </ul>
-
-    </div>
-
-    <div>
-
-      <h3>🆘 SOS & Hotlines</h3>
-
-      <ul>
-
-        <li>Emergency: <strong>911</strong> — Crisis/Lifeline: <strong>988</strong></li>
-
-        <li>Miami‑Dade Homeless Helpline: <strong>1‑877‑994‑4357</strong> — 211 Miami: <strong>305‑631‑4211</strong></li>
-
-        <li>Domestic Violence Hotline: <strong>1‑800‑799‑SAFE (7233)</strong></li>
-
-      </ul>
-
-    </div>
-
-    <div>
-
-      <h3>📱 Quick QR Links</h3>
-
-      <div class="grid qr" id="qrGrid"></div>
-
-    </div>
-
-    <div style="display:flex; gap:10px; flex-wrap:wrap">
-
-      <button class="cta" onclick="printBlock('survival')"><i class="fa-solid fa-file-pdf"></i> Download PDF Survival Pack</button>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- Printables -->
-
-<section id="printables" class="card">
-
-  <h2>🖨️ Printables (Save as PDF)</h2>
-
-  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px">
-
-    <button class="cta" onclick="printBlock('qs')"><i class="fa-solid fa-file-export"></i> Quick‑Start Guide</button>
-
-    <button class="cta" onclick="printBlock('rights')"><i class="fa-solid fa-id-badge"></i> Rights & Contacts Card</button>
-
-    <button class="cta" onclick="printBlock('jobsheet')"><i class="fa-solid fa-file-contract"></i> Job Search Sheet</button>
-
-  </div>
-
-  <div id="qs" class="printable" style="background:#fff;color:#000;padding:16px;border-radius:12px">
-
-    <h3>Miami Quick‑Start Guide</h3>
-
-    <ol>
-
-      <li>Call <strong>211</strong> for local help; for crisis dial <strong>988</strong>.</li>
-
-      <li>Get shelter: Camillus House / Miami Rescue Mission / Salvation Army.</li>
-
-      <li>Apply for <strong>SNAP/Medicaid</strong> via <em>MyACCESS Florida</em>.</li>
-
-      <li>Open bank (Chime) and enable <em>Direct Deposit</em>.</li>
-
-      <li>Start income fast: DoorDash / Uber Eats / Instacart.</li>
-
-      <li>Begin credit: Self or Kikoff; add bills with Experian Boost.</li>
-
-      <li>Replace ID: SSA card, birth certificate, then Florida ID.</li>
-
-      <li>Use libraries for Wi‑Fi/charging and printing.</li>
-
-    </ol>
-
-  </div>
-
-  <div id="rights" class="printable" style="background:#fff;color:#000;padding:16px;border-radius:12px;margin-top:10px">
-
-    <h3>Important Contacts & Notes</h3>
-
-    <ul>
-
-      <li>Emergency: 911 — Crisis/Lifeline: 988</li>
-
-      <li>Homeless Helpline: 1‑877‑994‑4357</li>
-
-      <li>211 Miami — Food/Shelter/Services: 211 or 305‑631‑4211</li>
-
-      <li>Legal Aid: Legal Services of Greater Miami; Christian Legal Aid (see site)</li>
-
-      <li>Keep a photo of your IDs and a paper copy of key numbers.</li>
-
-    </ul>
-
-  </div>
-
-  <div id="jobsheet" class="printable" style="background:#fff;color:#000;padding:16px;border-radius:12px;margin-top:10px">
-
-    <h3>Job Search Sheet</h3>
-
-    <p>Track 10 applications (Company, Role, Date, Contact, Status)</p>
-
-    <table style="width:100%;border-collapse:collapse" border="1">
-
-      <tr><th>Company</th><th>Role</th><th>Date</th><th>Contact</th><th>Status</th></tr>
-
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-
-      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-
-    </table>
-
-  </div>
-
-  <p class="note" style="margin-top:10px">Use your browser’s <em>Print</em> → <strong>Save as PDF</strong> to download.</p>
-
-</section>
-
-
-
-<!-- Map -->
-
-<section id="map" class="card">
-
-  <h2>🗺️ Miami Resources Map</h2>
-
-  <iframe src="https://www.google.com/maps/search/SHELTERS/@25.7869328,-80.2059169,15z?entry=ttu&g_ep=EgoyMDI1MDgxMC4wIKXMDSoASAFQAw%3D%3D" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-</section>
-
-  </main>  <footer>© 2025 Please Use It — Positivity, Support & Helpful Resources
-
-  </footer>
+</body>
+</html>
