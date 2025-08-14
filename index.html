@@ -69,7 +69,87 @@
     details[open] summary{opacity:.9}
     .tag{display:inline-block; font-size:.8rem; padding:3px 8px; border-radius:999px; background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.2); margin-left:6px}
   </style>
+</head><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#00b4d8" />
+  <title>Please Use It — Miami Resources (Offline-Ready)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #00b4d8;
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
+    main {
+      padding: 1em;
+      max-width: 800px;
+      margin: auto;
+    }
+    .translation-box {
+      margin: 1em 0;
+      padding: 1em;
+      background: #e0f7fa;
+      border: 1px solid #00b4d8;
+      border-radius: 5px;
+    }
+  </style>
 </head>
+<body>
+  <header>
+    <h1>Please Use It — Miami Resources</h1>
+  </header>
+  <main>
+    <p>Welcome! This page works offline and provides useful resources for Miami residents.</p>
+    
+    <!-- Блок перевода -->
+    <div class="translation-box">
+      <label for="lang">Перевести на:</label>
+      <select id="lang">
+        <option value="es">Español (Spanish)</option>
+        <option value="ru">Русский (Russian)</option>
+        <option value="uk">Українська (Ukrainian)</option>
+      </select>
+      <button onclick="translatePage()">Перевести</button>
+    </div>
+
+    <div id="content">
+      <h2>Resources</h2>
+      <ul>
+        <li>Emergency numbers</li>
+        <li>Local shelters</li>
+        <li>Food banks</li>
+      </ul>
+    </div>
+  </main>
+
+  <script>
+    function translatePage() {
+      const lang = document.getElementById('lang').value;
+      const pageText = document.body.innerText;
+      
+      fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(pageText)}&langpair=en|${lang}`)
+        .then(response => response.json())
+        .then(data => {
+          document.body.innerHTML = data.responseData.translatedText;
+        })
+        .catch(err => console.error(err));
+    }
+  </script>
+</body>
+</html>
 <body>
   <!-- Header / Nav -->
   <header>
