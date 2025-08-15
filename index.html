@@ -21,14 +21,14 @@
     html{scroll-behavior:smooth}
     *{box-sizing:border-box}
     body{
-    margin: 0;
-    background-image: url('https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=1920&q=80');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: white;
-    font-family: Arial, sans-serif;
-  } 
+      margin: 0;
+      background-image: url('https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
     header{
       position:sticky; top:0; z-index:1000; backdrop-filter:saturate(130%) blur(6px);
       background:linear-gradient(90deg, rgba(0,180,216,.95), rgba(2,62,138,.95));
@@ -45,6 +45,56 @@
     .lang{min-width:190px; background:#fff; color:#000; border-radius:10px; padding:6px 10px}
     .cta{background:#ff9f1c; color:#000; border:none; border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer}
     .ghost{background:transparent; color:#fff; border:1px solid rgba(255,255,255,.4)}
+
+    /* ===== Motivation bar styles ===== */
+    .motivation-wrap {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 8px 0 0;
+      z-index: 900; /* below header but above main */
+    }
+    .motivation-card {
+      backdrop-filter: blur(2px);
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 14px 16px;
+      max-width: 1100px;
+      width: calc(100% - 24px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+    }
+    .motivation-btn {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background: #ffcc00;
+      color: #1a1a1a;
+      transition: transform .08s ease, box-shadow .2s ease;
+    }
+    .motivation-btn:active { transform: translateY(1px); }
+    .motivation-btn:focus-visible { outline: 2px dashed #fff; outline-offset: 3px; }
+    .motivation-quote {
+      margin: 10px 0 0 0;
+      color: #fff;
+      font-size: 18px;
+      font-style: italic;
+      line-height: 1.4;
+      min-height: 1.4em;
+      opacity: 0;
+      animation: fadeIn .5s forwards;
+    }
+    .motivation-meta {
+      margin-top: 6px;
+      font-size: 14px;
+      color: #e8e8e8;
+      opacity: .9;
+    }
 
     main{padding:24px 16px}
     section.card{
@@ -63,6 +113,7 @@
     footer{padding:26px 16px; text-align:center; background:rgba(0,0,0,.7)}
 
     @keyframes fadeUp{to{opacity:1; transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0; transform:translateY(2px)} to{opacity:1; transform:translateY(0)}}
 
     @media (max-width: 820px){
       nav{justify-content:flex-start}
@@ -72,7 +123,7 @@
 
     @media print{
       body{background:#fff}
-      header, nav, .tools, footer{display:none !important}
+      header, nav, .tools, footer, .motivation-wrap{display:none !important}
       .card{border:none; box-shadow:none; background:#fff; color:#000}
       .printable{page-break-inside:avoid}
     }
@@ -138,6 +189,15 @@
       </div>
     </div>
   </header>
+
+  <!-- ===== Motivation Bar (top, centered) ===== -->
+  <div class="motivation-wrap" role="region" aria-label="Daily Inspiration">
+    <div class="motivation-card">
+      <button id="motivationBtn" class="motivation-btn">✝ Inspire Me Now</button>
+      <div id="motivationQuote" class="motivation-quote" aria-live="polite"></div>
+      <div id="motivationMeta" class="motivation-meta"></div>
+    </div>
+  </div>
 
   <main>
     <!-- Shelters -->
@@ -582,6 +642,92 @@ Available upon request</textarea>
         });
       }
     });
+  </script>
+
+  <!-- Motivation Button Logic -->
+  <script>
+    (async function() {
+      const QUOTES_URL = "/assets/quotes.json"; // Upload quotes.json here
+      const quoteEl = document.getElementById("motivationQuote");
+      const metaEl = document.getElementById("motivationMeta");
+      const btn = document.getElementById("motivationBtn");
+
+      const localFallback = [
+        {text:"Let all that you do be done in love.", author:"1 Corinthians 16:14", source:"Bible"},
+        {text:"Success is going from failure to failure without losing your enthusiasm.", author:"Winston Churchill", source:"Quote"},
+        {text:"I can do all things through Christ who strengthens me.", author:"Philippians 4:13", source:"Bible"}
+      ];
+
+      let QUOTES = [];
+      const LS_KEY = "pui_quotes_cache_v1";
+      const LS_TTL = 1000 * 60 * 60 * 24 * 7; // 7 days
+
+      const saveCache = (data) => {
+        try { localStorage.setItem(LS_KEY, JSON.stringify({ts: Date.now(), data})); } catch(e) {}
+      };
+      const loadCache = () => {
+        try {
+          const raw = localStorage.getItem(LS_KEY);
+          if (!raw) return null;
+          const {ts, data} = JSON.parse(raw);
+          if (Date.now() - ts > LS_TTL) return null;
+          return Array.isArray(data) ? data : null;
+        } catch(e) { return null; }
+      };
+
+      const cached = loadCache();
+      if (cached) QUOTES = cached;
+
+      async function fetchLocalQuotes() {
+        try {
+          const res = await fetch(QUOTES_URL, {cache:"no-store"});
+          if (!res.ok) throw new Error("No OK");
+          const arr = await res.json();
+          if (Array.isArray(arr) && arr.length) {
+            QUOTES = arr;
+            saveCache(arr);
+          }
+        } catch(e) {
+          // silently fall back
+        }
+      }
+
+      async function fetchDailyAPI() {
+        try {
+          const res = await fetch("https://zenquotes.io/api/today");
+          if (!res.ok) throw new Error("No OK");
+          const arr = await res.json();
+          if (Array.isArray(arr)) {
+            const mapped = arr.map(q => ({
+              text: q.q, author: q.a || "—", source: "API"
+            }));
+            QUOTES = (QUOTES || []).concat(mapped);
+          }
+        } catch(e) {
+          // ignore CORS or network issues
+        }
+      }
+
+      function pickRandom() {
+        const pool = (QUOTES && QUOTES.length) ? QUOTES : localFallback;
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      function renderQuote(q) {
+        quoteEl.style.opacity = 0; // restart fade-in
+        void quoteEl.offsetWidth;
+        quoteEl.textContent = `“${q.text}”`;
+        metaEl.textContent = (q.author ? `— ${q.author}` : "") + (q.source ? ` · ${q.source}` : "");
+        quoteEl.style.opacity = 1;
+      }
+
+      if (btn) btn.addEventListener("click", () => renderQuote(pickRandom()));
+      await Promise.allSettled([fetchLocalQuotes(), fetchDailyAPI()]);
+      renderQuote(pickRandom());
+
+      // Optional auto-rotation (every 15s)
+      // setInterval(() => renderQuote(pickRandom()), 15000);
+    })();
   </script>
 
   <!-- Leaflet Map init (separate script; no nested template literals) -->
