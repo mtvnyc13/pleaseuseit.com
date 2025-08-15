@@ -645,123 +645,128 @@ Available upon request</textarea>
   </script>
 
   <!-- Motivation Button Logic -->
-  <script>
-  (async function() {
-    const QUOTES_URL = "/assets/pui_quotes_extended.json"; // <-- новый файл с 650 оригинальными цитатами
+ <script>
+  (function() {
     const quoteEl = document.getElementById("motivationQuote");
     const metaEl  = document.getElementById("motivationMeta");
     const btn     = document.getElementById("motivationBtn");
 
-    // Локальный минимальный запас на всякий случай
-    const localFallback = [
-      {text:"Let all that you do be done in love.", author:"1 Corinthians 16:14", source:"Bible"},
-      {text:"I can do all things through Christ who strengthens me.", author:"Philippians 4:13", source:"Bible"},
-      {text:"Success is going from failure to failure without losing your enthusiasm.", author:"Winston Churchill", source:"Quote"}
+    // Словари фраз (даёт десятки тысяч уникальных комбинаций)
+    const BEGIN = [
+      "Keep going","Rise again","Hold the line","Choose joy","Start small","Start now","Begin again","Own this moment",
+      "Breathe, then move","Walk by faith","Pray, then act","Grace over grind","Hustle humbly","Stay the course",
+      "Stay faithful","Stay curious","Stay kind","Stay present","Be the light","Be courageous","Be consistent",
+      "Build quietly","Serve with love","Lean on God","Trust the process","Trust His timing","Let peace lead",
+      "Let love lead","Let hope speak","Say yes to growth","Stand firm","Stand up gently","Shine anyway",
+      "Focus on today","Progress over perfection","One step more","Plant the seed","Show up","Rest, then rise",
+      "Do the next right thing","Take the small win","Guard your heart","Honor your word","Finish the day well",
+      "Lead with mercy","Lead with gratitude","Practice patience","Practice forgiveness","Choose discipline",
+      "Choose compassion","Choose the narrow way","Choose integrity","Choose wisdom","Choose humility",
+      "Choose courage","Calm your mind","Quiet the noise","Listen for God","Count the blessings","Start with prayer"
+    ];
+    const MID = [
+      "when it’s hard","when no one claps","when fear whispers","in the small things","one decision at a time",
+      "with a whole heart","with quiet confidence","with gentle strength","through the storm","in the waiting",
+      "with eyes on eternity","especially today","even after a setback","even if it’s messy","with steady hands",
+      "with gratitude","with discipline","with joy","with humility","with kindness","with wisdom","with mercy",
+      "with courage","with patience","with purpose","with hope","with prayer","with focus","with compassion"
+    ];
+    const END = [
+      "— you’re closer than you think.","— God is already there.","— miracles often start small.","— grace makes a way.",
+      "— the door will open.","— strength grows quietly.","— light wins.","— heaven hears you.",
+      "— your future self will thank you.","— every seed counts.","— love never fails.","— peace follows obedience.",
+      "— the habit becomes the harvest.","— small choices change big stories.","— consistency compounds.",
+      "— one more try can change everything.","— faithful beats flashy.","— progress beats perfect.",
+      "— your effort matters.","— God is not late.","— hope is a discipline.","— courage is contagious."
+    ];
+    const VERSE = [
+      "You are not alone.","Be still and know.","Fear not.","Ask and you will receive.",
+      "Let all you do be done in love.","Walk by faith, not by sight.","The joy of the Lord is your strength."
     ];
 
-    // Кэш цитат (7 дней) + учёт уже показанных (до полного цикла)
-    const LS_DATA = "pui_quotes_cache_v2";
-    const LS_SEEN = "pui_quotes_seen_v2";
-    const LS_TTL  = 1000 * 60 * 60 * 24 * 7;
+    const LS_POOL = "pui_proc_pool_v1";
+    const LS_SEEN = "pui_proc_seen_v1";
+    const LS_TTL  = 1000*60*60*24*7; // 7 дней
+    const TARGET  = 650; // сколько уникальных на цикл
 
-    function saveCache(arr){
-      try { localStorage.setItem(LS_DATA, JSON.stringify({ts: Date.now(), data: arr})); } catch(e){}
-    }
-    function loadCache(){
-      try {
-        const raw = localStorage.getItem(LS_DATA);
-        if(!raw) return null;
-        const {ts, data} = JSON.parse(raw);
-        if(Date.now() - ts > LS_TTL) return null;
-        return Array.isArray(data) ? data : null;
-      } catch(e){ return null; }
+    function save(key, val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
+    function load(key, def=null){
+      try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : def; }catch(e){ return def; }
     }
 
-    function loadSeen(){
-      try { return JSON.parse(localStorage.getItem(LS_SEEN) || "{}"); } catch(e){ return {}; }
-    }
-    function saveSeen(obj){
-      try { localStorage.setItem(LS_SEEN, JSON.stringify(obj)); } catch(e){}
-    }
-    function resetSeen(){
-      saveSeen({});
-    }
+    function hash(s){ let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return (h>>>0).toString(36); }
 
-    function hash(str){
-      let h = 2166136261 >>> 0;
-      for (let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
-      return (h>>>0).toString(36);
+    function makeLine(){
+      const mode = Math.random();
+      let t;
+      if (mode < 0.5) {
+        t = `${pick(BEGIN)} ${pick(MID)} ${pick(END)}`;
+      } else if (mode < 0.75) {
+        t = `${pick(BEGIN)}, ${pick(MID)}.`;
+      } else if (mode < 0.9) {
+        t = `${pick(BEGIN)}. ${pick(VERSE)}`;
+      } else {
+        t = `${pick(BEGIN)} ${pick(MID)}, ${pick(END)}`.replace(/\.$/,'');
+      }
+      return t.replace(/\s+/g,' ').trim();
     }
-    function normalizeQuotes(arr){
-      const map = new Map();
-      for(const q of arr){
-        const t = (q && q.text ? q.text : "").trim();
-        if(!t) continue;
-        const key = t.toLowerCase();
-        if(!map.has(key)){
-          map.set(key, {
-            text: t,
-            author: q.author || "Please Use It",
-            source: q.source || "PUI/Original",
-            tags: Array.isArray(q.tags) ? q.tags : []
-          });
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+    function generatePool(n){
+      const set = new Set();
+      const pool = [];
+      let tries = 0, cap = n*80;
+      while (pool.length < n && tries < cap){
+        const line = makeLine();
+        const key = line.toLowerCase();
+        if (!set.has(key) && line.length >= 36){
+          set.add(key);
+          pool.push({ text: line, author: "Please Use It", source: "PUI/Original", tags:["motivation","faith","recovery"] });
         }
+        tries++;
       }
-      return Array.from(map.values());
+      return pool;
     }
 
-    let QUOTES = loadCache() || [];
-    // Загружаем файл с сервера (сверху к кэшу)
-    try {
-      const res = await fetch(QUOTES_URL, {cache:"no-store"});
-      if(res.ok){
-        const arr = normalizeQuotes(await res.json());
-        if(arr.length){ QUOTES = arr; saveCache(arr); }
-      }
-    } catch(e){ /* оффлайн/ошибка: живём из кэша */ }
+    // Загружаем/перегенерируем пул раз в 7 дней
+    let poolObj = load(LS_POOL);
+    if (!poolObj || !poolObj.ts || (Date.now()-poolObj.ts)>LS_TTL || !Array.isArray(poolObj.data) || !poolObj.data.length){
+      poolObj = { ts: Date.now(), data: generatePool(TARGET) };
+      save(LS_POOL, poolObj);
+      // сбросить просмотренные при новом пуле
+      save(LS_SEEN, {});
+    }
+    let POOL = poolObj.data;
 
-    if(!QUOTES.length) QUOTES = normalizeQuotes(localFallback);
+    function loadSeen(){ return load(LS_SEEN, {}); }
+    function saveSeen(obj){ save(LS_SEEN, obj); }
+    function resetSeen(){ save(LS_SEEN, {}); }
 
-    // Выбор без повторов до полного цикла
     function pickNext(){
       const seen = loadSeen();
-      const indexed = QUOTES.map(q => ({ q, id: hash(q.text.toLowerCase()) }));
+      const indexed = POOL.map(q => ({ q, id: hash(q.text.toLowerCase()) }));
       const unseen  = indexed.filter(x => !seen[x.id]);
-
-      // Если все показаны — обнуляем и начинаем новый цикл
-      const pool = unseen.length ? unseen : indexed;
-      if(!unseen.length) resetSeen();
-
-      const choice = pool[Math.floor(Math.random() * pool.length)];
-      // отмечаем как показанное
-      const newSeen = loadSeen();
-      newSeen[choice.id] = true;
-      saveSeen(newSeen);
+      const list    = unseen.length ? unseen : indexed; // если все показаны — начнём заново
+      if (!unseen.length) resetSeen();
+      const choice = list[Math.floor(Math.random()*list.length)];
+      const s = loadSeen(); s[choice.id] = true; saveSeen(s);
       return choice.q;
     }
 
-    function renderQuote(q){
+    function render(q){
       if(!q) return;
-      quoteEl.style.opacity = 0; // перезапуск анимации
+      quoteEl.style.opacity = 0;
       void quoteEl.offsetWidth;
       quoteEl.textContent = `“${q.text}”`;
-      metaEl.textContent  = (q.author ? `— ${q.author}` : "") + (q.source ? ` · ${q.source}` : "");
+      metaEl.textContent  = `— ${q.author} · ${q.source}`;
       quoteEl.style.opacity = 1;
     }
 
-    // Клик: новая цитата, Shift+Click — ручной сброс цикла
-    if(btn){
-      btn.addEventListener("click", (e) => {
-        if(e.shiftKey){ resetSeen(); }
-        renderQuote(pickNext());
-      });
+    if (btn){
+      // Shift+Click — сброс цикла
+      btn.addEventListener("click", (e) => { if(e.shiftKey) resetSeen(); render(pickNext()); });
     }
-
-    // Первая цитата при загрузке
-    renderQuote(pickNext());
-
-    // Авто-ротация (при желании): каждые 20 сек
-    // setInterval(() => renderQuote(pickNext()), 20000);
+    render(pickNext());
   })();
 </script>
 
