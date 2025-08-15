@@ -646,89 +646,124 @@ Available upon request</textarea>
 
   <!-- Motivation Button Logic -->
   <script>
-    (async function() {
-      const QUOTES_URL = "/assets/quotes.json"; // Upload quotes.json here
-      const quoteEl = document.getElementById("motivationQuote");
-      const metaEl = document.getElementById("motivationMeta");
-      const btn = document.getElementById("motivationBtn");
+  (async function() {
+    const QUOTES_URL = "/assets/pui_quotes_extended.json"; // <-- новый файл с 650 оригинальными цитатами
+    const quoteEl = document.getElementById("motivationQuote");
+    const metaEl  = document.getElementById("motivationMeta");
+    const btn     = document.getElementById("motivationBtn");
 
-      const localFallback = [
-        {text:"Let all that you do be done in love.", author:"1 Corinthians 16:14", source:"Bible"},
-        {text:"Success is going from failure to failure without losing your enthusiasm.", author:"Winston Churchill", source:"Quote"},
-        {text:"I can do all things through Christ who strengthens me.", author:"Philippians 4:13", source:"Bible"}
-      ];
+    // Локальный минимальный запас на всякий случай
+    const localFallback = [
+      {text:"Let all that you do be done in love.", author:"1 Corinthians 16:14", source:"Bible"},
+      {text:"I can do all things through Christ who strengthens me.", author:"Philippians 4:13", source:"Bible"},
+      {text:"Success is going from failure to failure without losing your enthusiasm.", author:"Winston Churchill", source:"Quote"}
+    ];
 
-      let QUOTES = [];
-      const LS_KEY = "pui_quotes_cache_v1";
-      const LS_TTL = 1000 * 60 * 60 * 24 * 7; // 7 days
+    // Кэш цитат (7 дней) + учёт уже показанных (до полного цикла)
+    const LS_DATA = "pui_quotes_cache_v2";
+    const LS_SEEN = "pui_quotes_seen_v2";
+    const LS_TTL  = 1000 * 60 * 60 * 24 * 7;
 
-      const saveCache = (data) => {
-        try { localStorage.setItem(LS_KEY, JSON.stringify({ts: Date.now(), data})); } catch(e) {}
-      };
-      const loadCache = () => {
-        try {
-          const raw = localStorage.getItem(LS_KEY);
-          if (!raw) return null;
-          const {ts, data} = JSON.parse(raw);
-          if (Date.now() - ts > LS_TTL) return null;
-          return Array.isArray(data) ? data : null;
-        } catch(e) { return null; }
-      };
+    function saveCache(arr){
+      try { localStorage.setItem(LS_DATA, JSON.stringify({ts: Date.now(), data: arr})); } catch(e){}
+    }
+    function loadCache(){
+      try {
+        const raw = localStorage.getItem(LS_DATA);
+        if(!raw) return null;
+        const {ts, data} = JSON.parse(raw);
+        if(Date.now() - ts > LS_TTL) return null;
+        return Array.isArray(data) ? data : null;
+      } catch(e){ return null; }
+    }
 
-      const cached = loadCache();
-      if (cached) QUOTES = cached;
+    function loadSeen(){
+      try { return JSON.parse(localStorage.getItem(LS_SEEN) || "{}"); } catch(e){ return {}; }
+    }
+    function saveSeen(obj){
+      try { localStorage.setItem(LS_SEEN, JSON.stringify(obj)); } catch(e){}
+    }
+    function resetSeen(){
+      saveSeen({});
+    }
 
-      async function fetchLocalQuotes() {
-        try {
-          const res = await fetch(QUOTES_URL, {cache:"no-store"});
-          if (!res.ok) throw new Error("No OK");
-          const arr = await res.json();
-          if (Array.isArray(arr) && arr.length) {
-            QUOTES = arr;
-            saveCache(arr);
-          }
-        } catch(e) {
-          // silently fall back
+    function hash(str){
+      let h = 2166136261 >>> 0;
+      for (let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+      return (h>>>0).toString(36);
+    }
+    function normalizeQuotes(arr){
+      const map = new Map();
+      for(const q of arr){
+        const t = (q && q.text ? q.text : "").trim();
+        if(!t) continue;
+        const key = t.toLowerCase();
+        if(!map.has(key)){
+          map.set(key, {
+            text: t,
+            author: q.author || "Please Use It",
+            source: q.source || "PUI/Original",
+            tags: Array.isArray(q.tags) ? q.tags : []
+          });
         }
       }
+      return Array.from(map.values());
+    }
 
-      async function fetchDailyAPI() {
-        try {
-          const res = await fetch("https://zenquotes.io/api/today");
-          if (!res.ok) throw new Error("No OK");
-          const arr = await res.json();
-          if (Array.isArray(arr)) {
-            const mapped = arr.map(q => ({
-              text: q.q, author: q.a || "—", source: "API"
-            }));
-            QUOTES = (QUOTES || []).concat(mapped);
-          }
-        } catch(e) {
-          // ignore CORS or network issues
-        }
+    let QUOTES = loadCache() || [];
+    // Загружаем файл с сервера (сверху к кэшу)
+    try {
+      const res = await fetch(QUOTES_URL, {cache:"no-store"});
+      if(res.ok){
+        const arr = normalizeQuotes(await res.json());
+        if(arr.length){ QUOTES = arr; saveCache(arr); }
       }
+    } catch(e){ /* оффлайн/ошибка: живём из кэша */ }
 
-      function pickRandom() {
-        const pool = (QUOTES && QUOTES.length) ? QUOTES : localFallback;
-        return pool[Math.floor(Math.random() * pool.length)];
-      }
+    if(!QUOTES.length) QUOTES = normalizeQuotes(localFallback);
 
-      function renderQuote(q) {
-        quoteEl.style.opacity = 0; // restart fade-in
-        void quoteEl.offsetWidth;
-        quoteEl.textContent = `“${q.text}”`;
-        metaEl.textContent = (q.author ? `— ${q.author}` : "") + (q.source ? ` · ${q.source}` : "");
-        quoteEl.style.opacity = 1;
-      }
+    // Выбор без повторов до полного цикла
+    function pickNext(){
+      const seen = loadSeen();
+      const indexed = QUOTES.map(q => ({ q, id: hash(q.text.toLowerCase()) }));
+      const unseen  = indexed.filter(x => !seen[x.id]);
 
-      if (btn) btn.addEventListener("click", () => renderQuote(pickRandom()));
-      await Promise.allSettled([fetchLocalQuotes(), fetchDailyAPI()]);
-      renderQuote(pickRandom());
+      // Если все показаны — обнуляем и начинаем новый цикл
+      const pool = unseen.length ? unseen : indexed;
+      if(!unseen.length) resetSeen();
 
-      // Optional auto-rotation (every 15s)
-      // setInterval(() => renderQuote(pickRandom()), 15000);
-    })();
-  </script>
+      const choice = pool[Math.floor(Math.random() * pool.length)];
+      // отмечаем как показанное
+      const newSeen = loadSeen();
+      newSeen[choice.id] = true;
+      saveSeen(newSeen);
+      return choice.q;
+    }
+
+    function renderQuote(q){
+      if(!q) return;
+      quoteEl.style.opacity = 0; // перезапуск анимации
+      void quoteEl.offsetWidth;
+      quoteEl.textContent = `“${q.text}”`;
+      metaEl.textContent  = (q.author ? `— ${q.author}` : "") + (q.source ? ` · ${q.source}` : "");
+      quoteEl.style.opacity = 1;
+    }
+
+    // Клик: новая цитата, Shift+Click — ручной сброс цикла
+    if(btn){
+      btn.addEventListener("click", (e) => {
+        if(e.shiftKey){ resetSeen(); }
+        renderQuote(pickNext());
+      });
+    }
+
+    // Первая цитата при загрузке
+    renderQuote(pickNext());
+
+    // Авто-ротация (при желании): каждые 20 сек
+    // setInterval(() => renderQuote(pickNext()), 20000);
+  })();
+</script>
 
   <!-- Leaflet Map init (separate script; no nested template literals) -->
   <script>
