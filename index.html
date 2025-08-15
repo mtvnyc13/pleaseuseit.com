@@ -661,12 +661,12 @@ Available upon request</textarea>
               const latlng = await geocodeAddress(p.addr);
               const popup = '<strong>'+p.name+'</strong><br/>' +
                             p.addr + '<br/>' +
-                            '<a href="'+p.url+'" target="_blank" rel="noopener">Открыть сайт/позвонить</a><br/>' +
-                            '<a href="https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(p.addr)+'" target="_blank" rel="noopener">Навигация</a>';
+                            '<a href="'+p.url+'" target="_blank" rel="noopener">Open site/call</a><br/>' +
+                            '<a href="https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(p.addr)+'" target="_blank" rel="noopener">Navigation</a>';
               const m = L.marker(latlng, { icon: icon(p.emoji), title: p.name }).addTo(map).bindPopup(popup);
               markers.push(m);
             } catch (e) {
-              console.warn('Не удалось геокодировать:', p.addr, e);
+              console.warn('No Geocoding:', p.addr, e);
             }
           }
           if (markers.length) {
