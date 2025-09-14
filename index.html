@@ -1,378 +1,328 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PleaseUseIt — Miami Help Hub</title>
-  <meta name="description" content="One-page hub for showers, laundry, food, clothing, internet, DMV & SSA appointments, free phone, scooters, cheap stays. English with RU/ES/HT translations."/>
-  <meta name="theme-color" content="#2563eb" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    :root{--bg:#0b0b10;--card:#12121a;--muted:#a3a3b2;--text:#f4f6ff;--brand:#2563eb;--brand2:#06b6d4;--ok:#10b981;--warn:#f59e0b;--danger:#ef4444;--radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35)}
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;background:radial-gradient(1000px 700px at 90% -10%,rgba(37,99,235,.25),transparent),radial-gradient(700px 500px at -10% 20%,rgba(6,182,212,.18),transparent),var(--bg);color:var(--text)}
-    a{color:inherit;text-decoration:none;transition:all .25s ease}
-    .wrap{max-width:1120px;margin:0 auto;padding:16px}
-    header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(120%) blur(8px);transition:transform .35s ease}
-    .nav{display:flex;gap:10px;align-items:center;justify-content:space-between;background:rgba(18,18,26,.7);border:1px solid rgba(255,255,255,.08);padding:10px 12px;border-radius:14px;margin:10px auto;box-shadow:var(--shadow)}
-    .brand{display:flex;gap:10px;align-items:center}
-    .logo{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand2));font-weight:800}
-    .brand h1{font-size:16px;margin:0;font-weight:800}
-    .navbtns{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{padding:8px 12px;border-radius:999px;background:#1a1b25;border:1px solid rgba(255,255,255,.08);font-size:13px;transition:all .25s ease}
-    .chip:hover{background:rgba(37,99,235,.2);box-shadow:0 0 8px rgba(37,99,235,.5)}
-    .cta{background:linear-gradient(135deg,var(--brand),var(--brand2));border:none;color:#fff}
-    .cta:hover{box-shadow:0 0 12px rgba(37,99,235,.8)}
-    .collapsed{transform:translateY(-110%)}
-    section{margin:18px 0;opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease}
-    section.visible{opacity:1;transform:none}
-    .secHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-    .secHead h2{font-size:18px;margin:0}
-    .grid{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media(min-width:760px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px;box-shadow:var(--shadow);transition:all .25s ease}
-    .card:hover{box-shadow:0 0 15px rgba(6,182,212,.5);transform:translateY(-2px)}
-    .card h3{margin:0 0 6px 0;font-size:15px}
-    .muted{color:var(--muted);font-size:13px}
-    .link{display:flex;align-items:center;gap:8px;margin-top:10px;font-weight:600}
-    .tag{display:inline-flex;gap:6px;padding:6px 10px;border-radius:999px;background:#1a1b25;border:1px solid rgba(255,255,255,.08);font-size:12px;margin-top:8px}
-    .posts{display:grid;gap:12px}
-    .post{display:grid;gap:10px;background:linear-gradient(180deg,#12121a,#101018);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px}
-    form{display:grid;gap:10px}
-    input,textarea,select{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0f0f16;color:var(--text)}
-    textarea{min-height:110px}
-    button[type=submit]{padding:12px 14px;border-radius:12px;border:none;font-weight:700;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
-    footer{opacity:.8;margin:22px 0 40px}
-    footer .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>PleaseUseIt — Miami Help Hub</title>
+<meta name="theme-color" content="#7dd3fc"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Leaflet for the big map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="" crossorigin=""></script>
+
+<style>
+  :root{
+    /* Miami light palette */
+    --bg:#f5f7fb; --card:#ffffff; --ink:#111827; --muted:#4b5563;
+    --brand:#38bdf8; --brand2:#22c55e; --accent:#f59e0b;
+    --ok:#10b981; --warn:#f59e0b; --danger:#ef4444;
+    --radius:18px; --shadow:0 10px 28px rgba(17,24,39,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:
+      radial-gradient(1200px 800px at 90% -10%,rgba(125,211,252,.35),transparent),
+      radial-gradient(900px 600px at -10% 20%,rgba(134,239,172,.25),transparent),
+      var(--bg);
+    color:var(--ink); font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px; line-height:1.55;
+  }
+  a{color:inherit;text-decoration:none;transition:all .2s ease}
+  .wrap{max-width:1140px;margin:0 auto;padding:16px}
+  /* Header */
+  header{position:sticky;top:0;z-index:40;backdrop-filter:saturate(120%) blur(8px)}
+  .nav{display:flex;gap:12px;align-items:center;justify-content:space-between;
+       background:rgba(255,255,255,.85); border:1px solid rgba(0,0,0,.06);
+       padding:10px 12px; border-radius:16px; margin:10px auto; box-shadow:var(--shadow)}
+  .brand{display:flex;gap:12px;align-items:center}
+  .logo{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;
+        background:linear-gradient(135deg,var(--brand),#a7f3d0);font-weight:800;color:#0b1020}
+  .brand h1{margin:0;font-size:18px;font-weight:800;letter-spacing:.2px}
+  .navbtns{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid rgba(0,0,0,.06);font-size:14px}
+  .chip:hover{box-shadow:0 3px 12px rgba(56,189,248,.35);transform:translateY(-1px)}
+  .cta{background:linear-gradient(135deg,var(--brand),#60a5fa);color:#fff;border:none}
+  /* Sections + reveal */
+  section{margin:22px 0;opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+  section.visible{opacity:1;transform:none}
+  .secHead{display:flex;justify-content:space-between;align-items:center;margin:6px 2px 12px}
+  .secHead h2{margin:0;font-size:22px}
+  /* Grid & cards */
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media(min-width:780px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .card{background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 6px;font-size:16px}
+  .muted{color:var(--muted);font-size:14px}
+  .link{display:flex;align-items:center;gap:8px;margin-top:10px;font-weight:600}
+  .posts{display:grid;gap:14px}
+  .post{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:16px}
+  /* Form */
+  form{display:grid;gap:10px}
+  input,textarea,select{width:100%;padding:12px 14px;border-radius:14px;border:1px solid rgba(0,0,0,.12);background:#fff;color:var(--ink);font-size:16px}
+  textarea{min-height:110px}
+  button[type=submit]{padding:12px 16px;border-radius:14px;border:none;font-weight:800;
+    background:linear-gradient(135deg,#60a5fa,var(--brand));color:#fff;box-shadow:0 6px 22px rgba(96,165,250,.35)}
+  button[type=submit]:hover{transform:translateY(-1px)}
+  /* Map */
+  #bigmap{height:420px;border-radius:18px;overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px}
+  .legend .chip{display:flex;align-items:center;gap:6px}
+  .dot{width:12px;height:12px;border-radius:999px;display:inline-block}
+  /* Footer */
+  footer{opacity:.9;margin:26px 0 40px}
+  footer .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
+</style>
 </head>
 <body>
-  <header id="hdr">
-    <div class="wrap nav">
-      <div class="brand">
-        <div class="logo" aria-hidden>PU</div>
-        <h1>PleaseUseIt · Miami</h1>
-      </div>
-      <nav class="navbtns">
-        <a href="#sos" class="chip">SOS</a>
-        <a href="#showers" class="chip">Showers</a>
-        <a href="#laundry" class="chip">Laundry</a>
-        <a href="#food" class="chip">Food</a>
-        <a href="#internet" class="chip">Internet</a>
-        <a href="#appointments" class="chip">DMV & SSA</a>
-        <a href="#phone" class="chip">Free Phone</a>
-        <a href="#transport" class="chip">Scooters</a>
-        <a href="#stays" class="chip">Cheap Stays</a>
-        <a href="#contact" class="chip">Contacts</a>
-        <button id="langBtn" class="chip cta" type="button" title="Switch language">🌐 EN</button>
-      </nav>
+<header id="hdr">
+  <div class="wrap nav">
+    <div class="brand">
+      <div class="logo">PU</div>
+      <h1>PleaseUseIt · Miami</h1>
     </div>
-  </header>
+    <nav class="navbtns">
+      <a href="#sos" class="chip">SOS</a>
+      <a href="#showers" class="chip">Showers</a>
+      <a href="#laundry" class="chip">Laundry</a>
+      <a href="#food" class="chip">Food</a>
+      <a href="#internet" class="chip">Internet</a>
+      <a href="#appointments" class="chip">DMV & SSA</a>
+      <a href="#phone" class="chip">Free Phone</a>
+      <a href="#transport" class="chip">Scooters</a>
+      <a href="#stays" class="chip">Cheap Stays</a>
+      <a href="#pricing" class="chip">Pricing</a>
+      <a href="#map" class="chip">Big Map</a>
+      <a href="#contact" class="chip">Contacts</a>
+      <button id="langBtn" class="chip cta" type="button" title="Switch language">🌐 EN</button>
+    </nav>
+  </div>
+</header>
 
-  <main class="wrap">
-    <section id="sos">
-      <div class="card">
-        <h2 data-i18n="sos_title">Emergency & Crisis Lines</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>🚨 911</h3>
-            <p class="muted" data-i18n="sos_911">Police, Fire, Medical</p>
-            <a class="link" href="tel:911"><i class="fa-solid fa-phone"></i><span data-i18n="call">Call</span></a>
-          </article>
-          <article class="card">
-            <h3>🆘 988</h3>
-            <p class="muted" data-i18n="sos_988">Suicide & Crisis Lifeline</p>
-            <a class="link" href="tel:988"><i class="fa-solid fa-phone"></i><span data-i18n="call">Call</span></a>
-          </article>
-          <article class="card">
-            <h3>🏠 The Caring Place</h3>
-            <p class="muted" data-i18n="sos_caring">Shelter, meals, support</p>
-            <a class="link" href="https://caringplace.org/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> caringplace.org</a>
-          </article>
-          <article class="card">
-            <h3>🏥 Camillus House</h3>
-            <p class="muted" data-i18n="sos_camillus">Showers, clothing, housing help</p>
-            <a class="link" href="https://www.camillus.org/need-help/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> camillus.org</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="showers">
-      <div class="secHead"><h2 data-i18n="showers_title">Showers</h2><span class="chip" data-i18n="free_public">Free / public options</span></div>
+<main class="wrap">
+  <!-- SOS -->
+  <section id="sos">
+    <div class="card">
+      <div class="secHead"><h2 data-i18n="sos_title">Emergency & Crisis Lines</h2></div>
       <div class="grid">
-        <article class="card">
-          <h3>🏖️ Beaches</h3>
-          <p class="muted" data-i18n="showers_beach">Public outdoor showers at most Miami Beach access points.</p>
-          <a class="link" href="https://www.miamibeachfl.gov/departments/parks-and-recreation/parks-facilities/" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> Miami Beach Parks</a>
-        </article>
-        <article class="card">
-          <h3>🏠 Camillus House</h3>
-          <p class="muted" data-i18n="showers_camillus">Indoor showers & hygiene services (check hours).</p>
-          <a class="link" href="https://www.camillus.org/need-help/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Need Help</a>
-        </article>
-        <article class="card">
-          <h3>🏚️ The Caring Place</h3>
-          <p class="muted" data-i18n="showers_caring">Showers, clothing, and support.</p>
-          <a class="link" href="https://caringplace.org/services/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Services</a>
-        </article>
+        <article class="card"><h3>🚨 911</h3><p class="muted" data-i18n="sos_911">Police, Fire, Medical</p><a class="link" href="tel:911"><i class="fa-solid fa-phone"></i><span data-i18n="call">Call</span></a></article>
+        <article class="card"><h3>🆘 988</h3><p class="muted" data-i18n="sos_988">Suicide & Crisis Lifeline</p><a class="link" href="tel:988"><i class="fa-solid fa-phone"></i><span data-i18n="call">Call</span></a></article>
+        <article class="card"><h3>🏠 The Caring Place</h3><p class="muted" data-i18n="sos_caring">Shelter, meals, support</p><a class="link" href="https://caringplace.org/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> caringplace.org</a></article>
+        <article class="card"><h3>🏥 Camillus House</h3><p class="muted" data-i18n="sos_camillus">Showers, clothing, housing help</p><a class="link" href="https://www.camillus.org/need-help/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> camillus.org</a></article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="laundry">
-      <div class="secHead"><h2 data-i18n="laundry_title">Laundry</h2><span class="chip" data-i18n="lowcost">Low-cost & locations</span></div>
-      <div class="grid">
-        <article class="card">
-          <h3>🧺 Laundromats (Map)</h3>
-          <p class="muted" data-i18n="laundry_map">Find coin laundries nearby.</p>
-          <div class="card" style="overflow:hidden;padding:0"><iframe title="Laundromats near Miami" src="https://www.google.com/maps?q=miami%20laundromat&output=embed" width="100%" height="240" style="border:0"></iframe></div>
-        </article>
-        <article class="card">
-          <h3>👕 Clothing Help</h3>
-          <p class="muted" data-i18n="clothes_help">Free clothing at shelters (limited).</p>
-          <a class="link" href="https://www.camillus.org/need-help/" target="_blank" rel="noopener"><i class="fa-solid fa-shirt"></i> Camillus House</a>
-          <a class="link" href="https://caringplace.org/" target="_blank" rel="noopener"><i class="fa-solid fa-shirt"></i> The Caring Place</a>
-        </article>
+  <!-- Showers -->
+  <section id="showers">
+    <div class="secHead"><h2 data-i18n="showers_title">Showers</h2><span class="chip" data-i18n="free_public">Free / public options</span></div>
+    <div class="grid">
+      <article class="card"><h3>🏖️ Beaches</h3><p class="muted" data-i18n="showers_beach">Public outdoor showers at most Miami Beach access points.</p><a class="link" href="https://www.miamibeachfl.gov/departments/parks-and-recreation/parks-facilities/" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> Miami Beach Parks</a></article>
+      <article class="card"><h3>🏠 Camillus House</h3><p class="muted" data-i18n="showers_camillus">Indoor showers & hygiene services (check hours).</p><a class="link" href="https://www.camillus.org/need-help/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Need Help</a></article>
+      <article class="card"><h3>🏚️ The Caring Place</h3><p class="muted" data-i18n="showers_caring">Showers, clothing, and support.</p><a class="link" href="https://caringplace.org/services/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Services</a></article>
+    </div>
+  </section>
+
+  <!-- Laundry -->
+  <section id="laundry">
+    <div class="secHead"><h2 data-i18n="laundry_title">Laundry</h2><span class="chip" data-i18n="lowcost">Low-cost & locations</span></div>
+    <div class="grid">
+      <article class="card"><h3>🧺 Laundromats (Map)</h3><p class="muted" data-i18n="laundry_map">Find coin laundries nearby.</p><div class="muted">Use the Big Map below and enable “Laundry”.</div></article>
+      <article class="card"><h3>👕 Clothing Help</h3><p class="muted" data-i18n="clothes_help">Free clothing at shelters (limited).</p><a class="link" href="https://www.camillus.org/need-help/" target="_blank" rel="noopener"><i class="fa-solid fa-shirt"></i> Camillus House</a><a class="link" href="https://caringplace.org/" target="_blank" rel="noopener"><i class="fa-solid fa-shirt"></i> The Caring Place</a></article>
+    </div>
+  </section>
+
+  <!-- Food -->
+  <section id="food">
+    <div class="secHead"><h2 data-i18n="food_title">Food & Pantries</h2><span class="chip" data-i18n="daily_meals">Daily meals / food banks</span></div>
+    <div class="grid">
+      <article class="card"><h3>🍽️ Meal Programs</h3><p class="muted" data-i18n="food_meals">Shelters and churches serve meals on schedule.</p><a class="link" href="https://www.camillus.org/need-help/" target="_blank" rel="noopener">Camillus House</a><a class="link" href="https://caringplace.org/" target="_blank" rel="noopener">The Caring Place</a></article>
+      <article class="card"><h3>🥫 Food Banks</h3><p class="muted" data-i18n="food_map">Use the Big Map → “Food”.</p></article>
+    </div>
+  </section>
+
+  <!-- Internet -->
+  <section id="internet">
+    <div class="secHead"><h2 data-i18n="internet_title">Internet & Libraries</h2><span class="chip" data-i18n="free_wifi">Free computers & Wi-Fi</span></div>
+    <div class="grid">
+      <article class="card"><h3>📚 MDPLS Libraries</h3><p class="muted" data-i18n="internet_mdpls">Free internet, computers, printing (small fee).</p><a class="link" href="https://www.mdpls.org/locations" target="_blank" rel="noopener">Find a branch</a></article>
+      <article class="card"><h3>📶 City Wi-Fi</h3><p class="muted" data-i18n="internet_city">Many parks and public spaces offer free Wi-Fi.</p><a class="link" href="https://www.miamigov.com/Services/Technology/Free-Public-Wi-Fi" target="_blank" rel="noopener">Miami Public Wi-Fi</a></article>
+    </div>
+  </section>
+
+  <!-- Appointments -->
+  <section id="appointments">
+    <div class="secHead"><h2 data-i18n="appt_title">Appointments: DMV & Social Security</h2><span class="chip" data-i18n="appt_how">How to book + documents</span></div>
+    <div class="grid">
+      <article class="card">
+        <h3>🚗 DMV (FLHSMV)</h3>
+        <p class="muted" data-i18n="dmv_text">Book driver license/ID appointments online.</p>
+        <a class="link" href="https://services.flhsmv.gov/appointmentsonline/appointments" target="_blank" rel="noopener">Book appointment</a>
+        <ul class="muted">
+          <li data-i18n="dmv_doc1">Bring passport or birth certificate</li>
+          <li data-i18n="dmv_doc2">Proof of SSN (card, W-2, pay stub)</li>
+          <li data-i18n="dmv_doc3">Two proofs of Florida address</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>🪪 Social Security (SSA)</h3>
+        <p class="muted" data-i18n="ssa_text">Find offices and schedule phone or in-person.</p>
+        <a class="link" href="https://www.ssa.gov/locator/" target="_blank" rel="noopener">Office locator</a>
+        <ul class="muted">
+          <li data-i18n="ssa_doc1">Photo ID (passport/state ID)</li>
+          <li data-i18n="ssa_doc2">Immigration documents (if any)</li>
+          <li data-i18n="ssa_doc3">Mail with your name & address</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- Free phone -->
+  <section id="phone">
+    <div class="secHead"><h2 data-i18n="phone_title">Free / Low-Cost Phone</h2><span class="chip">Lifeline</span></div>
+    <div class="grid">
+      <article class="card"><h3>📱 Apply for Lifeline</h3><p class="muted" data-i18n="lifeline_text">Discounted service for eligible users.</p><a class="link" href="https://www.checklifeline.org/" target="_blank" rel="noopener">checklifeline.org</a></article>
+      <article class="card"><h3>🟣 Providers</h3><p class="muted">Assurance, SafeLink, Q Link</p><a class="link" href="https://www.assurancewireless.com/" target="_blank" rel="noopener">Assurance</a><a class="link" href="https://www.safelinkwireless.com/" target="_blank" rel="noopener">SafeLink</a><a class="link" href="https://qlinkwireless.com/" target="_blank" rel="noopener">Q Link</a></article>
+    </div>
+  </section>
+
+  <!-- Scooters -->
+  <section id="transport">
+    <div class="secHead"><h2 data-i18n="transport_title">Scooters & Transit</h2><span class="chip" data-i18n="transport_hint">Short trips, cheap options</span></div>
+    <div class="grid">
+      <article class="card"><h3>🛴 E-Scooters</h3><p class="muted" data-i18n="escoot_text">Available in parts of Miami; use the app to unlock.</p><a class="link" href="https://www.li.me/locations/us/miami" target="_blank" rel="noopener">Lime</a> · <a class="link" href="https://www.bird.co/miami" target="_blank" rel="noopener">Bird</a></article>
+      <article class="card"><h3>🚌 Transit</h3><p class="muted" data-i18n="transit_text">Metrorail, Metromover (free), Metrobus.</p><a class="link" href="https://www.miamidade.gov/transit/" target="_blank" rel="noopener">Miami-Dade Transit</a></article>
+    </div>
+  </section>
+
+  <!-- Cheap stays -->
+  <section id="stays">
+    <div class="secHead"><h2 data-i18n="stays_title">Cheap Stays ($10–$40)</h2><span class="chip" data-i18n="stays_hint">Sort by lowest price</span></div>
+    <div class="grid">
+      <article class="card"><h3>🏨 Booking (Miami)</h3><p class="muted" data-i18n="stays_booking">Hostels & budget rooms — filter by price & dorms.</p><a class="link" href="https://www.booking.com/searchresults.html?ss=Miami%2C+Florida&order=price" target="_blank" rel="noopener">Booking.com — Miami</a></article>
+      <article class="card"><h3>🏡 Hostelworld</h3><p class="muted">Compare dorm beds across hostels.</p><a class="link" href="https://www.hostelworld.com/find/hostels/usa/miami" target="_blank" rel="noopener">Hostelworld — Miami</a></article>
+    </div>
+  </section>
+
+  <!-- Pricing (raised +$20) -->
+  <section id="pricing">
+    <div class="secHead"><h2>Pricing · CleanOut</h2><span class="chip">Updated</span></div>
+    <div class="grid">
+      <article class="card"><h3>Small pickup</h3><p class="muted">1–2 items (chair, nightstand, boxes)</p><p><strong>$69–$99</strong> in Miami</p></article>
+      <article class="card"><h3>Medium pickup</h3><p class="muted">Up to 1 room (bed, closet, table)</p><p><strong>$119–$169</strong> in Miami</p></article>
+      <article class="card"><h3>Large pickup</h3><p class="muted">Apartment/garage (photo estimate)</p><p><strong>from $219</strong> · negotiable</p></article>
+    </div>
+  </section>
+
+  <!-- BIG MAP with everything -->
+  <section id="map">
+    <div class="secHead">
+      <h2>Big Map: Shelters · Food · Hospitals · Police · Laundry</h2>
+      <div class="legend">
+        <label class="chip"><span class="dot" style="background:#2563eb"></span> Shelters</label>
+        <label class="chip"><span class="dot" style="background:#22c55e"></span> Food</label>
+        <label class="chip"><span class="dot" style="background:#ef4444"></span> Hospitals</label>
+        <label class="chip"><span class="dot" style="background:#f59e0b"></span> Police</label>
+        <label class="chip"><span class="dot" style="background:#8b5cf6"></span> Laundry</label>
       </div>
-    </section>
+    </div>
+    <div id="bigmap"></div>
+    <div class="muted" style="margin-top:8px">Tip: pinch/zoom; markers load as you move the map.</div>
+  </section>
 
-    <section id="food">
-      <div class="secHead"><h2 data-i18n="food_title">Food & Pantries</h2><span class="chip" data-i18n="daily_meals">Daily meals / food banks</span></div>
-      <div class="grid">
-        <article class="card">
-          <h3>🍽️ Meal Programs</h3>
-          <p class="muted" data-i18n="food_meals">Shelters and churches serve meals on schedule.</p>
-          <a class="link" href="https://www.camillus.org/need-help/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Camillus House</a>
-          <a class="link" href="https://caringplace.org/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> The Caring Place</a>
-        </article>
-        <article class="card">
-          <h3>🥫 Food Banks (Map)</h3>
-          <p class="muted" data-i18n="food_map">Search pantries and free groceries.</p>
-          <div class="card" style="overflow:hidden;padding:0"><iframe title="Food banks near Miami" src="https://www.google.com/maps?q=miami%20food%20bank&output=embed" width="100%" height="240" style="border:0"></iframe></div>
-        </article>
-      </div>
-    </section>
+  <!-- Contacts -->
+  <section id="contact">
+    <div class="secHead"><h2 data-i18n="contact_title">Contacts</h2></div>
+    <div class="grid">
+      <article class="card"><h3>📞 Phone</h3><a class="link" href="tel:+17864589512"><i class="fa-solid fa-phone"></i> +1 (786) 458-9512</a></article>
+      <article class="card"><h3>💬 WhatsApp</h3><a class="link" href="https://wa.me/17864589512" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" style="color:#25D366"></i> Message</a></article>
+      <article class="card"><h3>✉️ Email</h3><a class="link" href="mailto:icook4mia@gmail.com"><i class="fa-solid fa-envelope"></i> icook4mia@gmail.com</a></article>
+    </div>
+  </section>
 
-    <section id="internet">
-      <div class="secHead"><h2 data-i18n="internet_title">Internet & Libraries</h2><span class="chip" data-i18n="free_wifi">Free computers & Wi-Fi</span></div>
-      <div class="grid">
-        <article class="card">
-          <h3>📚 MDPLS Libraries</h3>
-          <p class="muted" data-i18n="internet_mdpls">Free internet, computers, printing (small fee).</p>
-          <a class="link" href="https://www.mdpls.org/locations" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Find a branch</a>
-        </article>
-        <article class="card">
-          <h3>📶 City Wi-Fi</h3>
-          <p class="muted" data-i18n="internet_city">Many parks and public spaces offer free Wi-Fi.</p>
-          <a class="link" href="https://www.miamigov.com/Services/Technology/Free-Public-Wi-Fi" target="_blank" rel="noopener"><i class="fa-solid fa-wifi"></i> Miami Public Wi-Fi</a>
-        </article>
-      </div>
-    </section>
+  <!-- Request -->
+  <section id="request">
+    <div class="secHead"><h2 data-i18n="request_title">Request help / Post a message</h2><span class="chip" data-i18n="reply">We reply by email</span></div>
+    <form id="reqForm" action="mailto:icook4mia@gmail.com?subject=PleaseUseIt%20Request" method="post" enctype="text/plain">
+      <label><span data-i18n="f_name">Name</span><input name="name" placeholder="Your name" required></label>
+      <label><span data-i18n="f_contact">Contact (email/phone)</span><input name="contact" placeholder="you@email.com / +1 ..." required></label>
+      <label><span data-i18n="f_type">Type</span>
+        <select name="type">
+          <option value="help" selected>Need help (resources)</option>
+          <option value="cleanout">CleanOut / pickup</option>
+          <option value="resume">Resume / job</option>
+          <option value="legal">Legal consult</option>
+          <option value="post">Post on site</option>
+        </select>
+      </label>
+      <label><span>Message</span><textarea name="message" placeholder="Tell us what you need" required></textarea></label>
+      <button type="submit" data-i18n="send">Send</button>
+    </form>
+  </section>
+</main>
 
-    <section id="appointments">
-      <div class="secHead"><h2 data-i18n="appt_title">Appointments: DMV & Social Security</h2><span class="chip" data-i18n="appt_how">How to book + documents</span></div>
-      <div class="grid">
-        <article class="card">
-          <h3>🚗 DMV (FLHSMV)</h3>
-          <p class="muted" data-i18n="dmv_text">Book driver license/ID appointments online.</p>
-          <a class="link" href="https://services.flhsmv.gov/appointmentsonline/appointments" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Book appointment</a>
-          <ul class="muted">
-            <li data-i18n="dmv_doc1">Bring passport or birth certificate</li>
-            <li data-i18n="dmv_doc2">Proof of SSN (card, W-2, pay stub)</li>
-            <li data-i18n="dmv_doc3">Two proofs of Florida address</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h3>🪪 Social Security (SSA)</h3>
-          <p class="muted" data-i18n="ssa_text">Find offices and schedule phone or in-person.</p>
-          <a class="link" href="https://www.ssa.gov/locator/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Office locator</a>
-          <ul class="muted">
-            <li data-i18n="ssa_doc1">Photo ID (passport/state ID)</li>
-            <li data-i18n="ssa_doc2">Immigration documents (if any)</li>
-            <li data-i18n="ssa_doc3">Mail with your name & address</li>
-          </ul>
-        </article>
-      </div>
-    </section>
+<footer>
+  <div class="row">© 2025 PleaseUseIt.com · <a href="#" onclick="scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a></div>
+</footer>
 
-    <section id="phone">
-      <div class="secHead"><h2 data-i18n="phone_title">Free / Low-Cost Phone</h2><span class="chip">Lifeline</span></div>
-      <div class="grid">
-        <article class="card">
-          <h3>📱 Apply for Lifeline</h3>
-          <p class="muted" data-i18n="lifeline_text">Discounted service for eligible users.</p>
-          <a class="link" href="https://www.checklifeline.org/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> checklifeline.org</a>
-        </article>
-        <article class="card">
-          <h3>🟣 Providers</h3>
-          <p class="muted">Assurance Wireless, SafeLink, Q Link, etc.</p>
-          <a class="link" href="https://www.assurancewireless.com/" target="_blank" rel="noopener">Assurance</a>
-          <a class="link" href="https://www.safelinkwireless.com/" target="_blank" rel="noopener">SafeLink</a>
-          <a class="link" href="https://qlinkwireless.com/" target="_blank" rel="noopener">Q Link</a>
-        </article>
-      </div>
-    </section>
+<script>
+  // Reveal on scroll
+  const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('section').forEach(s=>obs.observe(s));
 
-    <section id="transport">
-      <div class="secHead"><h2 data-i18n="transport_title">Scooters & Transit</h2><span class="chip" data-i18n="transport_hint">Short trips, cheap options</span></div>
-      <div class="grid">
-        <article class="card">
-          <h3>🛴 E-Scooters</h3>
-          <p class="muted" data-i18n="escoot_text">Available in parts of Miami; use the app to unlock.</p>
-          <a class="link" href="https://www.li.me/locations/us/miami" target="_blank" rel="noopener">Lime</a>
-          <a class="link" href="https://www.bird.co/miami" target="_blank" rel="noopener">Bird</a>
-        </article>
-        <article class="card">
-          <h3>🚌 Transit</h3>
-          <p class="muted" data-i18n="transit_text">Metrorail, Metromover (free), Metrobus.</p>
-          <a class="link" href="https://www.miamidade.gov/transit/" target="_blank" rel="noopener">Miami-Dade Transit</a>
-        </article>
-      </div>
-    </section>
+  // Tiny i18n (EN default; RU/ES/HT translations)
+  const i18n={sos_title:{ru:'Экстренная помощь',es:'Emergencia',ht:'Ijans/Liy kriz'},sos_911:{ru:'Полиция, пожарные, медицина',es:'Policía, bomberos, ambulancia',ht:'Lapolis, ponpye, medikal'},sos_988:{ru:'Линия жизни и кризис',es:'Línea de crisis y suicidio',ht:'Liy kriz ak swisid'},sos_caring:{ru:'Приют, еда, поддержка',es:'Refugio, comida, apoyo',ht:'Abri, manje, sipò'},sos_camillus:{ru:'Душ, одежда, помощь с жильём',es:'Duchas, ropa, ayuda de vivienda',ht:'Douch, rad, èd lojman'},call:{ru:'Позвонить',es:'Llamar',ht:'Rele'},free_public:{ru:'Бесплатно / публично',es:'Gratis / público',ht:'Gratis / piblik'},showers_title:{ru:'Душевые',es:'Duchas',ht:'Douch yo'},showers_beach:{ru:'Пляжные душевые почти на каждом входе',es:'Duchas públicas en muchas entradas de la playa',ht:'Douch piblik sou anpil antre plaj'},showers_camillus:{ru:'Комнатные душевые (уточни часы)',es:'Duchas interiores (ver horarios)',ht:'Douch andedan (tcheke lè yo)'},showers_caring:{ru:'Душ, одежда и поддержка',es:'Duchas, ropa y apoyo',ht:'Douch, rad, sipò'},laundry_title:{ru:'Прачечные',es:'Lavanderías',ht:'Laveri'},lowcost:{ru:'Дёшево и рядом',es:'Barato y cerca',ht:'Bon mache toupre'},laundry_map:{ru:'Найди ближайшие прачечные',es:'Encuentra lavanderías cercanas',ht:'Jwenn laveri toupre w'},clothes_help:{ru:'Бесплатная одежда (ограниченно)',es:'Ropa gratis (limitado)',ht:'Rad gratis (limite)'},food_title:{ru:'Еда и продуктовые банки',es:'Comida y despensas',ht:'Manje ak bank manje'},daily_meals:{ru:'Ежедневные порции / выдача продуктов',es:'Comidas diarias / despensas',ht:'Repas chak jou / depo manje'},food_meals:{ru:'Приюты и церкви по расписанию',es:'Refugios e iglesias con horario',ht:'Abri ak legliz selon orè'},food_map:{ru:'Карта продуктовой помощи',es:'Mapa de despensas',ht:'Kat depo manje'},internet_title:{ru:'Интернет и библиотеки',es:'Internet y bibliotecas',ht:'Entènèt ak bibliyotèk'},free_wifi:{ru:'Компьютеры и Wi-Fi бесплатно',es:'Computadoras y Wi-Fi gratis',ht:'Òdinatè ak Wi-Fi gratis'},internet_mdpls:{ru:'Интернет, компьютеры, печать (иногда платно)',es:'Internet, computadoras, impresión (pequeña tarifa)',ht:'Entènèt, òdinatè, enprime (ti frè)'},internet_city:{ru:'Парки и публичные места с Wi-Fi',es:'Parques y espacios públicos con Wi-Fi',ht:'Pak ak espas piblik ak Wi-Fi'},appt_title:{ru:'Запись: DMV и Соцстрах',es:'Citas: DMV y Seguro Social',ht:'Randevou: DMV & Sekirite Sosyal'},appt_how:{ru:'Как записаться + документы',es:'Cómo reservar + documentos',ht:'Kijan pou pran randevou + dokiman'},dmv_text:{ru:'Запишись онлайн на права/ID',es:'Reserva en línea para licencia/ID',ht:'Pran randevou sou entènèt pou lisans/ID'},dmv_doc1:{ru:'Паспорт или свидетельство о рождении',es:'Pasaporte o acta de nacimiento',ht:'Paspò oswa sètifika nesans'},dmv_doc2:{ru:'Подтверждение SSN (карта, W-2, пэйстаб)',es:'Prueba de SSN (tarjeta, W-2, talón)',ht:'Prèv SSN (kat, W-2, pewòl)'},dmv_doc3:{ru:'Два доказательства адреса во Флориде',es:'Dos pruebas de dirección en FL',ht:'De prèv adrès Florid'},ssa_text:{ru:'Найди офис и запишись (тел./очно)',es:'Encuentra oficina y agenda (tel./presencial)',ht:'Jwenn biwo epi pran randevou (telefòn/an pèsòn)'},ssa_doc1:{ru:'Фото-ID (паспорт/штатное)',es:'ID con foto (pasaporte/estatal)',ht:'ID ak foto (paspò/eta)'},ssa_doc2:{ru:'Иммиграционные документы (если есть)',es:'Documentos de inmigración (si tienes)',ht:'Dokiman imigrasyon (si genyen)'},ssa_doc3:{ru:'Почта на ваше имя и адрес',es:'Correo con tu nombre y dirección',ht:'Lèt ak non w ak adrès ou'},phone_title:{ru:'Бесплатный / недорогой телефон',es:'Teléfono gratis / barato',ht:'Telefòn gratis / bon mache'},transport_title:{ru:'Самокаты и транспорт',es:'Scooters y transporte',ht:'Scooter ak transpò'},transport_hint:{ru:'Короткие поездки, бюджетно',es:'Viajes cortos y baratos',ht:'Ti vwayaj a bon pri'},escoot_text:{ru:'Доступны в некоторых районах — разблокируй в приложении',es:'Disponible en zonas — desbloquea con la app',ht:'Disponib nan kèk zòn — itilize app la'},transit_text:{ru:'Metrorail, Metromover (бесплатно), Metrobus',es:'Metrorail, Metromover (gratis), Metrobus',ht:'Metrorail, Metromover (gratis), Metrobus'},stays_title:{ru:'Недорогие ночёвки ($10–$40)',es:'Hospedajes baratos ($10–$40)',ht:'Lojman bon mache ($10–$40)'},stays_hint:{ru:'Сортируй по минимальной цене',es:'Ordena por precio más bajo',ht:'Triye pa pi ba pri'},stays_booking:{ru:'Хостелы и бюджетные комнаты',es:'Hostales y cuartos baratos',ht:'Ostel ak chanm bon mache'},contact_title:{ru:'Контакты',es:'Contactos',ht:'Kontak'},request_title:{ru:'Заявка / Опубликовать',es:'Solicitud / Publicar',ht:'Demann / Pibliye'},reply:{ru:'Отвечаем по email',es:'Respondemos por email',ht:'Nou reponn pa imel'},f_name:{ru:'Имя',es:'Nombre',ht:'Non'},f_contact:{ru:'Контакт (email/тел.)',es:'Contacto (email/tel.)',ht:'Kontak (imel/tel.)'},f_type:{ru:'Тип',es:'Tipo',ht:'Kalite'},send:{ru:'Отправить',es:'Enviar',ht:'Voye'}};
+  (function(){const btn=document.getElementById('langBtn');let lang='en', langs=['en','ru','es','ht'];function apply(){document.documentElement.lang=lang;btn.textContent=lang==='en'?'🌐 EN':(lang==='ru'?'🌐 RU':(lang==='es'?'🌐 ES':'🌐 HT'));document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n, m=i18n[k]; if(m&&m[lang]) el.textContent=m[lang];});}
+    btn.addEventListener('click',()=>{lang=langs[(langs.indexOf(lang)+1)%langs.length];apply();});apply();})();
 
-    <section id="stays">
-      <div class="secHead"><h2 data-i18n="stays_title">Cheap Stays ($10–$40)</h2><span class="chip" data-i18n="stays_hint">Sort by lowest price</span></div>
-      <div class="grid">
-        <article class="card">
-          <h3>🏨 Booking (Miami)</h3>
-          <p class="muted" data-i18n="stays_booking">Hostels & budget rooms — filter by price & dorms.</p>
-          <a class="link" href="https://www.booking.com/searchresults.html?ss=Miami%2C+Florida&order=price" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Booking.com — Miami</a>
-        </article>
-        <article class="card">
-          <h3>🏡 Hostelworld</h3>
-          <p class="muted">Compare dorm beds across hostels.</p>
-          <a class="link" href="https://www.hostelworld.com/find/hostels/usa/miami" target="_blank" rel="noopener">Hostelworld — Miami</a>
-        </article>
-      </div>
-    </section>
+  // Fallback: save request if mail app not set
+  (function(){const f=document.getElementById('reqForm');if(!f)return;f.addEventListener('submit',()=>{setTimeout(()=>{try{const d=new FormData(f),o=Object.fromEntries(d.entries());const text=`Request on PleaseUseIt\nName: ${o.name||''}\nContact: ${o.contact||''}\nType: ${o.type||''}\nMessage:\n${o.message||''}\n`;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'text/plain'}));a.download='request.txt';a.click();}catch(e){}},500);});})();
 
-    <section id="contact">
-      <div class="secHead"><h2 data-i18n="contact_title">Contacts</h2></div>
-      <div class="grid">
-        <article class="card"><h3>📞 Phone</h3><a class="link" href="tel:+17864589512"><i class="fa-solid fa-phone"></i> +1 (786) 458-9512</a></article>
-        <article class="card"><h3>💬 WhatsApp</h3><a class="link" href="https://wa.me/17864589512" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" style="color:#25D366"></i> Message</a></article>
-        <article class="card"><h3>✉️ Email</h3><a class="link" href="mailto:icook4mia@gmail.com"><i class="fa-solid fa-envelope"></i> icook4mia@gmail.com</a></article>
-      </div>
-    </section>
+  // BIG MAP (Leaflet + Overpass)
+  const map=L.map('bigmap').setView([25.774,-80.19], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
 
-    <section id="request">
-      <div class="secHead"><h2 data-i18n="request_title">Request help / Post a message</h2><span class="chip" data-i18n="reply">We reply by email</span></div>
-      <form id="reqForm" action="mailto:icook4mia@gmail.com?subject=PleaseUseIt%20Request" method="post" enctype="text/plain">
-        <label><span data-i18n="f_name">Name</span><input name="name" placeholder="Your name" required /></label>
-        <label><span data-i18n="f_contact">Contact (email/phone)</span><input name="contact" placeholder="you@email.com / +1 ..." required /></label>
-        <label><span data-i18n="f_type">Type</span>
-          <select name="type">
-            <option value="help" selected>Need help (resources)</option>
-            <option value="cleanout">CleanOut / pickup</option>
-            <option value="resume">Resume / job</option>
-            <option value="legal">Legal consult</option>
-            <option value="post">Post on site</option>
-          </select>
-        </label>
-        <label><span>Message</span><textarea name="message" placeholder="Tell us what you need" required></textarea></label>
-        <button type="submit" data-i18n="send">Send</button>
-      </form>
-    </section>
-  </main>
+  const layers={
+    shelters: L.layerGroup().addTo(map),
+    food: L.layerGroup().addTo(map),
+    hospitals: L.layerGroup().addTo(map),
+    police: L.layerGroup().addTo(map),
+    laundry: L.layerGroup().addTo(map),
+  };
 
-  <footer>
-    <div class="row">© 2025 PleaseUseIt.com</div>
-  </footer>
+  function m(color){return L.icon({iconUrl:`data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='${color}' stroke='white' stroke-width='1.5'><path d='M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z'/></svg>`,iconSize:[28,28],iconAnchor:[14,28],popupAnchor:[0,-28]});}
 
-  <script>
-    // Reveal on scroll
-    const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}}),{threshold:.12});
-    document.querySelectorAll('section').forEach(s=>obs.observe(s));
-
-    // Tiny i18n (EN default; RU/ES/HT available)
-    const i18n={
-      sos_title:{ru:'Экстренная помощь',es:'Emergencia',ht:'Ijans/Liy kriz'},
-      sos_911:{ru:'Полиция, пожарные, медицина',es:'Policía, bomberos, ambulancia',ht:'Lapolis, ponpye, medikal'},
-      sos_988:{ru:'Линия жизни и кризис',es:'Línea de crisis y suicidio',ht:'Liy kriz ak swisid'},
-      sos_caring:{ru:'Приют, еда, поддержка',es:'Refugio, comida, apoyo',ht:'Abri, manje, sipò'},
-      sos_camillus:{ru:'Душ, одежда, помощь с жильём',es:'Duchas, ropa, ayuda de vivienda',ht:'Douch, rad, èd lojman'},
-      call:{ru:'Позвонить',es:'Llamar',ht:'Rele'},
-      free_public:{ru:'Бесплатно / публично',es:'Gratis / público',ht:'Gratis / piblik'},
-      showers_title:{ru:'Душевые',es:'Duchas',ht:'Douch yo'},
-      showers_beach:{ru:'Пляжные душевые почти на каждом входе',es:'Duchas públicas en muchas entradas de la playa',ht:'Douch piblik sou anpil antre plaj'},
-      showers_camillus:{ru:'Комнатные душевые (уточни часы)',es:'Duchas interiores (ver horarios)',ht:'Douch andedan (tcheke lè yo)'},
-      showers_caring:{ru:'Душ, одежда и поддержка',es:'Duchas, ropa y apoyo',ht:'Douch, rad, sipò'},
-      laundry_title:{ru:'Прачечные',es:'Lavanderías',ht:'Laveri'},
-      lowcost:{ru:'Дёшево и рядом',es:'Barato y cerca',ht:'Bon mache toupre'},
-      laundry_map:{ru:'Найди ближайшие прачечные',es:'Encuentra lavanderías cercanas',ht:'Jwenn laveri toupre w'},
-      clothes_help:{ru:'Бесплатная одежда (ограниченно)',es:'Ropa gratis (limitado)',ht:'Rad gratis (limite)'},
-      food_title:{ru:'Еда и продуктовые банки',es:'Comida y despensas',ht:'Manje ak bank manje'},
-      daily_meals:{ru:'Ежедневные порции / выдача продуктов',es:'Comidas diarias / despensas',ht:'Repas chak jou / depo manje'},
-      food_meals:{ru:'Приюты и церкви по расписанию',es:'Refugios e iglesias con horario',ht:'Abri ak legliz selon orè'},
-      food_map:{ru:'Карта продуктовой помощи',es:'Mapa de despensas',ht:'Kat depo manje'},
-      internet_title:{ru:'Интернет и библиотеки',es:'Internet y bibliotecas',ht:'Entènèt ak bibliyotèk'},
-      free_wifi:{ru:'Компьютеры и Wi-Fi бесплатно',es:'Computadoras y Wi-Fi gratis',ht:'Òdinatè ak Wi-Fi gratis'},
-      internet_mdpls:{ru:'Интернет, компьютеры, печать (иногда платно)',es:'Internet, computadoras, impresión (pequeña tarifa)',ht:'Entènèt, òdinatè, enprime (ti frè)'},
-      internet_city:{ru:'Парки и публичные места с Wi-Fi',es:'Parques y espacios públicos con Wi-Fi',ht:'Pak ak espas piblik ak Wi-Fi'},
-      appt_title:{ru:'Запись: DMV и Соцстрах',es:'Citas: DMV y Seguro Social',ht:'Randevou: DMV & Sekirite Sosyal'},
-      appt_how:{ru:'Как записаться + документы',es:'Cómo reservar + documentos',ht:'Kijan pou pran randevou + dokiman'},
-      dmv_text:{ru:'Запишись онлайн на права/ID',es:'Reserva en línea para licencia/ID',ht:'Pran randevou sou entènèt pou lisans/ID'},
-      dmv_doc1:{ru:'Паспорт или свидетельство о рождении',es:'Pasaporte o acta de nacimiento',ht:'Paspò oswa sètifika nesans'},
-      dmv_doc2:{ru:'Подтверждение SSN (карта, W-2, пэйстаб)',es:'Prueba de SSN (tarjeta, W-2, talón)',ht:'Prèv SSN (kat, W-2, pewòl)'},
-      dmv_doc3:{ru:'Два доказательства адреса во Флориде',es:'Dos pruebas de dirección en FL',ht:'De prèv adrès Florid'},
-      ssa_text:{ru:'Найди офис и запишись (тел./очно)',es:'Encuentra oficina y agenda (tel./presencial)',ht:'Jwenn biwo epi pran randevou (telefòn/an pèsòn)'},
-      ssa_doc1:{ru:'Фото-ID (паспорт/штатное)',es:'ID con foto (pasaporte/estatal)',ht:'ID ak foto (paspò/eta)'},
-      ssa_doc2:{ru:'Иммиграционные документы (если есть)',es:'Documentos de inmigración (si tienes)',ht:'Dokiman imigrasyon (si genyen)'},
-      ssa_doc3:{ru:'Почта на ваше имя и адрес',es:'Correo con tu nombre y dirección',ht:'Lèt ak non w ak adrès ou'},
-      phone_title:{ru:'Бесплатный / недорогой телефон',es:'Teléfono gratis / barato',ht:'Telefòn gratis / bon mache'},
-      transport_title:{ru:'Самокаты и транспорт',es:'Scooters y transporte',ht:'Scooter ak transpò'},
-      transport_hint:{ru:'Короткие поездки, бюджетно',es:'Viajes cortos y baratos',ht:'Ti vwayaj a bon pri'},
-      escoot_text:{ru:'Доступны в некоторых районах — разблокируй в приложении',es:'Disponible en zonas — desbloquea con la app',ht:'Disponib nan kèk zòn — itilize app la'},
-      transit_text:{ru:'Metrorail, Metromover (бесплатно), Metrobus',es:'Metrorail, Metromover (gratis), Metrobus',ht:'Metrorail, Metromover (gratis), Metrobus'},
-      stays_title:{ru:'Недорогие ночёвки ($10–$40)',es:'Hospedajes baratos ($10–$40)',ht:'Lojman bon mache ($10–$40)'},
-      stays_hint:{ru:'Сортируй по минимальной цене',es:'Ordena por precio más bajo',ht:'Triye pa pi ba pri'},
-      stays_booking:{ru:'Хостелы и бюджетные комнаты',es:'Hostales y cuartos baratos',ht:'Ostel ak chanm bon mache'},
-      contact_title:{ru:'Контакты',es:'Contactos',ht:'Kontak'},
-      request_title:{ru:'Заявка / Опубликовать',es:'Solicitud / Publicar',ht:'Demann / Pibliye'},
-      reply:{ru:'Отвечаем по email',es:'Respondemos por email',ht:'Nou reponn pa imel'},
-      f_name:{ru:'Имя',es:'Nombre',ht:'Non'},
-      f_contact:{ru:'Контакт (email/тел.)',es:'Contacto (email/tel.)',ht:'Kontak (imel/tel.)'},
-      f_type:{ru:'Тип',es:'Tipo',ht:'Kalite'},
-      send:{ru:'Отправить',es:'Enviar',ht:'Voye'}
+  // Overpass fetch within current map bounds for each category
+  async function loadPOI(){
+    const b=map.getBounds(); const box=`${b.getSouth()},${b.getWest()},${b.getNorth()},${b.getEast()}`;
+    const queries={
+      shelters:`[out:json][timeout:25];(node["social_facility"~"shelter|homeless"]( ${box}); way["social_facility"~"shelter|homeless"]( ${box}); relation["social_facility"~"shelter|homeless"]( ${box});); out center;`,
+      food:`[out:json][timeout:25];(node["social_facility"~"food"]( ${box}); node["amenity"="food_bank"]( ${box});); out center;`,
+      hospitals:`[out:json][timeout:25];(node["amenity"="hospital"]( ${box}); way["amenity"="hospital"]( ${box});); out center;`,
+      police:`[out:json][timeout:25];(node["amenity"="police"]( ${box}); way["amenity"="police"]( ${box});); out center;`,
+      laundry:`[out:json][timeout:25];(node["shop"="laundry"]( ${box}); node["amenity"="laundry"]( ${box});); out center;`
     };
-    (function(){
-      const btn=document.getElementById('langBtn');
-      let lang='en';
-      const langs=['en','ru','es','ht'];
-      function apply(){
-        document.documentElement.lang=lang;
-        btn.textContent = lang==='en'?'🌐 EN':(lang==='ru'?'🌐 RU':(lang==='es'?'🌐 ES':'🌐 HT'));
-        document.querySelectorAll('[data-i18n]').forEach(el=>{
-          const k=el.dataset.i18n; const map=i18n[k];
-          if(map && map[lang]) el.textContent=map[lang];
+    const colors={shelters:'#2563eb',food:'#22c55e',hospitals:'#ef4444',police:'#f59e0b',laundry:'#8b5cf6'};
+    for (const k of Object.keys(queries)){
+      layers[k].clearLayers();
+      try{
+        const r=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',body:queries[k]});
+        const json=await r.json();
+        (json.elements||[]).forEach(el=>{
+          const lat=el.lat||el.center?.lat, lon=el.lon||el.center?.lon;
+          if(!lat||!lon) return;
+          const name=el.tags?.name||'(no name)';
+          const addr=[el.tags?.addr_housenumber,el.tags?.addr_street,el.tags?.addr_city].filter(Boolean).join(' ');
+          L.marker([lat,lon],{icon:m(colors[k])}).addTo(layers[k]).bindPopup(`<strong>${name}</strong><br>${addr}`);
         });
-      }
-      btn.addEventListener('click',()=>{const i=(langs.indexOf(lang)+1)%langs.length;lang=langs[i];apply();});
-      apply();
-    })();
+      }catch(e){/* fail silent */}
+    }
+  }
+  map.on('moveend', loadPOI); loadPOI();
 
-    // Save request to file as fallback (if mail app is not set up)
-    (function(){
-      const f=document.getElementById('reqForm'); if(!f) return;
-      f.addEventListener('submit',()=>{
-        setTimeout(()=>{
-          try{
-            const d=new FormData(f); const o=Object.fromEntries(d.entries());
-            const text=`Request on PleaseUseIt\nName: ${o.name||''}\nContact: ${o.contact||''}\nType: ${o.type||''}\nMessage:\n${o.message||''}\n`;
-            const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([text],{type:'text/plain'})); a.download='request.txt'; a.click();
-          }catch(e){}
-        },500);
-      });
-    })();
-
-    // Header collapse on scroll
-    (function(){
-      const hdr=document.getElementById('hdr'); let last=scrollY;
-      addEventListener('scroll',()=>{const down=scrollY>last && scrollY>40; hdr.classList.toggle('collapsed',down); last=scrollY;},{passive:true});
-    })();
-  </script>
+  // Header subtle hide on scroll
+  (function(){const hdr=document.getElementById('hdr');let last=scrollY;addEventListener('scroll',()=>{const down=scrollY>last && scrollY>40;hdr.style.transform=down?'translateY(-110%)':'none';last=scrollY;},{passive:true});})();
+</script>
 </body>
 </html>
