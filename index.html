@@ -1,879 +1,320 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ru">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#00b4d8" />
-  <title>Please Use It — Miami Resources (Offline-Ready)</title>
-
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>PleaseUseIt.com — We Survive Together</title>
+  <meta name="description" content="PleaseUseIt — ресурсы, поддержка и мотивация для Майами. SOS ссылки, карта, посты, заявки и контакты. Один файл, работает на GitHub Pages."/>
+  <meta name="theme-color" content="#6d28d9" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- QR code generator (tiny, no deps) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root{ --primary:#00b4d8; --accent:#ff9f1c; --bg:rgba(0,0,0,.55); }
-    html{scroll-behavior:smooth}
+    :root{
+      --bg:#0b0b10;--card:#12121a;--muted:#a3a3b2;--text:#f4f6ff;--brand:#7c3aed;--brand2:#06b6d4;--ok:#10b981;--warn:#f59e0b;--danger:#ef4444;
+      --radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35);
+    }
     *{box-sizing:border-box}
-    body{
-      margin: 0;
-      background-image: url('https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=1920&q=80');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: white;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-    header{
-      position:sticky; top:0; z-index:1000; backdrop-filter:saturate(130%) blur(6px);
-      background:linear-gradient(90deg, rgba(0,180,216,.95), rgba(2,62,138,.95));
-      padding:14px 16px; box-shadow:0 6px 16px rgba(0,0,0,.25);
-    }
-    .row{max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
-    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
-    .brand i{font-size:24px}
-    .brand span{font-size:20px}
-    nav{display:flex; gap:14px; flex:1; justify-content:center; flex-wrap:wrap}
-    nav a{color:#fff; text-decoration:none; font-weight:600; padding:8px 10px; border-radius:10px; transition:.2s; white-space:nowrap}
-    nav a:hover{background:rgba(255,255,255,.12)}
-    .tools{margin-left:auto; display:flex; align-items:center; gap:10px}
-    .lang{min-width:190px; background:#fff; color:#000; border-radius:10px; padding:6px 10px}
-    .cta{background:#ff9f1c; color:#000; border:none; border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer}
-    .ghost{background:transparent; color:#fff; border:1px solid rgba(255,255,255,.4)}
-
-    /* ===== Motivation bar styles ===== */
-    .motivation-wrap {
-      position: relative;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      padding: 8px 0 0;
-      z-index: 900; /* below header but above main */
-    }
-    .motivation-card {
-      backdrop-filter: blur(2px);
-      background: rgba(0,0,0,0.45);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px;
-      padding: 14px 16px;
-      max-width: 1100px;
-      width: calc(100% - 24px);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
-    }
-    .motivation-btn {
-      display: inline-block;
-      font-weight: 700;
-      font-size: 16px;
-      padding: 12px 16px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      background: #ffcc00;
-      color: #1a1a1a;
-      transition: transform .08s ease, box-shadow .2s ease;
-    }
-    .motivation-btn:active { transform: translateY(1px); }
-    .motivation-btn:focus-visible { outline: 2px dashed #fff; outline-offset: 3px; }
-    .motivation-quote {
-      margin: 10px 0 0 0;
-      color: #fff;
-      font-size: 18px;
-      font-style: italic;
-      line-height: 1.4;
-      min-height: 1.4em;
-      opacity: 0;
-      animation: fadeIn .5s forwards;
-    }
-    .motivation-meta {
-      margin-top: 6px;
-      font-size: 14px;
-      color: #e8e8e8;
-      opacity: .9;
-    }
-
-    main{padding:24px 16px}
-    section.card{
-      background:var(--bg); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:18px; margin:16px auto; max-width:1100px;
-      box-shadow:0 10px 28px rgba(0,0,0,.25); transform:translateY(8px); opacity:0; animation:fadeUp .6s ease forwards;
-    }
-    section.card h2{margin:0 0 10px; color:#ffe8cc}
-    section.card ul{list-style:none; padding:0; margin:0}
-    section.card li{margin:10px 0; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); padding:10px; border-radius:12px}
-    section.card a{color:#ffd166; font-weight:700}
-    .two-col{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-    .grid{display:grid; gap:12px}
-    .grid.qr{grid-template-columns:repeat(auto-fit, minmax(160px,1fr))}
-    .note{font-size:.95rem; opacity:.9}
-    iframe{width:100%; height:420px; border:0; border-radius:12px}
-    footer{padding:26px 16px; text-align:center; background:rgba(0,0,0,.7)}
-
-    @keyframes fadeUp{to{opacity:1; transform:translateY(0)}}
-    @keyframes fadeIn{from{opacity:0; transform:translateY(2px)} to{opacity:1; transform:translateY(0)}}
-
-    @media (max-width: 820px){
-      nav{justify-content:flex-start}
-      .two-col{grid-template-columns:1fr}
-      .lang{min-width:unset; width:100%}
-    }
-
-    @media print{
-      body{background:#fff}
-      header, nav, .tools, footer, .motivation-wrap{display:none !important}
-      .card{border:none; box-shadow:none; background:#fff; color:#000}
-      .printable{page-break-inside:avoid}
-    }
-
-    details summary{cursor:pointer}
-    details[open] summary{opacity:.9}
-    .tag{display:inline-block; font-size:.8rem; padding:3px 8px; border-radius:999px; background:rgba(0,0,0,.25); border:1px solid rgba(255,255,255,.2); margin-left:6px}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;background:radial-gradient(1200px 800px at 80% -10%,rgba(124,58,237,.25),transparent),radial-gradient(800px 600px at -10% 20%,rgba(6,182,212,.18),transparent),var(--bg);color:var(--text);}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1080px;margin:0 auto;padding:16px}
+    /* Header */
+    header{position:sticky;top:0;z-index:50;transition:transform .35s ease, background .35s ease;backdrop-filter:saturate(120%) blur(8px)}
+    .nav{display:flex;gap:10px;align-items:center;justify-content:space-between;background:rgba(18,18,26,.7);border:1px solid rgba(255,255,255,.08);padding:10px 12px;border-radius:14px;margin:10px auto;box-shadow:var(--shadow)}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand2));font-weight:800}
+    .brand h1{font-size:16px;line-height:1.1;margin:0;font-weight:800}
+    .navbtns{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{padding:8px 12px;border-radius:999px;background:#1a1b25;border:1px solid rgba(255,255,255,.08);font-size:13px}
+    .cta{background:linear-gradient(135deg,var(--brand),var(--brand2));border:none}
+    .pin{border:1px dashed rgba(255,255,255,.25)}
+    .collapsed{transform:translateY(-110%)}
+    /* Hero */
+    .hero{display:grid;gap:16px;padding:8px;margin-top:4px}
+    .heroCard{border-radius:var(--radius);background:linear-gradient(180deg,rgba(124,58,237,.15),rgba(124,58,237,.07) 60%,rgba(6,182,212,.06));border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);padding:18px}
+    .title{font-size:26px;margin:0 0 6px 0;font-weight:800;letter-spacing:.3px}
+    .subtitle{margin:0;color:var(--muted)}
+    .bar{display:grid;gap:10px;grid-template-columns:repeat(2,minmax(0,1fr));}
+    .btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:12px;background:#141522;border:1px solid rgba(255,255,255,.08);font-weight:600}
+    .btn.bad{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.25)}
+    .btn.good{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.25)}
+    .btn i{font-style:normal;opacity:.85}
+    /* Sections */
+    section{margin:18px 0}
+    .secHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .secHead h2{font-size:18px;margin:0}
+    .grid{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media(min-width:740px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 6px 0;font-size:15px}
+    .muted{color:var(--muted);font-size:13px}
+    .tag{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#1a1b25;border:1px solid rgba(255,255,255,.08);font-size:12px;margin-top:8px}
+    .link{display:flex;align-items:center;gap:8px;margin-top:10px;font-weight:600}
+    .link svg{opacity:.9}
+    /* Posts */
+    .posts{display:grid;gap:12px}
+    .post{display:grid;gap:10px;background:linear-gradient(180deg,#12121a,#101018);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px}
+    .post h3{margin:0;font-size:16px}
+    .post time{color:var(--muted);font-size:12px}
+    /* Form */
+    form{display:grid;gap:10px}
+    input,textarea,select{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0f0f16;color:var(--text)}
+    textarea{min-height:110px}
+    button[type=submit]{padding:12px 14px;border-radius:12px;border:none;font-weight:700;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
+    /* Footer */
+    footer{opacity:.8;margin:22px 0 40px}
+    footer .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
+    /* Small landscape: hide hero header for max content */
+    @media (orientation:landscape) and (max-height:420px){.heroCard{display:none}}
   </style>
-
-  <!-- Google Translate (scripts in <head>, container goes in <body>) -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'en,ru,es,lv,uk',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-      }, 'google_translate_element');
-    }
-  </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-  <!-- Leaflet CSS/JS (OpenStreetMap) -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
 </head>
-
 <body>
-  <!-- Fixed Google Translate widget -->
-  <div id="google_translate_element" style="position:fixed; top:10px; right:10px; z-index:9999;"></div>
-
-  <!-- Header / Nav -->
-  <header>
-    <div class="row">
-      <div class="brand"><i class="fas fa-hands-holding-heart"></i><span>Please Use It</span> <span class="tag">Miami</span></div>
-      <nav>
-        <a href="#shelters"><i class="fa-solid fa-bed"></i> Shelters</a>
-        <a href="#support"><i class="fa-solid fa-hand-holding-heart"></i> Support</a>
-        <a href="#gov"><i class="fa-solid fa-landmark"></i> Gov Aid</a>
-        <a href="#jobs"><i class="fa-solid fa-briefcase"></i> Jobs</a>
-        <a href="#money"><i class="fa-solid fa-piggy-bank"></i> Money</a>
-        <a href="#credit"><i class="fa-solid fa-credit-card"></i> Credit & ID</a>
-        <a href="#gig"><i class="fa-solid fa-bicycle"></i> Gig Work</a>
-        <a href="#dmv"><i class="fa-solid fa-id-card"></i> DMV</a>
-        <a href="#showers"><i class="fa-solid fa-shower"></i> Showers/Laundry</a>
-        <a href="#wifi"><i class="fa-solid fa-wifi"></i> Free Wi-Fi & Charging</a>
-        <a href="#howto"><i class="fa-solid fa-list-check"></i> How-To</a>
-        <a href="#resume"><i class="fa-solid fa-file-lines"></i> Resume</a>
-        <a href="#survival"><i class="fa-solid fa-shield-heart"></i> Street Survival</a>
-        <a href="#printables"><i class="fa-solid fa-file-arrow-down"></i> Printables</a>
-        <a href="#map"><i class="fa-solid fa-map-location-dot"></i> Map</a>
-      </nav>
-      <div class="tools">
-        <button id="installBtn" class="cta ghost" style="display:none"><i class="fa-solid fa-download"></i> Install Offline</button>
+  <header id="hdr">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo" aria-hidden>PU</div>
+        <h1>PleaseUseIt · Miami</h1>
       </div>
+      <nav class="navbtns">
+        <a href="#sos" class="chip">SOS</a>
+        <a href="#resources" class="chip">Ресурсы</a>
+        <a href="#posts" class="chip">Посты</a>
+        <a href="#request" class="chip">Заявка</a>
+        <button id="pinBtn" class="chip pin" type="button" title="Прикрепить шапку">📌 Pin</button>
+        <button id="langBtn" class="chip cta" type="button" title="Сменить язык">🌐 RU</button>
+      </nav>
     </div>
   </header>
 
-  <!-- ===== Motivation Bar (top, centered) ===== -->
-  <div class="motivation-wrap" role="region" aria-label="Daily Inspiration">
-    <div class="motivation-card">
-      <button id="motivationBtn" class="motivation-btn">✝ Inspire Me Now</button>
-      <div id="motivationQuote" class="motivation-quote" aria-live="polite"></div>
-      <div id="motivationMeta" class="motivation-meta"></div>
+  <main class="wrap">
+    <div class="hero">
+      <div class="heroCard">
+        <h2 class="title" data-i18n="title">Добро пожаловать на PleaseUseIt.com</h2>
+        <p class="subtitle" data-i18n="subtitle">Ресурсы, поддержка и мотивация — всё в одном месте. Шапка сама сворачивается при прокрутке вниз и появляется при прокрутке вверх. Нажми 📌, чтобы закрепить.</p>
+        <div class="bar" id="sos">
+          <a class="btn bad" href="tel:911"><strong>911</strong> <i data-i18n="sos_police">— экстренная помощь</i></a>
+          <a class="btn bad" href="tel:988"><strong>988</strong> <i data-i18n="sos_mental">— линия жизни (кризис)</i></a>
+          <a class="btn good" href="https://www.miamirescuemission.com/" target="_blank" rel="noopener"><strong>Miami Rescue Mission</strong> <i>— shelter</i></a>
+          <a class="btn good" href="https://salvationarmyflorida.org/" target="_blank" rel="noopener"><strong>Salvation Army</strong> <i>— помощь</i></a>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <main>
-    <!-- Shelters -->
-    <section id="shelters" class="card">
-      <h2>🏠 Shelters & Homeless Services</h2>
-      <ul>
-        <li><strong>Camillus House Day Center</strong> — 1603 NW 7th Ave, Miami, FL 33136 — <a href="https://www.camillus.org" target="_blank" rel="noopener">Website</a></li>
-        <li><strong>Lotus House Women’s Shelter</strong> — 217 NW 15th St, Miami, FL 33136 — Tel: <a href="tel:13054380556">305-438-0556</a> — <a href="https://www.lotushouse.org/" target="_blank" rel="noopener">Website</a></li>
-        <li><strong>Miami Rescue Mission (The Caring Place)</strong> — 3553 NW 50th St (Admin) / 2159 NW 1st Ct (Downtown), Miami — <a href="https://caringplace.org/" target="_blank" rel="noopener">Website</a></li>
-        <li><strong>Salvation Army ARC Miami</strong> — 2236 NW Miami Ct, Miami, FL 33127 — <a href="https://southernusa.salvationarmy.org/florida/adult-rehabilitation" target="_blank" rel="noopener">Website</a></li>
-        <li><strong>Miami-Dade County Homeless Helpline</strong> — Tel: <a href="tel:18779944357">1-877-994-4357</a></li>
-      </ul>
-    </section>
-
-    <!-- Support -->
-    <section id="support" class="card">
-      <h2>💙 Recovery, Legal & Community Support</h2>
-      <div class="two-col">
-        <ul>
-          <li><strong>AA Meetings (Alcoholics Anonymous)</strong> — <a href="https://www.aa-meetings.com/directory/florida/miami" target="_blank" rel="noopener">Find meetings</a></li>
-          <li><strong>NA Meetings (Narcotics Anonymous)</strong> — <a href="https://www.na.org/meetingsearch/" target="_blank" rel="noopener">Search meetings</a></li>
-          <li><strong>Christian Legal Aid (CLS)</strong> — <a href="https://www.cclsmiami.org/" target="_blank" rel="noopener">Find Christian legal help</a></li>
-          <li><strong>Legal Services of Greater Miami</strong> — <a href="https://www.legalservicesmiami.org/" target="_blank" rel="noopener">Free civil legal aid</a></li>
-          <li><strong>211 Miami</strong> — <a href="https://www.211miami.org/" target="_blank" rel="noopener">Food, shelter & services</a></li>
-          <li><strong>988 Suicide & Crisis Lifeline</strong> — Tel: <a href="tel:988">988</a> — <a href="https://988lifeline.org/" target="_blank" rel="noopener">Website</a></li>
-        </ul>
-        <ul>
-          <li><strong>Feeding South Florida</strong> — <a href="https://feedingsouthflorida.org/directory-programs/#googtrans(en|en)" target="_blank" rel="noopener">Find food near you</a></li>
-          <li><strong>Low-cost / Free Clinic</strong> — Miami Rescue Mission Clinic — <a href="https://www.caringplaceclinic.org/" target="_blank" rel="noopener">Info</a></li>
-          <li><strong>Salvation Army Miami — Area Command</strong> — <a href="https://southernusa.salvationarmy.org/florida" target="_blank" rel="noopener">Programs & services</a></li>
-          <li><strong>Miami-Dade Community Action</strong> — <a href="https://www.miamidade.gov/global/housing/home.page" target="_blank" rel="noopener">Emergency Housing Assistance</a></li>
-        </ul>
+    <section id="resources">
+      <div class="secHead">
+        <h2 data-i18n="sec_resources">Полезное рядом</h2>
+        <a class="chip" href="#request" data-i18n="sec_resources_cta">Нужна помощь? Напиши нам</a>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>💼 Работа и доход</h3>
+          <p class="muted">Gig-платформы, резюме, обучение.</p>
+          <a class="link" href="https://www.miamidade.gov/global/service.page?Mduid_service=ser1561392532554440" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            <span>Miami-Dade Jobs</span>
+          </a>
+          <span class="tag">Resume · Cover Letters</span>
+        </article>
+        <article class="card">
+          <h3>🏠 Жильё и вещи</h3>
+          <p class="muted">Shelters, хранение, CleanOut.</p>
+          <a class="link" href="https://www.camilamiami.org/resources/homeless-resources" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            <span>Homeless Resources</span>
+          </a>
+          <span class="tag">Storage · Pickup</span>
+        </article>
+        <article class="card">
+          <h3>🩺 Здоровье и поддержка</h3>
+          <p class="muted">Low-cost клиники, ментальное здоровье.</p>
+          <a class="link" href="https://www.floridahealth.gov/" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            <span>Florida Health</span>
+          </a>
+          <span class="tag">988 · Clinics</span>
+        </article>
+        <article class="card">
+          <h3>🎓 Учёба и карьера</h3>
+          <p class="muted">MDC · финансовая помощь · курсы.</p>
+          <a class="link" href="https://www.mdc.edu/" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            <span>Miami Dade College</span>
+          </a>
+          <span class="tag">FAFSA · Advising</span>
+        </article>
+        <article class="card">
+          <h3>⚖️ Юридическая помощь</h3>
+          <p class="muted">Инциденты, ДТП, консультации.</p>
+          <a class="link" href="https://www.floridabar.org/public/consumer/pamphlet001/" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            <span>Florida Bar — помощь</span>
+          </a>
+          <span class="tag">Pro Bono · Claims</span>
+        </article>
+        <article class="card">
+          <h3>🚗 Транспорт и страховка</h3>
+          <p class="muted">Uber/DoorDash, ремонт, отчёты.</p>
+          <a class="link" href="https://crashportal.flhsmv.gov/" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            <span>FL Crash Report</span>
+          </a>
+          <span class="tag">Scooter · Claims</span>
+        </article>
       </div>
     </section>
 
-    <!-- Government Aid -->
-    <section id="gov" class="card">
-      <h2>🏛️ Government Assistance</h2>
-      <ul>
-        <li><a href="https://www.myflfamilies.com/services/public-assistance" target="_blank" rel="noopener">MyACCESS Florida</a> — Apply for SNAP/EBT, Medicaid, TANF</li>
-        <li>SNAP / EBT Info — Tel: <a href="tel:18667622237">1-866-762-2237</a>; EBT Card Support — <a href="tel:18883563281">1-888-356-3281</a></li>
-        <li><a href="https://www.fcc.gov/lifeline-consumers" target="_blank" rel="noopener">Lifeline Free/Discount Phone</a> — low-income phone plans</li>
-      </ul>
-    </section>
-
-    <!-- Employment -->
-    <section id="jobs" class="card">
-      <h2>💼 Job Assistance</h2>
-      <ul>
-        <li><a href="https://www.careersourcesfl.com" target="_blank" rel="noopener">CareerSource South Florida</a> — job search & training</li>
-        <li>American Job Center — 1603 NW 7th Ave, Miami, FL — Tel: <a href="tel:13053410150">305-341-0150</a></li>
-        <li>Miami Job Corps — Tel: <a href="tel:18007335627">800-733-5627</a> — <a href="https://www.jobcorps.gov/miami" target="_blank" rel="noopener">Website</a></li>
-      </ul>
-    </section>
-
-    <!-- Money / Banking / Payments -->
-    <section id="money" class="card">
-      <h2>💳 Money, Banking & Payments</h2>
-      <div class="two-col">
-        <ul>
-          <li><strong>Chime</strong> (no monthly fees) — <a href="https://www.chime.com/" target="_blank" rel="noopener">Open account</a></li>
-          <li><strong>Cash App</strong> — <a href="https://cash.app/" target="_blank" rel="noopener">Get direct deposit</a></li>
-          <li><strong>Venmo</strong> — <a href="https://venmo.com/" target="_blank" rel="noopener">Send & receive money</a></li>
-          <li><strong>Bank On Certified Accounts</strong> — <a href="https://joinbankon.org/consumers/" target="_blank" rel="noopener">Safe low-fee bank accounts</a></li>
-        </ul>
-        <ul>
-          <li class="note">Tip: enable <em>Direct Deposit</em> in your banking app to receive checks faster and safely.</li>
-          <li class="note">Keep your ID safe. If lost, see the <a href="#credit">ID & Credit</a> section.</li>
-        </ul>
+    <section id="posts">
+      <div class="secHead">
+        <h2 data-i18n="sec_posts">Посты и мотивация</h2>
+        <a class="chip" href="#request" data-i18n="sec_posts_cta">Хочу опубликовать пост</a>
+      </div>
+      <div class="posts">
+        <article class="post">
+          <header>
+            <h3>🚀 Мы с Пятницей не стареем — меняем правила игры.</h3>
+            <time datetime="2025-09-14">14 сентября 2025</time>
+          </header>
+          <p class="muted">Мир пусть завидует, а нам — весело. #СПятницей #СFriday #MiamiVibes #PleaseUseIt</p>
+        </article>
+        <article class="post">
+          <header>
+            <h3>🤝 We Survive Together</h3>
+            <time datetime="2025-09-10">10 сентября 2025</time>
+          </header>
+          <p class="muted">Ты не один. Если тяжело — позвони 988 или напиши нам в форму заявки ниже. Дышим. Делаем следующий шаг. 💜</p>
+        </article>
       </div>
     </section>
 
-    <!-- Credit & ID -->
-    <section id="credit" class="card">
-      <h2>🪪 Credit & ID — Start/Repair</h2>
-      <div class="two-col">
-        <ul>
-          <li><strong>Self</strong> (credit builder) — <a href="https://www.self.inc/" target="_blank" rel="noopener">Build credit</a></li>
-          <li><strong>Kikoff</strong> (low-cost builder) — <a href="https://kikoff.com/" target="_blank" rel="noopener">Start now</a></li>
-          <li><strong>Experian Boost</strong> — <a href="https://www.experian.com/credit/credit-report/" target="_blank" rel="noopener">Add bills to credit</a></li>
-          <li><strong>Get your free credit report</strong> — <a href="https://www.annualcreditreport.com" target="_blank" rel="noopener">AnnualCreditReport.com</a></li>
-        </ul>
-        <ul>
-          <li><strong>Replace Social Security Card</strong> — <a href="https://www.ssa.gov/ssnumber/" target="_blank" rel="noopener">SSA: SSN & Card</a></li>
-          <li><strong>Birth Certificate (Florida)</strong> — <a href="https://www.vitalchek.com/order_main.aspx?eventtype=BIRTH" target="_blank" rel="noopener">Order copy</a></li>
-          <li><strong>Florida ID/Driver License</strong> — see <a href="#dmv">DMV</a> section</li>
-        </ul>
+    <section id="request">
+      <div class="secHead">
+        <h2 data-i18n="sec_request">Заявка: помощь / заказ</h2>
+        <span class="chip" data-i18n="sec_request_hint">Ответим по email в течение суток</span>
+      </div>
+      <!--
+        Форму можно подключить к Formspree или Google Forms. Пока — mailto fallback.
+        ЗАМЕНИТЕ email в action на свой, когда будет готов.
+      -->
+      <form id="reqForm" action="mailto:you@example.com" method="post" enctype="text/plain">
+        <label>
+          <span data-i18n="f_name">Имя</span>
+          <input name="name" placeholder="Ваше имя" required />
+        </label>
+        <label>
+          <span data-i18n="f_contact">Контакт (email/телефон)</span>
+          <input name="contact" placeholder="you@email.com / +1 ..." required />
+        </label>
+        <label>
+          <span data-i18n="f_type">Тип запроса</span>
+          <select name="type">
+            <option value="help" selected>Нужна помощь (ресурсы)</option>
+            <option value="cleanout">CleanOut / вывоз</option>
+            <option value="resume">Резюме/работа</option>
+            <option value="legal">Юридическая консультация</option>
+            <option value="post">Опубликовать пост</option>
+          </select>
+        </label>
+        <label>
+          <span data-i18n="f_msg">Сообщение</span>
+          <textarea name="message" placeholder="Опишите ситуацию — чем помочь?" required></textarea>
+        </label>
+        <button type="submit" data-i18n="f_send">Отправить</button>
+      </form>
+    </section>
+
+    <section id="about">
+      <div class="secHead">
+        <h2 data-i18n="sec_about">О проекте</h2>
+        <span class="chip">v1.0 · one-file</span>
+      </div>
+      <div class="card">
+        <p class="muted" data-i18n="about_text">
+          PleaseUseIt — это лёгкий сайт в один файл для быстрого доступа к ресурсам Майами. Работает на GitHub Pages, не требует сборки и загружается даже на слабом интернете. Если связь пропадёт — сохраните страницу через «Добавить на главный экран», и ссылки останутся в истории браузера.
+        </p>
       </div>
     </section>
 
-    <!-- Gig Work -->
-    <section id="gig" class="card">
-      <h2>🚴 Gig Work — Fast Start</h2>
-      <ul>
-        <li><strong>DoorDash Dasher</strong> — <a href="https://dasher.doordash.com/" target="_blank" rel="noopener">Apply</a></li>
-        <li><strong>Uber Eats Delivery</strong> — <a href="https://www.uber.com/us/en/deliver/" target="_blank" rel="noopener">Get started</a></li>
-        <li><strong>Instacart Shopper</strong> — <a href="https://shoppers.instacart.com/" target="_blank" rel="noopener">Sign up</a></li>
-        <li class="note">Tip: Most apps require a valid ID, background check, and a bank account for deposits. See <a href="#money">Money</a> & <a href="#credit">Credit</a>.</li>
-      </ul>
-    </section>
-
-    <!-- DMV / Transportation -->
-    <section id="dmv" class="card">
-      <h2>🆔 DMV — Driver License & ID (Miami-Dade)</h2>
-      <ul>
-        <li><strong>FLHSMV — Miami-Dade Offices & Appointments</strong> — <a href="https://www.flhsmv.gov/locations/miami-dade/" target="_blank" rel="noopener">View locations</a></li>
-        <li><strong>Florida Driver License / ID — Renew or Replace</strong> — <a href="https://www.flhsmv.gov/driver-licenses-id-cards/" target="_blank" rel="noopener">Start here</a></li>
-        <li><strong>Miami-Dade Transit</strong> — <a href="https://www.miamidade.gov/transit/" target="_blank" rel="noopener">Bus & Metrorail info</a></li>
-      </ul>
-    </section>
-
-    <!-- Resume -->
-    <section id="resume" class="card">
-      <h2>📄 Quick Resume (Copy & Paste)</h2>
-      <p class="note">Use this simple template in Google Docs or any editor. Customize and save as PDF.</p>
-      <textarea id="resumeText" style="width:100%;height:220px;border-radius:12px;border:1px solid rgba(255,255,255,.25);padding:12px;background:#0b132b;color:#fff">FULL NAME
-
-Miami, FL • (XXX) XXX-XXXX • email@example.com
-
-SUMMARY
-
-Motivated, reliable, and quick to learn. Ready for full-time or gig work. Strong customer service and on-time performance.
-
-SKILLS
-
-• Customer Service • Delivery & Navigation • Cleaning & Maintenance • Basic Computer & Phone Apps • Bilingual: _____
-
-EXPERIENCE
-
-Job Title — Company — City, ST — MM/YYYY–MM/YYYY
-
-• Main responsibility/achievement
-
-• Main responsibility/achievement
-
-EDUCATION
-
-High School or GED — City, ST — Year
-
-REFERENCES
-
-Available upon request</textarea>
-      <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap">
-        <button class="cta" onclick="copyResume()"><i class="fa-regular fa-copy"></i> Copy Resume</button>
-        <a class="cta" style="text-decoration:none; display:inline-block" href="https://docs.google.com/document/u/0/" target="_blank" rel="noopener"><i class="fa-brands fa-google-drive"></i> Open Google Docs</a>
-        <a class="cta" style="text-decoration:none; display:inline-block" href="https://www.canva.com/resumes/templates/" target="_blank" rel="noopener"><i class="fa-brands fa-canva"></i> Free Templates</a>
+    <footer>
+      <div class="row">
+        <span>© 2025 PleaseUseIt.com</span>
+        <span>·</span>
+        <a href="#" onclick="scrollTo({top:0,behavior:'smooth'});return false;">Вверх ↑</a>
+        <span>·</span>
+        <a href="#request">Связаться</a>
       </div>
-    </section>
-
-    <!-- Showers & Laundry -->
-    <section id="showers" class="card">
-      <h2>🚿 Public Showers & Laundry</h2>
-      <div class="two-col">
-        <ul>
-          <li><strong>Camillus House — Day Services</strong> (showers, hygiene, mail) — <a href="https://www.camillus.org/need-help/#1643232053129-85586636-b45a" target="_blank" rel="noopener">Details</a></li>
-          <li><strong>Miami Rescue Mission — Dayroom</strong> (hygiene & basic needs — availability varies) — <a href="https://caringplace.org/" target="_blank" rel="noopener">Website</a> — <span class="note">Call ahead</span></li>
-          <li><strong>Salvation Army Miami</strong> — Programs & assistance — <a href="https://southernusa.salvationarmy.org/florida/adult-rehabilitation" target="_blank" rel="noopener">Website</a> — <span class="note">Ask about hygiene access</span></li>
-          <li><strong>Miami Beach Public Showers</strong> — Beachfront rinse stations (not private) — <a href="https://www.google.com/maps/search/beachfront+rinse+stations/@25.7840353,-80.1266001,14.5z?entry=ttu" target="_blank" rel="noopener">City facilities</a></li>
-        </ul>
-        <ul>
-          <li><strong>Laundry Love</strong> — Free laundry nights — <a href="https://laundrylove.org/find-a-location/" target="_blank" rel="noopener">Find a location</a></li>
-          <li><strong>LaundryCares Foundation</strong> — Free Laundry Days — <a href="https://laundrycares.org/events/" target="_blank" rel="noopener">Events</a></li>
-          <li><strong>Overtown / Little Havana Laundromats</strong> — Search nearby — <a href="https://www.google.com/maps/search/laundromat+near+me/" target="_blank" rel="noopener">Open map</a></li>
-          <li class="note">Tip: Many shelters offer limited laundry slots — ask intake staff early in the day.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Free Wi-Fi & Charging -->
-    <section id="wifi" class="card">
-      <h2>📶 Free Wi-Fi & Charging Spots</h2>
-      <div class="two-col">
-        <ul>
-          <li><strong>Miami-Dade Public Libraries</strong> — free Wi-Fi, outlets, computers — <a href="https://www.mdpls.org/locations" target="_blank" rel="noopener">Find a branch</a></li>
-          <li><strong>City of Miami Beach — MBWiFi</strong> (public Wi-Fi zones) — <a href="https://www.miami.gov/Notices/News-Notices/City-of-Miami-Completes-First-Phase-of-%E2%80%9CWi-Fi-for-Parks%E2%80%9D-Project" target="_blank" rel="noopener">Coverage map</a></li>
-          <li><strong>Government Center & Transit Hubs</strong> — outlets in common areas — <a href="https://www.miamidade.gov/transit/" target="_blank" rel="noopener">Transit info</a></li>
-        </ul>
-        <ul>
-          <li class="note">Cafés & fast food spots usually have outlets/Wi-Fi (buy a $1 drink to stay).</li>
-          <li class="note">Carry a short USB-C/Lightning cable; ask staff before using outlets.</li>
-          <li class="note">Library cards are free for Miami-Dade residents — ask for guest passes if needed.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- How-To Guides -->
-    <section id="howto" class="card">
-      <h2>🧭 Quick How-To Guides</h2>
-      <ul>
-        <li>
-          <details>
-            <summary><strong>Make a DoorDash Dasher account (10–20 min)</strong></summary>
-            <ol>
-              <li>Open <a href="https://dasher.doordash.com/" target="_blank" rel="noopener">dasher.doordash.com</a> and enter email/phone.</li>
-              <li>Upload ID and consent to a background check.</li>
-              <li>Choose vehicle type (car, scooter, bike).</li>
-              <li>Set up direct deposit (see <a href="#money">Money</a>).</li>
-              <li>Complete any activation steps and start dashing.</li>
-            </ol>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary><strong>Start Uber Eats delivery</strong></summary>
-            <ol>
-              <li>Go to <a href="https://www.uber.com/us/en/deliver/" target="_blank" rel="noopener">uber.com/deliver</a> and sign in or create account.</li>
-              <li>Upload ID, vehicle docs (if car), and pass background check.</li>
-              <li>Add bank info for payouts.</li>
-              <li>Complete onboarding; pick up your first order.</li>
-            </ol>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary><strong>Get paid: set up Direct Deposit</strong></summary>
-            <ol>
-              <li>Open your banking app (e.g., Chime, Cash App, Venmo).</li>
-              <li>Find <em>Direct Deposit</em> — copy routing & account numbers.</li>
-              <li>Paste into the gig app (DoorDash/Uber) or give to your employer.</li>
-              <li>Test with a small transfer to confirm.</li>
-            </ol>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary><strong>Build credit from scratch</strong></summary>
-            <ol>
-              <li>Open a builder (Self or Kikoff) and make on-time payments.</li>
-              <li>Use <a href="https://www.experian.com/consumer-products/boost.html" target="_blank" rel="noopener">Experian Boost</a> to add bills.</li>
-              <li>Pull <a href="https://www.annualcreditreport.com" target="_blank" rel="noopener">free credit report</a> and monitor monthly.</li>
-            </ol>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary><strong>Generate a resume with ChatGPT</strong></summary>
-            <ol>
-              <li>Open <a href="https://chat.openai.com/" target="_blank" rel="noopener">ChatGPT</a>.</li>
-              <li>Paste this prompt: <em>"Write a one-page resume for entry-level delivery/warehouse/hospitality based on these details: [paste your info]. Use bullet points, keep it simple."</em></li>
-              <li>Copy the result into Google Docs and export to PDF.</li>
-            </ol>
-          </details>
-        </li>
-      </ul>
-    </section>
-
-    <!-- Street Survival (printable + QR) -->
-    <section id="survival" class="card printable">
-      <h2>🛡️ Street Survival — Offline Pack</h2>
-      <p class="note">Save this section as a PDF (button below) to keep on your phone when you don't have internet.</p>
-      <div class="grid" style="grid-template-columns:1fr; gap:18px">
-        <div>
-          <h3>📦 Survival Pack</h3>
-          <ul>
-            <li>Waterproof pouch with paper copies of ID, SSN, important numbers.</li>
-            <li>Phone + short cable + power bank; keep charged at libraries/cafes.</li>
-            <li>Reusable water bottle; light rain poncho; mini first-aid kit; small flashlight; tiny lock.</li>
-            <li>Keep photos of documents in email/Google Drive; store originals separately.</li>
-          </ul>
-        </div>
-        <div>
-          <h3>🔒 Safety & Docs</h3>
-          <ul>
-            <li>Separate cash in 2 spots; avoid flashing cards/cash.</li>
-            <li>Meet helpers at public places (library, shelter, church).</li>
-            <li>Lost ID? Replace SSN → Birth Certificate → Florida ID (see <a href="#credit">Credit & ID</a>).</li>
-          </ul>
-        </div>
-        <div>
-          <h3>🆘 SOS & Hotlines</h3>
-          <ul>
-            <li>Emergency: <strong>911</strong> — Crisis/Lifeline: <strong>988</strong></li>
-            <li>Miami-Dade Homeless Helpline: <strong>1-877-994-4357</strong> — 211 Miami: <strong>305-631-4211</strong></li>
-            <li>Domestic Violence Hotline: <strong>1-800-799-SAFE (7233)</strong></li>
-          </ul>
-        </div>
-        <div>
-          <h3>📱 Quick QR Links</h3>
-          <div class="grid qr" id="qrGrid"></div>
-        </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap">
-          <button class="cta" onclick="printBlock('survival')"><i class="fa-solid fa-file-pdf"></i> Download PDF Survival Pack</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Printables -->
-    <section id="printables" class="card">
-      <h2>🖨️ Printables (Save as PDF)</h2>
-      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px">
-        <button class="cta" onclick="printBlock('qs')"><i class="fa-solid fa-file-export"></i> Quick-Start Guide</button>
-        <button class="cta" onclick="printBlock('rights')"><i class="fa-solid fa-id-badge"></i> Rights & Contacts Card</button>
-        <button class="cta" onclick="printBlock('jobsheet')"><i class="fa-solid fa-file-contract"></i> Job Search Sheet</button>
-      </div>
-      <div id="qs" class="printable" style="background:#fff;color:#000;padding:16px;border-radius:12px">
-        <h3>Miami Quick-Start Guide</h3>
-        <ol>
-          <li>Call <strong>211</strong> for local help; for crisis dial <strong>988</strong>.</li>
-          <li>Get shelter: Camillus House / Miami Rescue Mission / Salvation Army.</li>
-          <li>Apply for <strong>SNAP/Medicaid</strong> via <em>MyACCESS Florida</em>.</li>
-          <li>Open bank (Chime) and enable <em>Direct Deposit</em>.</li>
-          <li>Start income fast: DoorDash / Uber Eats / Instacart.</li>
-          <li>Begin credit: Self or Kikoff; add bills with Experian Boost.</li>
-          <li>Replace ID: SSA card, birth certificate, then Florida ID.</li>
-          <li>Use libraries for Wi-Fi/charging and printing.</li>
-        </ol>
-      </div>
-      <div id="rights" class="printable" style="background:#fff;color:#000;padding:16px;border-radius:12px;margin-top:10px">
-        <h3>Important Contacts & Notes</h3>
-        <ul>
-          <li>Emergency: 911 — Crisis/Lifeline: 988</li>
-          <li>Homeless Helpline: 1-877-994-4357</li>
-          <li>211 Miami — Food/Shelter/Services: 211 or 305-631-4211</li>
-          <li>Legal Aid: Legal Services of Greater Miami; Christian Legal Aid (see site)</li>
-          <li>Keep a photo of your IDs and a paper copy of key numbers.</li>
-        </ul>
-      </div>
-      <div id="jobsheet" class="printable" style="background:#fff;color:#000;padding:16px;border-radius:12px;margin-top:10px">
-        <h3>Job Search Sheet</h3>
-        <p>Track 10 applications (Company, Role, Date, Contact, Status)</p>
-        <table style="width:100%;border-collapse:collapse" border="1">
-          <tr><th>Company</th><th>Role</th><th>Date</th><th>Contact</th><th>Status</th></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-        </table>
-      </div>
-      <p class="note" style="margin-top:10px">Use your browser’s <em>Print</em> → <strong>Save as PDF</strong> to download.</p>
-    </section>
-
-    <!-- Map -->
-    <section id="map" class="card">
-      <h2>🗺️ Miami Resources Map</h2>
-      <div id="miamiMap" style="width:100%; height:420px; border-radius:12px; overflow:hidden"></div>
-      <p class="note" style="margin-top:8px">
-        Нажмите на метки, чтобы открыть сайт/позвонить или построить маршрут. Если какая-то точка смещена — скажите, поправлю.
-      </p>
-    </section>
+    </footer>
   </main>
 
-  <footer>© 2025 Please Use It — Positivity, Support & Helpful Resources</footer>
-
-  <!-- Helpers -->
   <script>
-    // Copy resume text
-    function copyResume(){
-      const el = document.getElementById('resumeText');
-      if(!el) return;
-      el.select(); el.setSelectionRange(0, 99999);
-      document.execCommand('copy');
-      alert('Resume copied to clipboard.');
-    }
-
-    // Print a specific block by id (NO embedded scripts to avoid template literal conflicts)
-    function printBlock(id){
-      const node = document.getElementById(id);
-      const w = window.open('', '_blank');
-      w.document.write(`<!doctype html><html><head><title>Print</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style>
-          body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:#000;}
-          .printable{page-break-inside:avoid}
-          table{width:100%; border-collapse:collapse}
-          th, td{padding:6px; border:1px solid #888; font-size:12px}
-          h3{margin:0 0 8px}
-          ol{padding-left:18px}
-          ul{padding-left:18px}
-        </style>
-      </head><body>${node ? node.outerHTML : ''}</body></html>`);
-      w.document.close();
-      w.focus();
-      w.print();
-      w.close();
-    }
-
-    // Build QR grid
-    const qrLinks = [
-      { label: 'MyACCESS Florida', url: 'https://www.myflfamilies.com/services/public-assistance' },
-      { label: '211 Miami', url: 'https://www.211miami.org/' },
-      { label: 'Camillus House', url: 'https://www.camillus.org' },
-      { label: 'DoorDash Dasher', url: 'https://dasher.doordash.com/' },
-      { label: 'Uber Eats Deliver', url: 'https://www.uber.com/us/en/deliver/' },
-      { label: 'AnnualCreditReport', url: 'https://www.annualcreditreport.com' },
-      { label: 'FLHSMV (DMV)', url: 'https://www.flhsmv.gov/driver-licenses-id-cards/' },
-      { label: '988 Lifeline', url: 'https://988lifeline.org/' }
-    ];
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const grid = document.getElementById('qrGrid');
-      if(grid){
-        qrLinks.forEach(item => {
-          const wrap = document.createElement('div');
-          wrap.style.background = 'rgba(255,255,255,.06)';
-          wrap.style.border = '1px solid rgba(255,255,255,.08)';
-          wrap.style.padding = '10px';
-          wrap.style.borderRadius = '12px';
-          const title = document.createElement('div');
-          title.textContent = item.label;
-          title.style.fontWeight = '700';
-          title.style.marginBottom = '8px';
-          const box = document.createElement('div');
-          box.style.display = 'flex';
-          box.style.justifyContent = 'center';
-          box.style.background = '#fff';
-          box.style.borderRadius = '8px';
-          box.style.padding = '8px';
-          const qr = document.createElement('div');
-          new QRCode(qr, { text: item.url, width: 140, height: 140 });
-          box.appendChild(qr);
-          const link = document.createElement('a');
-          link.href = item.url; link.target = '_blank'; link.rel = 'noopener';
-          link.textContent = 'Open';
-          link.style.display = 'inline-block';
-          link.style.marginTop = '8px';
-          link.style.color = '#ffd166';
-          link.style.fontWeight = '700';
-          wrap.appendChild(title);
-          wrap.appendChild(box);
-          wrap.appendChild(link);
-          grid.appendChild(wrap);
-        });
-      }
-
-      // PWA install button (if available)
-      let deferredPrompt;
-      const installBtn = document.getElementById('installBtn');
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        if(installBtn) installBtn.style.display = 'inline-flex';
-      });
-      if(installBtn){
-        installBtn.addEventListener('click', async () => {
-          if(!deferredPrompt) return;
-          deferredPrompt.prompt();
-          await deferredPrompt.userChoice;
-          deferredPrompt = null;
-          installBtn.style.display = 'none';
-        });
-      }
-    });
-  </script>
-
-  <!-- Motivation Button Logic -->
- <script>
-  (function() {
-    const quoteEl = document.getElementById("motivationQuote");
-    const metaEl  = document.getElementById("motivationMeta");
-    const btn     = document.getElementById("motivationBtn");
-
-    // Словари фраз (даёт десятки тысяч уникальных комбинаций)
-    const BEGIN = [
-      "Keep going","Rise again","Hold the line","Choose joy","Start small","Start now","Begin again","Own this moment",
-      "Breathe, then move","Walk by faith","Pray, then act","Grace over grind","Hustle humbly","Stay the course",
-      "Stay faithful","Stay curious","Stay kind","Stay present","Be the light","Be courageous","Be consistent",
-      "Build quietly","Serve with love","Lean on God","Trust the process","Trust His timing","Let peace lead",
-      "Let love lead","Let hope speak","Say yes to growth","Stand firm","Stand up gently","Shine anyway",
-      "Focus on today","Progress over perfection","One step more","Plant the seed","Show up","Rest, then rise",
-      "Do the next right thing","Take the small win","Guard your heart","Honor your word","Finish the day well",
-      "Lead with mercy","Lead with gratitude","Practice patience","Practice forgiveness","Choose discipline",
-      "Choose compassion","Choose the narrow way","Choose integrity","Choose wisdom","Choose humility",
-      "Choose courage","Calm your mind","Quiet the noise","Listen for God","Count the blessings","Start with prayer"
-    ];
-    const MID = [
-      "when it’s hard","when no one claps","when fear whispers","in the small things","one decision at a time",
-      "with a whole heart","with quiet confidence","with gentle strength","through the storm","in the waiting",
-      "with eyes on eternity","especially today","even after a setback","even if it’s messy","with steady hands",
-      "with gratitude","with discipline","with joy","with humility","with kindness","with wisdom","with mercy",
-      "with courage","with patience","with purpose","with hope","with prayer","with focus","with compassion"
-    ];
-    const END = [
-      "— you’re closer than you think.","— God is already there.","— miracles often start small.","— grace makes a way.",
-      "— the door will open.","— strength grows quietly.","— light wins.","— heaven hears you.",
-      "— your future self will thank you.","— every seed counts.","— love never fails.","— peace follows obedience.",
-      "— the habit becomes the harvest.","— small choices change big stories.","— consistency compounds.",
-      "— one more try can change everything.","— faithful beats flashy.","— progress beats perfect.",
-      "— your effort matters.","— God is not late.","— hope is a discipline.","— courage is contagious."
-    ];
-    const VERSE = [
-      "You are not alone.","Be still and know.","Fear not.","Ask and you will receive.",
-      "Let all you do be done in love.","Walk by faith, not by sight.","The joy of the Lord is your strength."
-    ];
-
-    const LS_POOL = "pui_proc_pool_v1";
-    const LS_SEEN = "pui_proc_seen_v1";
-    const LS_TTL  = 1000*60*60*24*7; // 7 дней
-    const TARGET  = 650; // сколько уникальных на цикл
-
-    function save(key, val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
-    function load(key, def=null){
-      try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : def; }catch(e){ return def; }
-    }
-
-    function hash(s){ let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return (h>>>0).toString(36); }
-
-    function makeLine(){
-      const mode = Math.random();
-      let t;
-      if (mode < 0.5) {
-        t = `${pick(BEGIN)} ${pick(MID)} ${pick(END)}`;
-      } else if (mode < 0.75) {
-        t = `${pick(BEGIN)}, ${pick(MID)}.`;
-      } else if (mode < 0.9) {
-        t = `${pick(BEGIN)}. ${pick(VERSE)}`;
-      } else {
-        t = `${pick(BEGIN)} ${pick(MID)}, ${pick(END)}`.replace(/\.$/,'');
-      }
-      return t.replace(/\s+/g,' ').trim();
-    }
-    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-
-    function generatePool(n){
-      const set = new Set();
-      const pool = [];
-      let tries = 0, cap = n*80;
-      while (pool.length < n && tries < cap){
-        const line = makeLine();
-        const key = line.toLowerCase();
-        if (!set.has(key) && line.length >= 36){
-          set.add(key);
-          pool.push({ text: line, author: "Please Use It", source: "PUI/Original", tags:["motivation","faith","recovery"] });
-        }
-        tries++;
-      }
-      return pool;
-    }
-
-    // Загружаем/перегенерируем пул раз в 7 дней
-    let poolObj = load(LS_POOL);
-    if (!poolObj || !poolObj.ts || (Date.now()-poolObj.ts)>LS_TTL || !Array.isArray(poolObj.data) || !poolObj.data.length){
-      poolObj = { ts: Date.now(), data: generatePool(TARGET) };
-      save(LS_POOL, poolObj);
-      // сбросить просмотренные при новом пуле
-      save(LS_SEEN, {});
-    }
-    let POOL = poolObj.data;
-
-    function loadSeen(){ return load(LS_SEEN, {}); }
-    function saveSeen(obj){ save(LS_SEEN, obj); }
-    function resetSeen(){ save(LS_SEEN, {}); }
-
-    function pickNext(){
-      const seen = loadSeen();
-      const indexed = POOL.map(q => ({ q, id: hash(q.text.toLowerCase()) }));
-      const unseen  = indexed.filter(x => !seen[x.id]);
-      const list    = unseen.length ? unseen : indexed; // если все показаны — начнём заново
-      if (!unseen.length) resetSeen();
-      const choice = list[Math.floor(Math.random()*list.length)];
-      const s = loadSeen(); s[choice.id] = true; saveSeen(s);
-      return choice.q;
-    }
-
-    function render(q){
-      if(!q) return;
-      quoteEl.style.opacity = 0;
-      void quoteEl.offsetWidth;
-      quoteEl.textContent = `“${q.text}”`;
-      metaEl.textContent  = `— ${q.author} · ${q.source}`;
-      quoteEl.style.opacity = 1;
-    }
-
-    if (btn){
-      // Shift+Click — сброс цикла
-      btn.addEventListener("click", (e) => { if(e.shiftKey) resetSeen(); render(pickNext()); });
-    }
-    render(pickNext());
-  })();
-</script>
-
-  <!-- Leaflet Map init (separate script; no nested template literals) -->
-  <script>
+    // ======= Collapsing header with pin =======
     (function(){
-      if(!document.getElementById('miamiMap')) return;
+      const hdr=document.getElementById('hdr');
+      const pinBtn=document.getElementById('pinBtn');
+      let lastY=scrollY, pinned=false;
+      function onScroll(){
+        if(pinned) return; // header pinned
+        const down=scrollY>lastY && scrollY>40;
+        hdr.classList.toggle('collapsed', down);
+        lastY=scrollY;
+      }
+      addEventListener('scroll', onScroll, {passive:true});
+      pinBtn.addEventListener('click', ()=>{pinned=!pinned;pinBtn.textContent=pinned?'📌 Unpin':'📌 Pin';hdr.classList.remove('collapsed');});
+    })();
 
-      const init = () => {
-        if(typeof L === 'undefined') { console.error('Leaflet is not loaded'); return; }
-
-        // Init map
-        const map = L.map('miamiMap', { scrollWheelZoom: true }).setView([25.78, -80.20], 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        // Tiny emoji icons
-        const icon = (emoji) => L.divIcon({
-          className: 'marker-emoji',
-          html: '<div style="font-size:20px; line-height:20px">'+emoji+'</div>',
-          iconSize: [24,24],
-          iconAnchor: [12,12]
+    // ======= Tiny i18n (RU/EN/ES/UK) =======
+    const i18nMap={
+      title:{ru:'Добро пожаловать на PleaseUseIt.com',en:'Welcome to PleaseUseIt.com',es:'Bienvenido a PleaseUseIt.com',uk:'Ласкаво просимо до PleaseUseIt.com'},
+      subtitle:{ru:'Ресурсы, поддержка и мотивация — всё в одном месте. Шапка сворачивается при прокрутке вниз и появляется при прокрутке вверх. Нажми 📌, чтобы закрепить.',en:'Resources, support and motivation — all in one place. Header auto-collapses on scroll. Tap 📌 to pin.',es:'Recursos, apoyo y motivación — todo en un solo lugar. El encabezado se oculta al desplazarte. Pulsa 📌 para fijar.',uk:'Ресурси, підтримка і мотивація — все в одному місці. Шапка ховається при прокручуванні. Натисни 📌, щоб закріпити.'},
+      sos_police:{ru:'— экстренная помощь',en:'— emergency',es:'— emergencia',uk:'— екстрена допомога'},
+      sos_mental:{ru:'— линия жизни (кризис)',en:'— lifeline (crisis)',es:'— línea de vida (crisis)',uk:'— лінія життя (криза)'},
+      sec_resources:{ru:'Полезное рядом',en:'Useful Nearby',es:'Útil Cerca',uk:'Корисне поруч'},
+      sec_resources_cta:{ru:'Нужна помощь? Напиши нам',en:'Need help? Write to us',es:'¿Necesitas ayuda? Escríbenos',uk:'Потрібна допомога? Напиши нам'},
+      sec_posts:{ru:'Посты и мотивация',en:'Posts & Motivation',es:'Publicaciones y motivación',uk:'Пости та мотивація'},
+      sec_posts_cta:{ru:'Хочу опубликовать пост',en:'I want to post',es:'Quiero publicar',uk:'Хочу опублікувати'},
+      sec_request:{ru:'Заявка: помощь / заказ',en:'Request: help / order',es:'Solicitud: ayuda / pedido',uk:'Заявка: допомога / замовлення'},
+      sec_request_hint:{ru:'Ответим по email в течение суток',en:'We reply by email within a day',es:'Respondemos por correo dentro de un día',uk:'Відповідаємо на email протягом доби'},
+      f_name:{ru:'Имя',en:'Name',es:'Nombre',uk:'Ім’я'},
+      f_contact:{ru:'Контакт (email/телефон)',en:'Contact (email/phone)',es:'Contacto (email/teléfono)',uk:'Контакт (email/телефон)'},
+      f_type:{ru:'Тип запроса',en:'Request type',es:'Tipo de solicitud',uk:'Тип запиту'},
+      f_msg:{ru:'Сообщение',en:'Message',es:'Mensaje',uk:'Повідомлення'},
+      f_send:{ru:'Отправить',en:'Send',es:'Enviar',uk:'Надіслати'},
+      sec_about:{ru:'О проекте',en:'About',es:'Acerca de',uk:'Про проєкт'},
+      about_text:{ru:'PleaseUseIt — это лёгкий сайт в один файл для быстрого доступа к ресурсам Майами. Работает на GitHub Pages, не требует сборки и загружается даже на слабом интернете. Если связь пропадёт — сохраните страницу через «Добавить на главный экран», и ссылки останутся в истории браузера.',
+                  en:'PleaseUseIt is a lightweight single-file site for quick access to Miami resources. Runs on GitHub Pages, no build needed. Works on slow internet. Save to Home Screen to keep it handy.',
+                  es:'PleaseUseIt es un sitio ligero de un solo archivo para acceder rápido a recursos en Miami. Funciona en GitHub Pages, sin compilación. Úsalo incluso con internet lento.',
+                  uk:'PleaseUseIt — легкий сайт в один файл для швидкого доступу до ресурсів Маямі. Працює на GitHub Pages, без збірки. Працює навіть при повільному інтернеті.'}
+    };
+    (function(){
+      const btn=document.getElementById('langBtn');
+      const langs=['ru','en','es','uk'];
+      let idx=0;
+      function apply(lang){
+        document.documentElement.lang=lang;
+        btn.textContent={ru:'🌐 RU',en:'🌐 EN',es:'🌐 ES',uk:'🌐 UK'}[lang];
+        document.querySelectorAll('[data-i18n]').forEach(el=>{
+          const k=el.dataset.i18n; if(i18nMap[k] && i18nMap[k][lang]) el.textContent=i18nMap[k][lang];
         });
+      }
+      btn.addEventListener('click',()=>{idx=(idx+1)%langs.length;apply(langs[idx]);});
+      apply(langs[idx]);
+    })();
 
-        // === UPDATED PLACES ===
-        const places = [
-          // Shelters / services
-          { name: 'Camillus House Day Center', addr: '1603 NW 7th Ave, Miami, FL 33136', url: 'https://www.camillus.org', emoji: '🏠' },
-          { name: 'Lotus House Women’s Shelter', addr: '217 NW 15th St, Miami, FL 33136', url: 'https://lotushouse.org/', emoji: '🏠' },
-          { name: 'Miami Rescue Mission (The Caring Place) — Downtown', addr: '2159 NW 1st Ct, Miami, FL 33127', url: 'https://caringplace.org/', emoji: '🏠' },
-          { name: 'Salvation Army ARC Miami', addr: '2236 NW Miami Ct, Miami, FL 33127', url: 'https://southernusa.salvationarmy.org/florida/adult-rehabilitation', emoji: '🏠' },
-
-          // Jobs / workforce
-          { name: 'American Job Center', addr: '1603 NW 7th Ave, Miami, FL 33136', url: 'tel:3053410150', emoji: '🧭' },
-
-          // Showers / hygiene
-          { name: 'Showers — Camillus House Day Center', addr: '1603 NW 7th Ave, Miami, FL 33136', url: 'https://www.camillus.org/need-help/', emoji: '🧼' },
-          { name: 'Showers — Miami Rescue Mission', addr: '2020 NW 1st Ave, Miami, FL 33127', url: 'https://caringplace.org/', emoji: '🧼' },
-          { name: 'Showers — Overtown Transit Village', addr: '701 NW 1st Ct, Miami, FL 33136', url: 'https://www.miamidade.gov/transportation/public-transit-overview.asp', emoji: '🧼' },
-
-          // Clinics
-          { name: 'Miami Rescue Mission Clinic (Caring Place Clinic)', addr: '2015 NW 1st Ave, Miami, FL 33127', url: 'https://www.caringplaceclinic.org/', emoji: '🏥' },
-          { name: 'Camillus Health', addr: '336 NW 5th St, Miami, FL 33128', url: 'https://www.camillus.org/', emoji: '🏥' },
-          { name: 'Jackson Community Mental Health Center', addr: '15055 NW 27th Ave, Miami, FL 33147', url: 'https://jacksonhealth.org', emoji: '🏥' },
-          { name: 'Overtown Community Health Center', addr: '1009 NW 5th Ave, Miami, FL 33136', url: 'https://miamidade.floridahealth.gov', emoji: '🏥' },
-
-          // Libraries (Wi-Fi/charging)
-          { name: 'MDPLS Main Library (Downtown)', addr: '101 W Flagler St, Miami, FL 33130', url: 'https://www.mdpls.org/branch-main', emoji: '📚' },
-          { name: 'MDPLS Little Havana Branch', addr: '2190 W Flagler St, Miami, FL 33135', url: 'https://www.mdpls.org/branch-littlehavana', emoji: '📚' },
-          { name: 'MDPLS Culmer/Overtown Branch', addr: '350 NW 13th St, Miami, FL 33136', url: 'https://www.mdpls.org/branch-culmer', emoji: '📚' },
-
-          // Laundry Love (free laundry partners)
-          { name: 'Laundry Love — Christ Episcopal Church', addr: '3481 Hibiscus St, Coconut Grove, FL 33133', url: 'https://laundrylove.org', emoji: '🧺' },
-          { name: 'Laundry Love — Central Christian Church', addr: '222 Menores Ave, Coral Gables, FL 33134', url: 'https://laundrylove.org', emoji: '🧺' }
-        ];
-
-        // Simple geocoder (Nominatim)
-        const geoCache = new Map();
-        async function geocodeAddress(address) {
-          if (geoCache.has(address)) return geoCache.get(address);
-          const url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address) + '&limit=1&addressdetails=0';
-          const res = await fetch(url, { headers: { 'Accept-Language': 'en' } });
-          if (!res.ok) throw new Error('Geocoding failed: ' + res.status);
-          const data = await res.json();
-          if (!data || !data[0]) throw new Error('Address not found: ' + address);
-          const latlng = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
-          geoCache.set(address, latlng);
-          return latlng;
+    // ======= Form fallback (prevent empty mailto on GitHub Pages) =======
+    (function(){
+      const f=document.getElementById('reqForm');
+      f.addEventListener('submit',function(e){
+        if(f.action.startsWith('mailto:you@example.com')){
+          e.preventDefault();
+          const data=new FormData(f);
+          const obj=Object.fromEntries(data.entries());
+          const text=`New request on PleaseUseIt\nName: ${obj.name}\nContact: ${obj.contact}\nType: ${obj.type}\nMessage:\n${obj.message}`;
+          // Offer download as .txt if email not set
+          const blob=new Blob([text],{type:'text/plain'});
+          const url=URL.createObjectURL(blob);
+          const a=document.createElement('a'); a.href=url; a.download='request.txt'; a.click(); URL.revokeObjectURL(url);
+          alert('Файл request.txt скачан. Замени email в форме (mailto:you@example.com), чтобы получать заявки на почту.');
         }
-
-        // Add markers
-        async function addMarkers() {
-          const markers = [];
-          for (const p of places) {
-            try {
-              const latlng = await geocodeAddress(p.addr);
-              const popup = '<strong>'+p.name+'</strong><br/>' +
-                            p.addr + '<br/>' +
-                            '<a href="'+p.url+'" target="_blank" rel="noopener">Open site/call</a><br/>' +
-                            '<a href="https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(p.addr)+'" target="_blank" rel="noopener">Navigation</a>';
-              const m = L.marker(latlng, { icon: icon(p.emoji), title: p.name }).addTo(map).bindPopup(popup);
-              markers.push(m);
-            } catch (e) {
-              console.warn('No Geocoding:', p.addr, e);
-            }
-          }
-          if (markers.length) {
-            const group = L.featureGroup(markers);
-            map.fitBounds(group.getBounds().pad(0.2));
-          }
-        }
-        addMarkers();
-
-        // Tiny runtime checks
-        try {
-          console.assert(typeof L !== 'undefined', 'Leaflet not loaded');
-          console.assert(document.getElementById('miamiMap'), '#miamiMap missing');
-          console.assert(Array.isArray(places) && places.length > 0, 'places empty');
-          console.log('Self-test: PASS (Leaflet map initialized)');
-        } catch (e) { console.error('Self-test: FAIL', e); }
-      };
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-      } else { init(); }
+      });
     })();
   </script>
 </body>
