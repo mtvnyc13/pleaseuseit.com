@@ -12,7 +12,6 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   :root{
-    /* Neon-night Miami: purple + turquoise */
     --bg:#0b0b10; --ink:#f4f6ff; --muted:#a3a3b2;
     --card:#12121a; --brand:#7c3aed; --brand2:#06b6d4; --accent:#22d3ee;
     --ok:#10b981; --warn:#f59e0b; --danger:#ef4444;
@@ -30,7 +29,6 @@
   }
   a{color:inherit;text-decoration:none;transition:all .25s ease}
   .wrap{max-width:1120px;margin:0 auto;padding:16px}
-  /* Header — high contrast */
   header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(130%) blur(10px)}
   .nav{
     display:flex;gap:12px;align-items:center;justify-content:space-between;
@@ -50,13 +48,11 @@
   }
   .chip:hover{background:rgba(255,255,255,.12);box-shadow:0 0 10px rgba(6,182,212,.6)}
   .cta{background:#0e0f18;border-color:rgba(255,255,255,.28)}
-  /* Sections */
   section{margin:20px 0;opacity:0;transform:translateY(22px);
           transition:opacity .6s ease,transform .6s ease}
   section.visible{opacity:1;transform:none}
   .secHead{display:flex;justify-content:space-between;align-items:center;margin:6px 2px 12px}
   .secHead h2{margin:0;font-size:20px}
-  /* Grid & cards */
   .grid{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr))}
   @media(min-width:780px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
   .card{background:var(--card);border:1px solid rgba(255,255,255,.08);
@@ -65,7 +61,6 @@
   .muted{color:var(--muted);font-size:14px}
   .link{display:flex;align-items:center;gap:8px;margin-top:10px;font-weight:700}
   .link:hover{color:var(--brand2);text-shadow:0 0 8px rgba(6,182,212,.8)}
-  /* Big centered map */
   #bigmap-wrap{display:flex;justify-content:center}
   #bigmap{height:460px;width:100%;max-width:1020px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
   .legend{display:flex;flex-wrap:wrap;gap:8px}
@@ -101,7 +96,6 @@
 </header>
 
 <main class="wrap">
-  <!-- SOS -->
   <section id="sos">
     <div class="secHead"><h2>Emergency & Crisis Lines</h2></div>
     <div class="grid">
@@ -112,7 +106,6 @@
     </div>
   </section>
 
-  <!-- Showers -->
   <section id="showers">
     <div class="secHead"><h2>Showers</h2><span class="chip">Free / public options</span></div>
     <div class="grid">
@@ -122,7 +115,6 @@
     </div>
   </section>
 
-  <!-- Laundry -->
   <section id="laundry">
     <div class="secHead"><h2>Laundry</h2><span class="chip">Low-cost & locations</span></div>
     <div class="grid">
@@ -131,7 +123,6 @@
     </div>
   </section>
 
-  <!-- Food -->
   <section id="food">
     <div class="secHead"><h2>Food & Pantries</h2><span class="chip">Daily meals / food banks</span></div>
     <div class="grid">
@@ -140,7 +131,6 @@
     </div>
   </section>
 
-  <!-- Internet -->
   <section id="internet">
     <div class="secHead"><h2>Internet & Libraries</h2><span class="chip">Free computers & Wi-Fi</span></div>
     <div class="grid">
@@ -149,7 +139,6 @@
     </div>
   </section>
 
-  <!-- Appointments -->
   <section id="appointments">
     <div class="secHead"><h2>Appointments: DMV & Social Security</h2><span class="chip">How to book + documents</span></div>
     <div class="grid">
@@ -176,7 +165,6 @@
     </div>
   </section>
 
-  <!-- Free phone -->
   <section id="phone">
     <div class="secHead"><h2>Free / Low-Cost Phone</h2><span class="chip">Lifeline</span></div>
     <div class="grid">
@@ -185,7 +173,6 @@
     </div>
   </section>
 
-  <!-- Scooters -->
   <section id="transport">
     <div class="secHead"><h2>Scooters & Transit</h2><span class="chip">Short trips, cheap options</span></div>
     <div class="grid">
@@ -194,7 +181,6 @@
     </div>
   </section>
 
-  <!-- Cheap stays -->
   <section id="stays">
     <div class="secHead"><h2>Cheap Stays ($10–$40)</h2><span class="chip">Sort by lowest price</span></div>
     <div class="grid">
@@ -203,7 +189,6 @@
     </div>
   </section>
 
-  <!-- Pricing (+$20) -->
   <section id="pricing">
     <div class="secHead"><h2>Pricing · CleanOut</h2><span class="chip">Updated +$20</span></div>
     <div class="grid">
@@ -213,7 +198,6 @@
     </div>
   </section>
 
-  <!-- BIG MAP -->
   <section id="map">
     <div class="secHead">
       <h2>Big Map (centered): Shelters · Women/Children · Food · Hospitals · Police · Laundry</h2>
@@ -230,7 +214,6 @@
     <div class="muted" style="margin-top:8px">Hint: move/zoom — icons load automatically. Tap marker for name & address.</div>
   </section>
 
-  <!-- Contacts -->
   <section id="contact">
     <div class="secHead"><h2>Contacts</h2></div>
     <div class="grid">
@@ -248,11 +231,9 @@
 </footer>
 
 <script>
-  // Reveal on scroll
   const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}}),{threshold:.12});
   document.querySelectorAll('section').forEach(s=>obs.observe(s));
 
-  // Language button placeholder (kept for future i18n)
   (function(){const btn=document.getElementById('langBtn');let lang='en',langs=['en','ru','es','ht'];
     function apply(){document.documentElement.lang=lang;
       btn.textContent=lang==='en'?'🌐 EN':(lang==='ru'?'🌐 RU':(lang==='es'?'🌐 ES':'🌐 HT'));
@@ -261,8 +242,6 @@
     apply();
   })();
 
-  /* ====== BIG MAP (Leaflet + Overpass) ======
-     Icons = figurki: home, heart (women/children), utensils, hospital, shield, washer */
   const map=L.map('bigmap',{zoomControl:true}).setView([25.774,-80.19],12);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
 
@@ -319,7 +298,6 @@
   }
   map.on('moveend',loadPOI); loadPOI();
 
-  // Header subtle hide on scroll
   (function(){const hdr=document.getElementById('hdr');let last=scrollY;
     addEventListener('scroll',()=>{const down=scrollY>last && scrollY>40;hdr.style.transform=down?'translateY(-110%)':'none';last=scrollY;},{passive:true});
   })();
